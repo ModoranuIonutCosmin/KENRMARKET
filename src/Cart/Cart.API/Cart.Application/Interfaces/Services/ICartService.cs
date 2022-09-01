@@ -5,9 +5,9 @@ namespace Cart.Application.Interfaces.Services
 {
     public interface ICartService
     {
-        Task<CartDetails> GetCartDetails(string customerId);
-        Task<CartDetails> AddCartPromocode(string customerId, string promocode);
-        Task<CartItem> AddCartItem(string customerId, CartItemViewModel cartItem);
+        Task<CartDetailsViewModel> GetCartDetails(string customerId);
+        Task<CartDetailsViewModel> AddCartPromocode(string customerId, string promocode);
+        Task<CartItemViewModel> AddCartItem(string customerId, CartItemViewModel cartItem);
     }
 }
 

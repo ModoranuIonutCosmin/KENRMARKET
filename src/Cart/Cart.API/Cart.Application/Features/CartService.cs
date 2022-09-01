@@ -18,21 +18,21 @@ namespace Cart.Application.Features
             _mapper = mapper;
         }
 
-        public async Task<CartDetails> GetCartDetails(string customerId)
+        public async Task<CartDetailsViewModel> GetCartDetails(string customerId)
         {
             await _cartRepository.EnsureCartExists(customerId);
 
-            return await _cartRepository.GetCartDetails(customerId);
+            return _mapper.Map<CartDetails,CartDetailsViewModel>(await _cartRepository.GetCartDetails(customerId));
         }
 
-        public async Task<CartDetails> AddCartPromocode(string customerId, string promocode)
+        public async Task<CartDetailsViewModel> AddCartPromocode(string customerId, string promocode)
         {
             await _cartRepository.EnsureCartExists(customerId);
 
-            return await _cartRepository.SetCartPromocode(customerId, promocode);
+            return _mapper.Map<CartDetails, CartDetailsViewModel>(await _cartRepository.SetCartPromocode(customerId, promocode));
         }
 
-        public async Task<CartItem> AddCartItem(string customerId, CartItemViewModel cartItem)
+        public async Task<CartItemViewModel> AddCartItem(string customerId, CartItemViewModel cartItem)
         {
             CartItem cartItemEntity = _mapper.Map<CartItemViewModel, CartItem>(cartItem);
 
@@ -42,7 +42,7 @@ namespace Cart.Application.Features
 
             await _cartRepository.AddCartItem(cartItemEntity);
 
-            return cartItemEntity;
+            return _mapper.Map<CartItem,CartItemViewModel>(cartItemEntity);
         }
 
 
