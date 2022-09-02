@@ -1,0 +1,36 @@
+version: '3.4'
+
+services:
+  gateway.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - Services__Cart=http://cart.api
+      - Services__Customers=http://customers.api
+      - Services__Products=http://products.api
+    ports:
+      - "6001:80"
+    depends_on:
+      - cart.api
+      - customers.api
+      - products.api
+
+  cart.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__SqlServer=Server=host.docker.internal;User ID=local;Password=aaaaAAAA1234;Initial Catalog=Carts
+    ports:
+      - "6002:80"
+
+  customers.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__SqlServer=Server=host.docker.internal;User ID=local;Password=aaaaAAAA1234;Initial Catalog=Customers
+    ports:
+      - "6003:80"
+
+  products.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__Mongo__Host=mongodb://host.docker.internal:27017
+    ports:
+      - "6004:80"

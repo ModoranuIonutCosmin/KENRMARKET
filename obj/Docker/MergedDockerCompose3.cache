@@ -1,0 +1,157 @@
+services:
+  cart.api:
+    build:
+      context: C:\Users\zero6\source\repos\KMarketplace
+      dockerfile: src/Cart/Cart.API/Dockerfile
+      labels:
+        com.microsoft.created-by: visual-studio
+        com.microsoft.visual-studio.project-name: Cart.API
+      target: base
+    container_name: Cart.API
+    entrypoint: tail -f /dev/null
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS: "true"
+      ConnectionStrings__SqlServer: Server=host.docker.internal,1433;User ID=sa;Password=123;Initial
+        Catalog=Carts;Integrated Security=False
+      DOTNET_USE_POLLING_FILE_WATCHER: '1'
+      NUGET_FALLBACK_PACKAGES: /root/.nuget/fallbackpackages
+    image: cartapi:dev
+    labels:
+      com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath /root/.nuget/packages
+        --additionalProbingPath /root/.nuget/fallbackpackages  "/app/bin/Debug/net6.0/Cart.API.dll"'
+      com.microsoft.visualstudio.debuggee.killprogram: /bin/sh -c "if PID=$$(pidof
+        dotnet); then kill $$PID; fi"
+      com.microsoft.visualstudio.debuggee.program: dotnet
+      com.microsoft.visualstudio.debuggee.workingdirectory: /app
+    ports:
+    - published: 6002
+      target: 80
+    tty: true
+    volumes:
+    - C:\Users\zero6\source\repos\KMarketplace\src\Cart\Cart.API:/app:rw
+    - C:\Users\zero6\vsdbg\vs2017u5:/remote_debugger:rw
+    - C:\Users\zero6\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\zero6\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+    - C:\Program Files (x86)\Microsoft Visual Studio\Shared\NuGetPackages:/root/.nuget/fallbackpackages:ro
+    - C:\Users\zero6\.nuget\packages:/root/.nuget/packages:ro
+    - C:\Users\zero6\source\repos\KMarketplace:/src:rw
+  customers.api:
+    build:
+      context: C:\Users\zero6\source\repos\KMarketplace
+      dockerfile: src/Customers/Customers.API/Dockerfile
+      labels:
+        com.microsoft.created-by: visual-studio
+        com.microsoft.visual-studio.project-name: Customers.API
+      target: base
+    container_name: Customers.API
+    entrypoint: tail -f /dev/null
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS: "true"
+      ConnectionStrings__SqlServer: Server=host.docker.internal,1433;User ID=sa;Password=123;Initial
+        Catalog=Customers;Integrated Security=False
+      DOTNET_USE_POLLING_FILE_WATCHER: '1'
+      NUGET_FALLBACK_PACKAGES: /root/.nuget/fallbackpackages
+    image: customersapi:dev
+    labels:
+      com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath /root/.nuget/packages
+        --additionalProbingPath /root/.nuget/fallbackpackages  "/app/bin/Debug/net6.0/Customers.API.dll"'
+      com.microsoft.visualstudio.debuggee.killprogram: /bin/sh -c "if PID=$$(pidof
+        dotnet); then kill $$PID; fi"
+      com.microsoft.visualstudio.debuggee.program: dotnet
+      com.microsoft.visualstudio.debuggee.workingdirectory: /app
+    ports:
+    - published: 6003
+      target: 80
+    tty: true
+    volumes:
+    - C:\Users\zero6\source\repos\KMarketplace\src\Customers\Customers.API:/app:rw
+    - C:\Users\zero6\vsdbg\vs2017u5:/remote_debugger:rw
+    - C:\Users\zero6\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\zero6\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+    - C:\Program Files (x86)\Microsoft Visual Studio\Shared\NuGetPackages:/root/.nuget/fallbackpackages:ro
+    - C:\Users\zero6\.nuget\packages:/root/.nuget/packages:ro
+    - C:\Users\zero6\source\repos\KMarketplace:/src:rw
+  gateway.api:
+    build:
+      context: C:\Users\zero6\source\repos\KMarketplace
+      dockerfile: src/Gateway/Gateway.API/Dockerfile
+      labels:
+        com.microsoft.created-by: visual-studio
+        com.microsoft.visual-studio.project-name: Gateway.API
+      target: base
+    container_name: Gateway.API
+    depends_on:
+      cart.api:
+        condition: service_started
+      customers.api:
+        condition: service_started
+      products.api:
+        condition: service_started
+    entrypoint: tail -f /dev/null
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS: "true"
+      DOTNET_USE_POLLING_FILE_WATCHER: '1'
+      NUGET_FALLBACK_PACKAGES: /root/.nuget/fallbackpackages
+      Services__Cart: http://cart.api
+      Services__Customers: http://customers.api
+      Services__Products: http://products.api
+    image: gatewayapi:dev
+    labels:
+      com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath /root/.nuget/packages
+        --additionalProbingPath /root/.nuget/fallbackpackages  "/app/bin/Debug/net6.0/Gateway.API.dll"'
+      com.microsoft.visualstudio.debuggee.killprogram: /bin/sh -c "if PID=$$(pidof
+        dotnet); then kill $$PID; fi"
+      com.microsoft.visualstudio.debuggee.program: dotnet
+      com.microsoft.visualstudio.debuggee.workingdirectory: /app
+    ports:
+    - published: 6001
+      target: 80
+    tty: true
+    volumes:
+    - C:\Users\zero6\source\repos\KMarketplace\src\Gateway\Gateway.API:/app:rw
+    - C:\Users\zero6\vsdbg\vs2017u5:/remote_debugger:rw
+    - C:\Users\zero6\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\zero6\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+    - C:\Program Files (x86)\Microsoft Visual Studio\Shared\NuGetPackages:/root/.nuget/fallbackpackages:ro
+    - C:\Users\zero6\.nuget\packages:/root/.nuget/packages:ro
+    - C:\Users\zero6\source\repos\KMarketplace:/src:rw
+  products.api:
+    build:
+      context: C:\Users\zero6\source\repos\KMarketplace
+      dockerfile: src/Products/Products.API/Dockerfile
+      labels:
+        com.microsoft.created-by: visual-studio
+        com.microsoft.visual-studio.project-name: Products.API
+      target: base
+    container_name: Products.API
+    entrypoint: tail -f /dev/null
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS: "true"
+      ConnectionStrings__Mongo__Host: mongodb://host.docker.internal:27017
+      DOTNET_USE_POLLING_FILE_WATCHER: '1'
+      NUGET_FALLBACK_PACKAGES: /root/.nuget/fallbackpackages
+    image: productsapi:dev
+    labels:
+      com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath /root/.nuget/packages
+        --additionalProbingPath /root/.nuget/fallbackpackages  "/app/bin/Debug/net6.0/Products.API.dll"'
+      com.microsoft.visualstudio.debuggee.killprogram: /bin/sh -c "if PID=$$(pidof
+        dotnet); then kill $$PID; fi"
+      com.microsoft.visualstudio.debuggee.program: dotnet
+      com.microsoft.visualstudio.debuggee.workingdirectory: /app
+    ports:
+    - published: 6004
+      target: 80
+    tty: true
+    volumes:
+    - C:\Users\zero6\source\repos\KMarketplace\src\Products\Products.API:/app:rw
+    - C:\Users\zero6\vsdbg\vs2017u5:/remote_debugger:rw
+    - C:\Users\zero6\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\zero6\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+    - C:\Program Files (x86)\Microsoft Visual Studio\Shared\NuGetPackages:/root/.nuget/fallbackpackages:ro
+    - C:\Users\zero6\.nuget\packages:/root/.nuget/packages:ro
+    - C:\Users\zero6\source\repos\KMarketplace:/src:rw
+version: '3.4'
