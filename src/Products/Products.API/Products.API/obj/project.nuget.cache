@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "PKA8sWdQ1yuGekBwJc03QGvIHkQ86LzpohseTxgPQcKO6ukW1yYW2A0+xjUVuHAZqt1o5oE+BgCbdPF7yQ6zZA==",
+  "dgSpecHash": "oLNl8IkW83BgJE4ltHpJiQ9GKHqT4l2/YlU7M2fmUBEza6aywRdBNBHEkkk2toXVf5kBDpuHP69uBRYfQeu/8w==",
   "success": true,
   "projectFilePath": "C:\\Users\\zero6\\source\\repos\\KMarketplace\\src\\Products\\Products.API\\Products.API\\Products.API.csproj",
   "expectedPackageFiles": [
@@ -9,6 +9,7 @@
     "C:\\Users\\zero6\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
     "C:\\Users\\zero6\\.nuget\\packages\\microsoft.netcore.platforms\\5.0.0\\microsoft.netcore.platforms.5.0.0.nupkg.sha512",
     "C:\\Users\\zero6\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\zero6\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.17.0\\microsoft.visualstudio.azure.containers.tools.targets.1.17.0.nupkg.sha512",
     "C:\\Users\\zero6\\.nuget\\packages\\microsoft.win32.registry\\5.0.0\\microsoft.win32.registry.5.0.0.nupkg.sha512",
     "C:\\Users\\zero6\\.nuget\\packages\\mongodb.bson\\2.17.1\\mongodb.bson.2.17.1.nupkg.sha512",
     "C:\\Users\\zero6\\.nuget\\packages\\mongodb.driver\\2.17.1\\mongodb.driver.2.17.1.nupkg.sha512",

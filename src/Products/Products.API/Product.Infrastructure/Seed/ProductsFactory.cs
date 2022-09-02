@@ -11,6 +11,7 @@ namespace Products.Infrastructure.Seed
             {
                 new()
                 {
+                    Id = new Guid("167f928d-1d55-4ee7-bd7a-3b77225e6ce8"),
                     Name = "Carcasa AQIRYS Rigel ARGB",
                     AddedDate = DateTime.Now,
                     Category = new Category()
@@ -81,6 +82,7 @@ namespace Products.Infrastructure.Seed
                 },
                 new()
                 {
+                    Id = new Guid("5c199475-ceaa-46db-9ea6-0a8da8f661bf"),
                     Name = "Carcasa AQIRYS Alt model ARGB",
                     AddedDate = DateTime.Now,
                     Category = new Category()

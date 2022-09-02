@@ -12,10 +12,12 @@ namespace Products.Infrastructure.Mappings
         {
             BsonClassMap.RegisterClassMap<Product>(cm =>
             {
+                BsonSerializer.RegisterSerializer(new GuidSerializer(BsonType.String));
+
                 cm.AutoMap();
-                cm.MapIdMember(c => c.Id)
-                    .SetIdGenerator(new StringObjectIdGenerator())
-                    .SetSerializer(new StringSerializer(BsonType.ObjectId));
+                cm.MapIdProperty(c => c.Id)
+                    .SetIdGenerator(new GuidGenerator())
+                    .SetSerializer(new GuidSerializer(BsonType.String));
 
                 cm.SetIgnoreExtraElements(true);
             });

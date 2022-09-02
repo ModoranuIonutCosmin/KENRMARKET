@@ -1,5 +1,6 @@
 ﻿using Cart.Application.Interfaces;
 using Cart.Domain.Entities;
+using Cart.Infrastructure.Seed;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cart.Infrastructure.Data_Access.v1
@@ -11,6 +12,12 @@ namespace Cart.Infrastructure.Data_Access.v1
         public CartRepository(CartsDBContext cartsDbContext)
         {
             this._cartsDbContext = cartsDbContext;
+
+            if (!cartsDbContext.Carts.Any())
+            {
+                cartsDbContext.Carts.AddRange((new CartDetailsFactory().SeedCartDetails()).Result);
+                cartsDbContext.SaveChanges();
+            }
         }
 
         public async Task<CartDetails> EnsureCartExists(string customerId)

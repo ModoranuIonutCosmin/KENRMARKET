@@ -13,7 +13,7 @@ namespace Products.API.Controllers
             this.productsService = productsService;
         }
 
-        [HttpGet]
+        [HttpGet("all")]
         public async Task<IActionResult> GetAllProducts()
         {
             return Ok(await productsService.GetProducts());

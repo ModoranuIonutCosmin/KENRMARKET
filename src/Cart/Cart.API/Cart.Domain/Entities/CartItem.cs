@@ -11,7 +11,6 @@
         public string PictureUrl { get; set; }
         public DateTimeOffset AddedAt { get; set; }
         public string CartCustomerId { get; set; }
-        public CartDetails CartDetails { get; set; }
     }
 }
 

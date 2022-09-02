@@ -16,20 +16,16 @@ namespace Cart.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddItemToCart([FromBody] CartItemViewModel cartItem)
+        public async Task<IActionResult> AddItemToCart([FromBody] CartItemViewModel cartItem, string customerId)
         {
-            string customerId = "DE SCHIMBAT ACEST ID";
-
             var result = await _cartService.AddCartItem(customerId, cartItem);
 
             return Created("", result);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetCartContents()
+        [HttpGet("Cart")]
+        public async Task<IActionResult> GetCartContents(string customerId)
         {
-            string customerId = "DE SCHIMBAT ACEST ID";
-
             return Ok(await _cartService.GetCartDetails(customerId));
         }
     }

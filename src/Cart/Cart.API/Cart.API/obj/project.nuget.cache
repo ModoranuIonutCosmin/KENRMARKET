@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "AEh5HSDLGQMIzznXlfTNtA9nTOh1b7/AKLNOkhjYi4Kahe/aRKPlMPixNrxtFGBkdd5RTLn1CGTHJMLrNBsHqw==",
+  "dgSpecHash": "8RC1rU4CwjqhWgJrDF+4ze38ItBJlEo7aq23V0DYghVmADgKgptC3UmVU8abXOZ/t41wW4WybMfjy/sKyzbAqA==",
   "success": true,
   "projectFilePath": "C:\\Users\\zero6\\source\\repos\\KMarketplace\\src\\Cart\\Cart.API\\Cart.API\\Cart.API.csproj",
   "expectedPackageFiles": [
@@ -35,6 +35,7 @@
     "C:\\Users\\zero6\\.nuget\\packages\\microsoft.identitymodel.tokens\\6.8.0\\microsoft.identitymodel.tokens.6.8.0.nupkg.sha512",
     "C:\\Users\\zero6\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\zero6\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\zero6\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.17.0\\microsoft.visualstudio.azure.containers.tools.targets.1.17.0.nupkg.sha512",
     "C:\\Users\\zero6\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
     "C:\\Users\\zero6\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
     "C:\\Users\\zero6\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",

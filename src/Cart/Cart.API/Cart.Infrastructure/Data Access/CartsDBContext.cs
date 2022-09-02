@@ -59,7 +59,7 @@ namespace Cart.Infrastructure.Data_Access
             //Relations
             modelBuilder.Entity<CartDetails>()
                 .HasMany<CartItem>(c => c.CartItems)
-                .WithOne(ci => ci.CartDetails)
+                .WithOne()
                 .HasForeignKey(c => c.CartCustomerId);
         }
     }

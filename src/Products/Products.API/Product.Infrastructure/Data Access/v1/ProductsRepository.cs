@@ -2,6 +2,7 @@
 using MongoDB.Driver;
 using Products.Application.Interfaces;
 using Products.Domain.Entities;
+using Products.Infrastructure.Seed;
 
 namespace Products.Infrastructure.Data_Access.v1
 {
@@ -12,6 +13,12 @@ namespace Products.Infrastructure.Data_Access.v1
         public ProductsRepository(DbContext dbContext)
         {
             this.dbContext = dbContext;
+
+            if (dbContext.Products.CountDocuments(new BsonDocument()) == 0)
+            {
+                this.dbContext.Products.InsertMany(new ProductsFactory().CreateProducts());
+                this.dbContext.Categories.InsertMany(new ProductsFactory().CreateCategories());
+            }
         }
         public async Task<List<Product>> GetAllProducts()
         {

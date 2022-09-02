@@ -11,6 +11,7 @@ public class CustomersFactory : ICustomersFactory
         {
             new Customer()
             {
+                Id = new Guid("08c4c998-6641-4408-9310-08c1dca3df26"),
                 FirstName = "Pearlie",
                 LastName = "Crona",
                 MiddleName = "",
@@ -30,6 +31,7 @@ public class CustomersFactory : ICustomersFactory
             },
             new Customer()
             {
+                Id = new Guid("acbcb196-0d48-4865-9417-eddb9c1b5ce0"),
                 FirstName = "Gretchen",
                 LastName = "Gibson",
                 MiddleName = "",
