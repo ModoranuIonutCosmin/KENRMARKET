@@ -5,8 +5,9 @@ services:
       dockerfile: src/Cart/Cart.API/Dockerfile
     environment:
       ASPNETCORE_ENVIRONMENT: Development
-      ConnectionStrings__SqlServer: Server=host.docker.internal,1433;User ID=sa;Password=123;Initial
-        Catalog=Carts
+      ConnectionStrings__SqlServer: Server=host.docker.internal;User ID=sa;Password=aaaa1234;Database=Carts
+    extra_hosts:
+      host.docker.internal: host-gateway
     image: cartapi
     ports:
     - published: 6002
@@ -17,8 +18,9 @@ services:
       dockerfile: src/Customers/Customers.API/Dockerfile
     environment:
       ASPNETCORE_ENVIRONMENT: Development
-      ConnectionStrings__SqlServer: Server=host.docker.internal,1433;User ID=sa;Password=123;Initial
-        Catalog=Customers
+      ConnectionStrings__SqlServer: Server=host.docker.internal;User ID=sa;Password=aaaa1234;Database=Customers
+    extra_hosts:
+      host.docker.internal: host-gateway
     image: customersapi
     ports:
     - published: 6003

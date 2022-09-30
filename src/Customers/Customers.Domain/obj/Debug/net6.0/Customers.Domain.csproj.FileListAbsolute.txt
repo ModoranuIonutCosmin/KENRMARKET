@@ -1,15 +1,3 @@
-C:\Users\zero6\source\repos\KMarketplace\src\Customers\Customers.API\Customers.Domain\bin\Debug\net6.0\Customers.Domain.deps.json
-C:\Users\zero6\source\repos\KMarketplace\src\Customers\Customers.API\Customers.Domain\bin\Debug\net6.0\Customers.Domain.dll
-C:\Users\zero6\source\repos\KMarketplace\src\Customers\Customers.API\Customers.Domain\bin\Debug\net6.0\Customers.Domain.pdb
-C:\Users\zero6\source\repos\KMarketplace\src\Customers\Customers.API\Customers.Domain\obj\Debug\net6.0\Customers.Domain.csproj.AssemblyReference.cache
-C:\Users\zero6\source\repos\KMarketplace\src\Customers\Customers.API\Customers.Domain\obj\Debug\net6.0\Customers.Domain.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\zero6\source\repos\KMarketplace\src\Customers\Customers.API\Customers.Domain\obj\Debug\net6.0\Customers.Domain.AssemblyInfoInputs.cache
-C:\Users\zero6\source\repos\KMarketplace\src\Customers\Customers.API\Customers.Domain\obj\Debug\net6.0\Customers.Domain.AssemblyInfo.cs
-C:\Users\zero6\source\repos\KMarketplace\src\Customers\Customers.API\Customers.Domain\obj\Debug\net6.0\Customers.Domain.csproj.CoreCompileInputs.cache
-C:\Users\zero6\source\repos\KMarketplace\src\Customers\Customers.API\Customers.Domain\obj\Debug\net6.0\Customers.Domain.dll
-C:\Users\zero6\source\repos\KMarketplace\src\Customers\Customers.API\Customers.Domain\obj\Debug\net6.0\refint\Customers.Domain.dll
-C:\Users\zero6\source\repos\KMarketplace\src\Customers\Customers.API\Customers.Domain\obj\Debug\net6.0\Customers.Domain.pdb
-C:\Users\zero6\source\repos\KMarketplace\src\Customers\Customers.API\Customers.Domain\obj\Debug\net6.0\ref\Customers.Domain.dll
 C:\Users\zero6\source\repos\KMarketplace\src\Customers\Customers.Domain\bin\Debug\net6.0\Customers.Domain.deps.json
 C:\Users\zero6\source\repos\KMarketplace\src\Customers\Customers.Domain\bin\Debug\net6.0\Customers.Domain.dll
 C:\Users\zero6\source\repos\KMarketplace\src\Customers\Customers.Domain\bin\Debug\net6.0\Customers.Domain.pdb

@@ -17,16 +17,20 @@ services:
   cart.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__SqlServer=Server=host.docker.internal;User ID=local;Password=aaaaAAAA1234;Initial Catalog=Carts
+      - ConnectionStrings__SqlServer=Server=host.docker.internal;User ID=sa;Password=aaaa1234;Database=Carts
     ports:
       - "6002:80"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
   customers.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__SqlServer=Server=host.docker.internal;User ID=local;Password=aaaaAAAA1234;Initial Catalog=Customers
+      - ConnectionStrings__SqlServer=Server=host.docker.internal;User ID=sa;Password=aaaa1234;Database=Customers
     ports:
       - "6003:80"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
   products.api:
     environment:

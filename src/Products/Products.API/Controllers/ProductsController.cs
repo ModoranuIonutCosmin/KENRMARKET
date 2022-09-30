@@ -18,5 +18,19 @@ namespace Products.API.Controllers
         {
             return Ok(await productsService.GetProducts());
         }
+
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetSingleProduct([FromRoute] Guid id)
+        {
+            var product = await productsService.GetProduct(id);
+
+            if (product == null) return NotFound();
+
+            return Ok(new
+            {
+                product
+            });
+        }
     }
 }

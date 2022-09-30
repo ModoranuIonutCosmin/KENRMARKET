@@ -20,6 +20,12 @@ namespace Products.Infrastructure.Data_Access.v1
                 this.dbContext.Categories.InsertMany(new ProductsFactory().CreateCategories());
             }
         }
+
+        public async Task<Product> GetProduct(Guid id)
+            => await dbContext.Products
+                .Find(Builders<Product>.Filter.Eq("_id", id))
+                .FirstOrDefaultAsync();
+
         public async Task<List<Product>> GetAllProducts()
         {
             var products = await (await dbContext.Products.FindAsync(new BsonDocument()))

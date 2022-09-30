@@ -16,6 +16,11 @@ namespace Products.Application.Features
         {
             return await productsRepository.GetAllProducts();
         }
+
+        public async Task<Product> GetProduct(Guid productId)
+        {
+            return await productsRepository.GetProduct(productId);
+        }
     }
 }
 

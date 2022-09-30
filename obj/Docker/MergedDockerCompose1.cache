@@ -12,10 +12,11 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS: "true"
-      ConnectionStrings__SqlServer: Server=host.docker.internal,1433;User ID=sa;Password=123;Initial
-        Catalog=Carts
+      ConnectionStrings__SqlServer: Server=host.docker.internal;User ID=sa;Password=aaaa1234;Database=Carts
       DOTNET_USE_POLLING_FILE_WATCHER: '1'
       NUGET_FALLBACK_PACKAGES: /root/.nuget/fallbackpackages
+    extra_hosts:
+      host.docker.internal: host-gateway
     image: cartapi:dev
     labels:
       com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath /root/.nuget/packages
@@ -49,10 +50,11 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS: "true"
-      ConnectionStrings__SqlServer: Server=host.docker.internal,1433;User ID=sa;Password=123;Initial
-        Catalog=Customers
+      ConnectionStrings__SqlServer: Server=host.docker.internal;User ID=sa;Password=aaaa1234;Database=Customers
       DOTNET_USE_POLLING_FILE_WATCHER: '1'
       NUGET_FALLBACK_PACKAGES: /root/.nuget/fallbackpackages
+    extra_hosts:
+      host.docker.internal: host-gateway
     image: customersapi:dev
     labels:
       com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath /root/.nuget/packages
