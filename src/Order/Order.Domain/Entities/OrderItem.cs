@@ -10,8 +10,6 @@
         public decimal UnitPrice { get; set; }
         public string PictureUrl { get; set; }
         public DateTimeOffset AddedAt { get; set; }
-        public string CartCustomerId { get; set; }
-
         public void AddToQuantity(decimal quantity)
         {
             Quantity += quantity;

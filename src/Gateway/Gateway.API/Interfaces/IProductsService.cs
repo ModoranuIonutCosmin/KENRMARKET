@@ -1,8 +1,9 @@
 ﻿using Gateway.API.Models;
 
-namespace Gateway.API.Interfaces;
-
-public interface IProductsService
+namespace Gateway.API.Interfaces
 {
-    Task<(bool IsOk, IEnumerable<Product> Products, string ErrorMessage)> GetProductsAsync();
+    public interface IProductsService
+    {
+        Task<(bool IsOk, IEnumerable<Product> Products, string ErrorMessage)> GetProductsAsync();
+    }
 }

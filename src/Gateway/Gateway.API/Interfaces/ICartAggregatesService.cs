@@ -1,6 +1,7 @@
-﻿namespace Gateway.API.Interfaces;
-
-public interface ICartAggregatesService
+﻿namespace Gateway.API.Interfaces
 {
-    Task<(bool IsSuccess, dynamic FullCartDetails)> GetFullCartDetails(string customerId);
+    public interface ICartAggregatesService
+    {
+        Task<(bool IsSuccess, dynamic FullCartDetails)> GetFullCartDetails(string customerId);
+    }
 }

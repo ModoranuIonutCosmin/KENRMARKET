@@ -4,7 +4,7 @@
     {
         InitialCreation,
         Submitted,
-        Validated,
+        Paid,
         Shipped
     }
 }

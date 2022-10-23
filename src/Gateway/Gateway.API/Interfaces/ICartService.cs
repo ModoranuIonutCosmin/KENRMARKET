@@ -1,8 +1,9 @@
 ﻿using Gateway.API.Models;
 
-namespace Gateway.API.Interfaces;
-
-public interface ICartService
+namespace Gateway.API.Interfaces
 {
-    Task<(bool IsOk, CartDetails CartDetails, string ErrorMessage)> GetCartDetails(string customerId);
+    public interface ICartService
+    {
+        Task<(bool IsOk, CartDetails CartDetails, string ErrorMessage)> GetCartDetails(string customerId);
+    }
 }

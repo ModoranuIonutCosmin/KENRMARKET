@@ -1,12 +1,28 @@
+using MassTransit;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Order.Application.Features;
 using Order.Application.Interfaces;
-using Order.Application.Interfaces.Services;
 using Order.Infrastructure.Data_Access;
 using Order.Infrastructure.Data_Access.v1;
+using System.Reflection;
+using Serilog;
+using Serilog.Events;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var configuration = builder.Configuration;
+
+
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Information()
+    .MinimumLevel.Override("MassTransit", LogEventLevel.Debug)
+    .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
+    .MinimumLevel.Override("Microsoft.EntityFrameworkCore", LogEventLevel.Warning)
+    .MinimumLevel.Override("Microsoft.EntityFrameworkCore.Database.Command", LogEventLevel.Warning)
+    .Enrich.FromLogContext()
+    .WriteTo.Console()
+    .CreateLogger();
 
 // Add services to the container.
 
@@ -26,9 +42,48 @@ builder.Services.AddDbContext<OrdersDBContext>(opts =>
     });
 });
 
-builder.Services.AddTransient<IOrderRepository, OrderRepository>();
-builder.Services.AddScoped<ICartService, CartService>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
+//Services
+
+builder.Services.AddTransient<IOrderRepository, OrderRepository>();
+
+//Mediatr
+
+builder.Services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
+
+//MassTransit (rabbitmq??)
+
+builder.Services.AddMassTransit(x =>
+{
+    x.AddEntityFrameworkOutbox<OrdersDBContext>(outbox =>
+    {
+        outbox.UseSqlServer();
+        outbox.UseBusOutbox();
+    });
+
+    x.SetKebabCaseEndpointNameFormatter();
+
+    var entryAssemblies = typeof(IOrderRepository).Assembly;
+
+    x.AddConsumers(entryAssemblies);
+
+    x.UsingRabbitMq((context, cfg) =>
+
+    {
+        cfg.Host(configuration["EventQueue:Host"], "/", h =>
+        {
+            h.Username(configuration["EventQueue:Username"]);
+            h.Password(configuration["EventQueue:Password"]);
+        });
+
+        cfg.ConfigureEndpoints(context);
+
+        cfg.AutoStart = true;
+    });
+
+
+});
 
 builder.Services.AddApiVersioning(config =>
 {

@@ -23,6 +23,8 @@ namespace Cart.API.Controllers
             return Created("", result);
         }
 
+
+
         [HttpGet("Cart")]
         public async Task<IActionResult> GetCartContents(string customerId)
         {

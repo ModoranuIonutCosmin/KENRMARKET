@@ -64,3 +64,16 @@ C:\Users\zero6\source\repos\KMarketplace\bin\Debug\Customers.Infrastructure.pdb
 C:\Users\zero6\source\repos\KMarketplace\obj\Debug\docker-compose.dcproj.AssemblyReference.cache
 C:\Users\zero6\source\repos\KMarketplace\obj\Debug\docker-compose.dcproj.CoreCompileInputs.cache
 C:\Users\zero6\source\repos\KMarketplace\obj\Debug\docker-compose.dcproj.CopyComplete
+C:\Users\zero6\source\repos\KMarketplace\bin\Debug\Microsoft.Extensions.Identity.Core.dll
+C:\Users\zero6\source\repos\KMarketplace\bin\Debug\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\zero6\source\repos\KMarketplace\bin\Debug\Microsoft.Extensions.Identity.Stores.dll
+C:\Users\zero6\source\repos\KMarketplace\bin\Debug\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\zero6\source\repos\KMarketplace\bin\Debug\Microsoft.IdentityModel.Tokens.dll
+C:\Users\zero6\source\repos\KMarketplace\bin\Debug\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\zero6\source\repos\KMarketplace\bin\Debug\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\zero6\source\repos\KMarketplace\bin\Debug\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\Users\zero6\source\repos\KMarketplace\bin\Debug\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\zero6\source\repos\KMarketplace\bin\Debug\Microsoft.IdentityModel.Protocols.dll
+C:\Users\zero6\source\repos\KMarketplace\bin\Debug\Microsoft.IdentityModel.Logging.dll
+C:\Users\zero6\source\repos\KMarketplace\bin\Debug\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\zero6\source\repos\KMarketplace\bin\Debug\Microsoft.AspNetCore.Cryptography.Internal.dll

@@ -1,66 +1,57 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MassTransit;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Order.Domain.Entities;
+using Order.Domain.Shared;
+using Order.Infrastructure.EntitiesConfig;
 
 namespace Order.Infrastructure.Data_Access
 {
     public class OrdersDBContext : DbContext
     {
-        public DbSet<Domain.Entities.Order> Carts { get; set; }
-        public DbSet<OrderItem> CartItems { get; set; }
+        public DbSet<Domain.Entities.Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
 
-        public OrdersDBContext()
+        private readonly IMediator _mediator;
+        public OrdersDBContext(DbContextOptions<OrdersDBContext> options, IMediator mediator): base(options)
         {
-            
-        }
-        public OrdersDBContext(DbContextOptions<OrdersDBContext> options): base(options)
-        {
+            _mediator = mediator;
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Domain.Entities.Order>()
-                .HasKey(cd => cd.BuyerId);
+            modelBuilder.ApplyConfiguration(new OrderEntityConfiguration());
+            modelBuilder.AddInboxStateEntity();
+            modelBuilder.AddOutboxMessageEntity();
+            modelBuilder.AddOutboxStateEntity();
+        }
 
-            modelBuilder.Entity<Domain.Entities.Order>()
-                .HasIndex(cd => cd.BuyerId);
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new())
+        {
 
-            modelBuilder.Entity<OrderItem>()
-                .HasIndex(ci => ci.ProductId)
-                .IsUnique();
+            //TODO: Outbox pattern
 
+            var response = await base.SaveChangesAsync(cancellationToken);
+            await _dispatchDomainEvents();
+            return response;
+        }
 
-            modelBuilder.Entity<Domain.Entities.Order>()
-                .Property(p => p.BuyerId)
-                .HasMaxLength(256);
+        private async Task _dispatchDomainEvents()
+        {
+            var domainEventEntities = ChangeTracker.Entries<Entity>()
+                .Select(po => po.Entity)
+                .Where(po => po.DomainEvents.Any())
+                .ToArray();
 
-            modelBuilder.Entity<Domain.Entities.Order>()
-                .Property(p => p.Promocode)
-                .HasMaxLength(256);
-
-
-
-            modelBuilder.Entity<OrderItem>()
-                .Property(p => p.ProductId)
-                .HasMaxLength(256);
-
-            modelBuilder.Entity<OrderItem>()
-                .Property(p => p.PictureUrl)
-                .HasMaxLength(2048); 
-
-            modelBuilder.Entity<OrderItem>()
-                .Property(p => p.ProductName)
-                .HasMaxLength(512);
-            modelBuilder.Entity<OrderItem>()
-                .Property(p => p.CartCustomerId)
-                .HasMaxLength(256);
-
-            //Relations
-            modelBuilder.Entity<Domain.Entities.Order>()
-                .HasMany<OrderItem>(c => c.OrderItems)
-                .WithOne()
-                .HasForeignKey(c => c.CartCustomerId);
+            foreach (var entity in domainEventEntities)
+            {
+                var events = entity.DomainEvents.ToArray();
+                entity.DomainEvents.Clear();
+                foreach (var entityDomainEvent in events)
+                    await _mediator.Publish(entityDomainEvent);
+            }
         }
     }
 }
