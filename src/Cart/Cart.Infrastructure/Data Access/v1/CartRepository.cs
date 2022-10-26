@@ -20,11 +20,11 @@ namespace Cart.Infrastructure.Data_Access.v1
             }
         }
 
-        public async Task<CartDetails> EnsureCartExists(string customerId)
+        public async Task<CartDetails> EnsureCartExists(Guid customerId)
         {
             bool cartExists = _cartsDbContext
                 .Carts
-                .Any(c => c.CustomerId == customerId);
+                .Any(c => c.CustomerId.Equals(customerId));
 
             if (!cartExists)
             {
@@ -33,17 +33,18 @@ namespace Cart.Infrastructure.Data_Access.v1
                     CustomerId = customerId,
                     Promocode = ""
                 });
+
+                await _cartsDbContext.SaveChangesAsync();
             }
 
-            await _cartsDbContext.SaveChangesAsync();
 
             return await _cartsDbContext.Carts
-                .SingleAsync(c => c.CustomerId == customerId);
+                .SingleAsync(c => c.CustomerId.Equals(customerId));
         }
 
-        public async Task<CartDetails> SetCartPromocode(string customerId, string promocode)
+        public async Task<CartDetails> SetCartPromocode(Guid customerId, string promocode)
         {
-            CartDetails cart = await _cartsDbContext.Carts.SingleAsync(c => c.CustomerId == customerId);
+            CartDetails cart = await _cartsDbContext.Carts.SingleAsync(c => c.CustomerId.Equals(customerId));
 
 
             cart.Promocode = promocode;
@@ -53,22 +54,50 @@ namespace Cart.Infrastructure.Data_Access.v1
             return cart;
         }
 
-        public async Task<CartDetails> GetCartDetails(string customerId)
+        public async Task<CartDetails> GetCartDetails(Guid customerId)
         {
             return await _cartsDbContext.Carts
-                .Where(c => c.CustomerId == customerId)
+                .Where(c => c.CustomerId.Equals(customerId))
                 .Include(c => c.CartItems)
                 .SingleAsync();
         }
 
-        public async Task AddCartItem(CartItem cartItem)
+        public async Task AddCartItem(Guid customerId, CartItem cartItem)
         {
-            await _cartsDbContext.CartItems.AddAsync(cartItem);
+            CartDetails cartDetails = _cartsDbContext.Carts
+                .Include(c => c.CartItems)
+                .SingleOrDefault(c => c.CustomerId.Equals(customerId));
+
+            cartDetails.CartItems.Add(cartItem);
 
             await _cartsDbContext.SaveChangesAsync();
         }
 
-            
+        public async Task<CartDetails> ModifyCart(Guid customerId, CartDetails newCartDetails)
+        {
+            var shoppingCart = await _cartsDbContext.Carts
+                .SingleOrDefaultAsync(c => c.CustomerId.Equals(customerId));
+
+            //TODO: Refactorizat
+
+            if (shoppingCart == null)
+            {
+                await _cartsDbContext.AddAsync(newCartDetails);
+
+                await _cartsDbContext.SaveChangesAsync();
+
+                return newCartDetails;
+            }
+
+            newCartDetails.CartItems = newCartDetails.CartItems;
+            newCartDetails.Promocode = newCartDetails.Promocode;
+
+            _cartsDbContext.Carts.Update(shoppingCart);
+
+            await _cartsDbContext.SaveChangesAsync();
+
+            return newCartDetails;
+        }
     }
 }
 

@@ -1,7 +1,7 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Gateway.API.Entities;
+using Gateway.Domain.Entities;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Gateway.API.Auth.ExtensionMethods;

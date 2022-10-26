@@ -10,6 +10,8 @@
         public static class Cart
         {
             public static string CartDetails => "api/1.0/Carts/cart";
+            public static string ModifyCartPut => "api/1.0/Carts/ModifyCart";
+            public static string AddItemToCartPost => "api/1.0/Carts/AddItemToCart";
         }
 
     }

@@ -21,15 +21,10 @@ namespace Cart.Infrastructure.Data_Access
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<CartDetails>()
-                .HasKey(cd => cd.CustomerId);
+                .HasKey(cd => cd.Id);
 
             modelBuilder.Entity<CartDetails>()
-                .HasIndex(cd => cd.CustomerId);
-
-            modelBuilder.Entity<CartItem>()
-                .HasIndex(ci => ci.ProductId)
-                .IsUnique();
-
+                .HasAlternateKey(cd => cd.CustomerId);
 
             modelBuilder.Entity<CartDetails>()
                 .Property(p => p.CustomerId)
@@ -39,7 +34,8 @@ namespace Cart.Infrastructure.Data_Access
                 .Property(p => p.Promocode)
                 .HasMaxLength(256);
 
-
+            modelBuilder.Entity<CartItem>()
+                .HasKey(ci => ci.Id);
 
             modelBuilder.Entity<CartItem>()
                 .Property(p => p.ProductId)
@@ -52,15 +48,11 @@ namespace Cart.Infrastructure.Data_Access
             modelBuilder.Entity<CartItem>()
                 .Property(p => p.ProductName)
                 .HasMaxLength(512);
-            modelBuilder.Entity<CartItem>()
-                .Property(p => p.CartCustomerId)
-                .HasMaxLength(256);
 
             //Relations
             modelBuilder.Entity<CartDetails>()
                 .HasMany<CartItem>(c => c.CartItems)
-                .WithOne()
-                .HasForeignKey(c => c.CartCustomerId);
+                .WithOne();
         }
     }
 }

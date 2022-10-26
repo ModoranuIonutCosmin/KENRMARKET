@@ -1,13 +1,15 @@
 using System.Text;
 using Gateway.API.Auth;
 using Gateway.API.DataAccess;
-using Gateway.API.Entities;
 using Gateway.API.Interfaces;
 using Gateway.API.Services;
+using Gateway.Application.Profiles;
+using Gateway.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Polly;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -69,11 +71,11 @@ builder.Services.Configure<IdentityOptions>(options =>
 {
     options.User.RequireUniqueEmail = true;
 
-    options.Password.RequiredLength = 8;
+    options.Password.RequiredLength = 5;
     options.Password.RequireNonAlphanumeric = false;
 
     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
-    options.Lockout.MaxFailedAccessAttempts = 3;
+    options.Lockout.MaxFailedAccessAttempts = 3000;
 
     options.SignIn.RequireConfirmedEmail = false;
 });
@@ -100,7 +102,41 @@ builder.Services.AddAuthentication()
         };
     });
 
+
+builder.Services.AddSwaggerGen(opt =>
+{
+    opt.SwaggerDoc("v1", new OpenApiInfo { Title = "KENRMARKET", Version = "v1" });
+    opt.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        In = ParameterLocation.Header,
+        Description = "Please enter token",
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        BearerFormat = "JWT",
+        Scheme = "bearer"
+    });
+    opt.AddSecurityRequirement(new OpenApiSecurityRequirement
+            {
+                {
+                    new OpenApiSecurityScheme
+                    {
+                        Reference = new OpenApiReference
+                        {
+                            Type = ReferenceType.SecurityScheme,
+                            Id = "Bearer"
+                        }
+                    },
+                    Array.Empty<string>()
+                }
+            });
+});
+
 ///
+
+//Automapper
+
+//TODO: Better way?
+builder.Services.AddAutoMapper(typeof(UpdateCartRequestToCartDetailsProfile).Assembly);
 
 builder.Services.AddCors(options =>
 {
@@ -115,6 +151,9 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddTransient<IUserPasswordResetService, UserPasswordResetService>();
 builder.Services.AddTransient<IUserAuthenticationService, UserAuthenticationService>();
+builder.Services.AddScoped<IProductsService, ProductsService>();
+builder.Services.AddScoped<ICartService, CartService>();
+builder.Services.AddScoped<ICartAggregatesService, CartAggregatesService>();
 
 
 var app = builder.Build();

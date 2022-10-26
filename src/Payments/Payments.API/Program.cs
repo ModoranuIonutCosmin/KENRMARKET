@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using Payments.API.Config;
 using Payments.Application.Interfaces;
 using Payments.Application.Payments;
-using Payments.Domain.Entities;
 using Payments.Infrastructure.Data_Access;
 using Payments.Infrastructure.Data_Access.v1;
 using Stripe;

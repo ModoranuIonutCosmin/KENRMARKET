@@ -15,8 +15,18 @@ namespace Cart.API.Controllers
             this._cartService = cartService;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> AddItemToCart([FromBody] CartItemViewModel cartItem, string customerId)
+        [HttpPut("ModifyCart")]
+        public async Task<IActionResult> ModifyCart([FromQuery]Guid customerId, [FromBody] CartDetails newCartDetails)
+        {
+            //TODO: 
+
+            var result = await _cartService.ModifyCart(customerId, newCartDetails);
+
+            return Ok(result);
+        }
+
+        [HttpPost("AddItemToCart")]
+        public async Task<IActionResult> AddItemToCart([FromBody] CartItemViewModel cartItem, Guid customerId)
         {
             var result = await _cartService.AddCartItem(customerId, cartItem);
 
@@ -26,7 +36,7 @@ namespace Cart.API.Controllers
 
 
         [HttpGet("Cart")]
-        public async Task<IActionResult> GetCartContents(string customerId)
+        public async Task<IActionResult> GetCartContents(Guid customerId)
         {
             return Ok(await _cartService.GetCartDetails(customerId));
         }

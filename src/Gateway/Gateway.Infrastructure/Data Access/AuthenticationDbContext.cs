@@ -1,14 +1,11 @@
 ﻿using Gateway.API.DataAccess.Config;
-using Gateway.API.Entities;
-using Microsoft.AspNetCore.Identity;
+using Gateway.Domain.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Gateway.API.DataAccess
 {
-    public class AuthenticationDbContext : IdentityDbContext<ApplicationUser, 
-        IdentityRole<Guid>, Guid, IdentityUserClaim<Guid>, IdentityUserRole<Guid>,
-        IdentityUserLogin<Guid>, IdentityRoleClaim<Guid>, IdentityUserToken<Guid>>
+    public class AuthenticationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>
     {
         public AuthenticationDbContext()
         {

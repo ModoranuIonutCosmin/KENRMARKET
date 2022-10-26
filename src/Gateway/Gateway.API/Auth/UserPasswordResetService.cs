@@ -1,8 +1,8 @@
 ﻿using Gateway.API.Auth.ExtensionMethods;
-using Gateway.API.Auth.Models;
-using Gateway.API.Entities;
+using Gateway.API.Auth.Models.Auth;
 using Gateway.API.Exceptions;
 using Gateway.API.Interfaces;
+using Gateway.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
 

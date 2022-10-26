@@ -1,4 +1,4 @@
-﻿using Gateway.API.Auth.Models;
+﻿using Gateway.API.Auth.Models.Auth;
 using Gateway.API.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 

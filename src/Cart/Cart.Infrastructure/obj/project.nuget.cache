@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "M/BRXpOgCIcZsDG37sfpgKuYNtvrGYjuGNKDdAfjhu2YChU4E6Ge62n5KgN+b4phzKtJavwaUFfEyREYrmVwog==",
+  "dgSpecHash": "YreQG5t0kLFSt8Q94AjDNomF8bReKv5QDmTEhJiKsP2G9FSsReIy68rBZZMz1ffmXRjjhWedoFn/ndbySZfBVA==",
   "success": true,
   "projectFilePath": "C:\\Users\\zero6\\source\\repos\\KMarketplace\\src\\Cart\\Cart.Infrastructure\\Cart.Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\zero6\\.nuget\\packages\\automapper\\11.0.1\\automapper.11.0.1.nupkg.sha512",
     "C:\\Users\\zero6\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\11.0.0\\automapper.extensions.microsoft.dependencyinjection.11.0.0.nupkg.sha512",
+    "C:\\Users\\zero6\\.nuget\\packages\\mediatr.contracts\\1.0.1\\mediatr.contracts.1.0.1.nupkg.sha512",
     "C:\\Users\\zero6\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\zero6\\.nuget\\packages\\microsoft.data.sqlclient\\2.1.4\\microsoft.data.sqlclient.2.1.4.nupkg.sha512",
     "C:\\Users\\zero6\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\2.1.1\\microsoft.data.sqlclient.sni.runtime.2.1.1.nupkg.sha512",

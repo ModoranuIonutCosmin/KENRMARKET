@@ -12,12 +12,11 @@ namespace Cart.Infrastructure.Seed
                 new CartDetails()
                 {
                     Promocode = "BSJ",
-                    CustomerId = "acbcb196-0d48-4865-9417-eddb9c1b5ce0",
+                    CustomerId = Guid.Parse("acbcb196-0d48-4865-9417-eddb9c1b5ce0"),
                     CartItems = new List<CartItem>()
                     {
                         new CartItem()
                         {
-                            CartCustomerId = "acbcb196-0d48-4865-9417-eddb9c1b5ce0",
                             AddedAt = DateTimeOffset.UtcNow,
                             Quantity = 10m,
                             UnitPrice = 100m,
@@ -27,7 +26,6 @@ namespace Cart.Infrastructure.Seed
                         },
                         new CartItem()
                         {
-                            CartCustomerId = "acbcb196-0d48-4865-9417-eddb9c1b5ce0",
                             AddedAt = DateTimeOffset.UtcNow,
                             Quantity = 20m,
                             UnitPrice = 200m,

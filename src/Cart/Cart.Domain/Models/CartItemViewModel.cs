@@ -4,7 +4,6 @@ namespace Cart.Domain.Models
 {
     public class CartItemViewModel
     {
-        public Guid Id { get; set; }
         public string ProductId { get; set; }
         public string ProductName { get; set; }
         public decimal Quantity { get; set; }

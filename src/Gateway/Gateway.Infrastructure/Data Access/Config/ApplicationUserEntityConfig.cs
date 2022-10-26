@@ -1,4 +1,4 @@
-﻿using Gateway.API.Entities;
+﻿using Gateway.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

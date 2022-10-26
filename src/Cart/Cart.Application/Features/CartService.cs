@@ -18,34 +18,37 @@ namespace Cart.Application.Features
             _mapper = mapper;
         }
 
-        public async Task<CartDetailsViewModel> GetCartDetails(string customerId)
+        public async Task<CartDetailsViewModel> GetCartDetails(Guid customerId)
         {
             await _cartRepository.EnsureCartExists(customerId);
 
             return _mapper.Map<CartDetails,CartDetailsViewModel>(await _cartRepository.GetCartDetails(customerId));
         }
 
-        public async Task<CartDetailsViewModel> AddCartPromocode(string customerId, string promocode)
+        public async Task<CartDetailsViewModel> AddCartPromocode(Guid customerId, string promocode)
         {
             await _cartRepository.EnsureCartExists(customerId);
 
             return _mapper.Map<CartDetails, CartDetailsViewModel>(await _cartRepository.SetCartPromocode(customerId, promocode));
         }
 
-        public async Task<CartItemViewModel> AddCartItem(string customerId, CartItemViewModel cartItem)
+        public async Task<CartItemViewModel> AddCartItem(Guid customerId, CartItemViewModel cartItem)
         {
             CartItem cartItemEntity = _mapper.Map<CartItemViewModel, CartItem>(cartItem);
 
             await _cartRepository.EnsureCartExists(customerId);
 
-            cartItemEntity.CartCustomerId = customerId;
+            //TODO: Verificat data exista deja si stackat peste cu + quantity
 
-            await _cartRepository.AddCartItem(cartItemEntity);
+            await _cartRepository.AddCartItem(customerId, cartItemEntity);
 
             return _mapper.Map<CartItem,CartItemViewModel>(cartItemEntity);
         }
 
-
+        public async Task<CartDetails> ModifyCart(Guid customerId, CartDetails newCartDetails)
+        {
+            return await _cartRepository.ModifyCart(customerId, newCartDetails);
+        }
     }
 }
 

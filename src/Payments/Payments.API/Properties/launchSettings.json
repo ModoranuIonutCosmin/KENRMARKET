@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "Products.API": {
+    "Payments.API": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger",
