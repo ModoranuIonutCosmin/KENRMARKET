@@ -2,15 +2,13 @@
 using Cart.Domain.Entities;
 using Cart.Domain.Models;
 
-namespace Cart.Application.Profiles
+namespace Cart.Application.Profiles;
+
+public class CartDetailsToCartDetailsViewModel : Profile
 {
-    public class CartDetailsToCartDetailsViewModel : Profile
+    public CartDetailsToCartDetailsViewModel()
     {
-        public CartDetailsToCartDetailsViewModel()
-        {
-            CreateMap<CartDetailsViewModel, CartDetails>()
-                .ReverseMap();
-        }
+        CreateMap<CartDetailsViewModel, CartDetails>()
+            .ReverseMap();
     }
 }
-

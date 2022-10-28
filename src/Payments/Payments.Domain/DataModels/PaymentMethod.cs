@@ -1,9 +1,7 @@
-﻿namespace Payments.Domain.DataModels
-{
-    public enum PaymentMethod
-    {
-        Card,
-        Reimburse
-    }
-}
+﻿namespace Payments.Domain.DataModels;
 
+public enum PaymentMethod
+{
+    Card,
+    Reimburse
+}

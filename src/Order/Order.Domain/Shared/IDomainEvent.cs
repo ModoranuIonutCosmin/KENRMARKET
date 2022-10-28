@@ -1,8 +1,7 @@
 ﻿using MediatR;
 
-namespace Order.Domain.Shared
+namespace Order.Domain.Shared;
+
+public interface IDomainEvent : INotification
 {
-    public interface IDomainEvent: INotification
-    {
-    }
 }

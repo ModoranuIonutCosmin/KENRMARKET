@@ -1,7 +1,5 @@
-﻿namespace Payments.Domain.Shared
-{
-    public interface IAggregateRoot
-    {
-    }
-}
+﻿namespace Payments.Domain.Shared;
 
+public interface IAggregateRoot
+{
+}

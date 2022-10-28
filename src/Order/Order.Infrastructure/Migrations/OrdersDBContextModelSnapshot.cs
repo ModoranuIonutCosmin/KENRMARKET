@@ -61,7 +61,7 @@ namespace Order.Infrastructure.Migrations
                     b.HasIndex("MessageId", "ConsumerId")
                         .IsUnique();
 
-                    b.ToTable("InboxState");
+                    b.ToTable("InboxState", (string)null);
                 });
 
             modelBuilder.Entity("MassTransit.EntityFrameworkCoreIntegration.OutboxMessage", b =>
@@ -150,7 +150,7 @@ namespace Order.Infrastructure.Migrations
                         .IsUnique()
                         .HasFilter("[InboxMessageId] IS NOT NULL AND [InboxConsumerId] IS NOT NULL");
 
-                    b.ToTable("OutboxMessage");
+                    b.ToTable("OutboxMessage", (string)null);
                 });
 
             modelBuilder.Entity("MassTransit.EntityFrameworkCoreIntegration.OutboxState", b =>
@@ -172,7 +172,7 @@ namespace Order.Infrastructure.Migrations
 
                     b.HasIndex("Created");
 
-                    b.ToTable("OutboxState");
+                    b.ToTable("OutboxState", (string)null);
                 });
 
             modelBuilder.Entity("Order.Domain.Entities.Order", b =>
@@ -201,7 +201,7 @@ namespace Order.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("Order.Domain.Entities.OrderItem", b =>
@@ -237,12 +237,12 @@ namespace Order.Infrastructure.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("OrderItems");
+                    b.ToTable("OrderItems", (string)null);
                 });
 
             modelBuilder.Entity("Order.Domain.Entities.Order", b =>
                 {
-                    b.OwnsOne("Order.Domain.Models.Address", "Address", b1 =>
+                    b.OwnsOne("Order.Domain.Entities.Order.Address#Order.Domain.Models.Address", "Address", b1 =>
                         {
                             b1.Property<Guid>("OrderId")
                                 .HasColumnType("uniqueidentifier");
@@ -283,7 +283,7 @@ namespace Order.Infrastructure.Migrations
 
                             b1.HasKey("OrderId");
 
-                            b1.ToTable("Orders");
+                            b1.ToTable("Orders", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("OrderId");

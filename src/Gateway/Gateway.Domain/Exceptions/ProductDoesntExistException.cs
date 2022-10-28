@@ -1,10 +1,8 @@
-﻿namespace Gateway.Domain.Exceptions
+﻿namespace Gateway.Domain.Exceptions;
+
+public class ProductDoesntExistException : Exception
 {
-    public class ProductDoesntExistException : Exception
+    public ProductDoesntExistException(string? message) : base(message)
     {
-        public ProductDoesntExistException(string? message) : base(message)
-        {
-        }
     }
 }
-

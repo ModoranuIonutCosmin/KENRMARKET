@@ -2,14 +2,12 @@
 using Payments.Application.DTOs;
 using Payments.Domain.Models;
 
-namespace Payments.Application.Profiles
+namespace Payments.Application.Profiles;
+
+public class OrderToOrderDtoMappingProfile : Profile
 {
-    public class OrderToOrderDtoMappingProfile: Profile
+    public OrderToOrderDtoMappingProfile()
     {
-        public OrderToOrderDtoMappingProfile()
-        {
-            CreateMap<Order, OrderDTO>();
-        }
+        CreateMap<Order, OrderDTO>();
     }
 }
-

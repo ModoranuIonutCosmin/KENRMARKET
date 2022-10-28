@@ -4,51 +4,56 @@ using Cart.Application.Interfaces.Services;
 using Cart.Domain.Entities;
 using Cart.Domain.Models;
 
-namespace Cart.Application.Features
+namespace Cart.Application.Features;
+
+public class CartService : ICartService
 {
-    public class CartService : ICartService
+    private readonly ICartRepository _cartRepository;
+    private readonly IMapper _mapper;
+
+    public CartService(ICartRepository cartRepository,
+        IMapper mapper)
     {
-        private readonly ICartRepository _cartRepository;
-        private readonly IMapper _mapper;
+        _cartRepository = cartRepository;
+        _mapper = mapper;
+    }
 
-        public CartService(ICartRepository cartRepository,
-            IMapper mapper)
-        {
-            _cartRepository = cartRepository;
-            _mapper = mapper;
-        }
+    public async Task<CartDetailsViewModel> GetCartDetails(Guid customerId)
+    {
+        await _cartRepository.EnsureCartExists(customerId);
 
-        public async Task<CartDetailsViewModel> GetCartDetails(Guid customerId)
-        {
-            await _cartRepository.EnsureCartExists(customerId);
+        return _mapper.Map<CartDetails, CartDetailsViewModel>(await _cartRepository.GetCartDetails(customerId));
+    }
 
-            return _mapper.Map<CartDetails,CartDetailsViewModel>(await _cartRepository.GetCartDetails(customerId));
-        }
+    public async Task<CartDetailsViewModel> AddCartPromocode(Guid customerId, string promocode)
+    {
+        await _cartRepository.EnsureCartExists(customerId);
 
-        public async Task<CartDetailsViewModel> AddCartPromocode(Guid customerId, string promocode)
-        {
-            await _cartRepository.EnsureCartExists(customerId);
+        return _mapper.Map<CartDetails, CartDetailsViewModel>(
+            await _cartRepository.SetCartPromocode(customerId, promocode));
+    }
 
-            return _mapper.Map<CartDetails, CartDetailsViewModel>(await _cartRepository.SetCartPromocode(customerId, promocode));
-        }
+    public async Task<CartItemDTO> AddCartItem(Guid customerId, CartItemDTO cartItem)
+    {
+        var cartItemEntity = _mapper.Map<CartItemDTO, CartItem>(cartItem);
 
-        public async Task<CartItemViewModel> AddCartItem(Guid customerId, CartItemViewModel cartItem)
-        {
-            CartItem cartItemEntity = _mapper.Map<CartItemViewModel, CartItem>(cartItem);
+        await _cartRepository.EnsureCartExists(customerId);
 
-            await _cartRepository.EnsureCartExists(customerId);
+        var cartDetails = await _cartRepository.GetCartDetails(customerId);
 
-            //TODO: Verificat data exista deja si stackat peste cu + quantity
+        var existentCartItem = cartDetails.CartItems
+            .SingleOrDefault(ci => ci.ProductId.Equals(cartItem.ProductId));
 
+        if (existentCartItem == null)
             await _cartRepository.AddCartItem(customerId, cartItemEntity);
+        else
+            await _cartRepository.UpdateCartItem(cartDetails.Id, cartItemEntity);
 
-            return _mapper.Map<CartItem,CartItemViewModel>(cartItemEntity);
-        }
+        return _mapper.Map<CartItem, CartItemDTO>(cartItemEntity);
+    }
 
-        public async Task<CartDetails> ModifyCart(Guid customerId, CartDetails newCartDetails)
-        {
-            return await _cartRepository.ModifyCart(customerId, newCartDetails);
-        }
+    public async Task<CartDetails> ModifyCart(Guid customerId, CartDetails newCartDetails)
+    {
+        return await _cartRepository.ModifyCart(customerId, newCartDetails);
     }
 }
-

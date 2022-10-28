@@ -1,11 +1,10 @@
-﻿namespace Products.Infrastructure.Interfaces
-{
-    public interface IMongoDBSettings
-    {
-        string DatabaseName { get; set; }
+﻿namespace Products.Infrastructure.Interfaces;
 
-        string ProductsCollectionName { get; set; }
-        string CategoriesCollectionName { get; set; }
-        string Host { get; set; }
-    }
+public interface IMongoDBSettings
+{
+    string DatabaseName { get; set; }
+
+    string ProductsCollectionName { get; set; }
+    string CategoriesCollectionName { get; set; }
+    string Host { get; set; }
 }

@@ -2,53 +2,120 @@
 using Gateway.API.Interfaces;
 using Gateway.API.Models;
 using Gateway.API.Routes;
+using Gateway.Domain.Models.Products;
 
-namespace Gateway.API.Services
+namespace Gateway.API.Services;
+
+public class ProductsService : IProductsService
 {
-    public class ProductsService : IProductsService
+    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly ILogger<ProductsService> _logger;
+
+    public ProductsService(IHttpClientFactory httpClientFactory, ILogger<ProductsService> logger)
     {
-        private readonly IHttpClientFactory _httpClientFactory;
-        private readonly ILogger<ProductsService> _logger;
+        _httpClientFactory = httpClientFactory;
+        _logger = logger;
+    }
 
-        public ProductsService(IHttpClientFactory httpClientFactory, ILogger<ProductsService> logger)
+    public async Task<(bool IsOk, IEnumerable<Product> Products, string ErrorMessage)> GetProductsAsync()
+    {
+        try
         {
-            _httpClientFactory = httpClientFactory;
-            _logger = logger;
-        }
+            var httpClient = _httpClientFactory.CreateClient("ProductsService");
+            var response = await httpClient.GetAsync(ServicesRoutes.Products.AllProducts);
 
-        public async Task<(bool IsOk, IEnumerable<Product> Products, string ErrorMessage)> GetProductsAsync()
-        {
-            try
+            if (response.IsSuccessStatusCode)
             {
-                var httpClient = _httpClientFactory.CreateClient("ProductsService");
-                var response = await httpClient.GetAsync(ServicesRoutes.Products.AllProducts);
+                var content = await response.Content.ReadAsStringAsync();
 
-                if (response.IsSuccessStatusCode)
+                var deserializationOptions = new JsonSerializerOptions
                 {
-                    string content = await response.Content.ReadAsStringAsync();
+                    PropertyNameCaseInsensitive = true
+                };
 
-                    var deserializationOptions = new JsonSerializerOptions()
-                    {
-                        PropertyNameCaseInsensitive = true
-                    };
+                var result =
+                    JsonSerializer.Deserialize<IEnumerable<Product>>(content, deserializationOptions);
 
-                    var result =
-                        JsonSerializer.Deserialize<IEnumerable<Product>>(content, options: deserializationOptions);
-
-                    return (true, result, null);
-                }
-
-                return (false, null, $"Failed to query service. Reason: {response.ReasonPhrase} ");
+                return (true, result, null);
             }
 
-            catch (Exception ex)
-            {
-                _logger?.LogError(ex.ToString());
-
-                return (false, null, ex.Message);
-            }
+            return (false, null, $"Failed to query service. Reason: {response.ReasonPhrase} ");
         }
 
+        catch (Exception ex)
+        {
+            _logger?.LogError(ex.ToString());
 
+            return (false, null, ex.Message);
+        }
+    }
+
+    public async Task<(bool IsOk, Product Product, string ErrorMessage)> GetProductByIdAsync(Guid productId)
+    {
+        try
+        {
+            var httpClient = _httpClientFactory.CreateClient("ProductsService");
+            var response = await httpClient.GetAsync(ServicesRoutes.Products.ProductById(productId));
+
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+
+                var deserializationOptions = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+
+                var result =
+                    JsonSerializer.Deserialize<Product>(content, deserializationOptions);
+
+                return (true, result, null);
+            }
+
+            return (false, null, $"Failed to query service. Reason: {response.ReasonPhrase} ");
+        }
+
+        catch (Exception ex)
+        {
+            _logger?.LogError(ex.ToString());
+
+            return (false, null, ex.Message);
+        }
+    }
+
+
+    public async Task<(bool IsOk, IEnumerable<Product> Products, string ErrorMessage)> GetProductsFiltered(
+        FilterOptions filterOptions)
+    {
+        try
+        {
+            var httpClient = _httpClientFactory.CreateClient("ProductsService");
+
+            var response = await httpClient.PostAsJsonAsync(ServicesRoutes.Products.FilteredProducts, filterOptions);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+
+                var deserializationOptions = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+
+                var result =
+                    JsonSerializer.Deserialize<List<Product>>(content, deserializationOptions);
+
+                return (true, result, null);
+            }
+
+            return (false, null, $"Failed to query service. Reason: {response.ReasonPhrase} ");
+        }
+
+        catch (Exception ex)
+        {
+            _logger?.LogError(ex.ToString());
+
+            return (false, null, ex.Message);
+        }
     }
 }

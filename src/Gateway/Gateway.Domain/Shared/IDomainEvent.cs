@@ -1,9 +1,7 @@
-﻿
-using MediatR;
+﻿using MediatR;
 
-namespace Gateway.Domain.Shared
+namespace Gateway.Domain.Shared;
+
+public interface IDomainEvent : INotification
 {
-    public interface IDomainEvent : INotification
-    {
-    }
 }

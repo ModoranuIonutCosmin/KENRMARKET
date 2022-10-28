@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using Order.Application.Interfaces;
 using Order.Infrastructure.Data_Access;
 using Order.Infrastructure.Data_Access.v1;
-using System.Reflection;
 using Serilog;
 using Serilog.Events;
 
@@ -35,11 +34,8 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddDbContext<OrdersDBContext>(opts =>
 {
-    opts.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"), 
-        opt =>
-    {
-        opt.MigrationsAssembly(typeof(OrdersDBContext).Assembly.FullName);
-    });
+    opts.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"),
+        opt => { opt.MigrationsAssembly(typeof(OrdersDBContext).Assembly.FullName); });
 });
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -81,8 +77,6 @@ builder.Services.AddMassTransit(x =>
 
         cfg.AutoStart = true;
     });
-
-
 });
 
 builder.Services.AddApiVersioning(config =>
@@ -115,7 +109,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
 
 
 app.MapControllers();

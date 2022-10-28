@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "bd/bCjKHf2BsLdDqiLz8AC92pvjCSn83mjUCzF9CdZjbBcwDhEak9W3csGvYNsASghjh5oY4tLxN9rMuDw//Tg==",
+  "dgSpecHash": "sr2QvUYBIL50dq/WNdlja/yeJmsOlYMx3dWNumE0WurFT+nzcvaFF4dautswh0AkM3+oTZOWZFsYcJ9CoMK6AQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\zero6\\source\\repos\\KMarketplace\\src\\Products\\Products.Application\\Products.Application.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\zero6\\.nuget\\packages\\mediatr.contracts\\1.0.1\\mediatr.contracts.1.0.1.nupkg.sha512"
+  ],
   "logs": []
 }

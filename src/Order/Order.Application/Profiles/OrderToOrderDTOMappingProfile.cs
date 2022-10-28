@@ -1,14 +1,12 @@
 ﻿using AutoMapper;
 using Order.Application.DTOs;
 
-namespace Order.Application.Profiles
+namespace Order.Application.Profiles;
+
+public class OrderToOrderDtoMappingProfile : Profile
 {
-    public class OrderToOrderDtoMappingProfile: Profile
+    public OrderToOrderDtoMappingProfile()
     {
-        public OrderToOrderDtoMappingProfile()
-        {
-            CreateMap<Domain.Entities.Order, OrderDTO>();
-        }
+        CreateMap<Domain.Entities.Order, OrderDTO>();
     }
 }
-

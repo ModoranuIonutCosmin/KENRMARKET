@@ -1,9 +1,9 @@
 ﻿using System.Security.Authentication;
 using Gateway.API.Auth.ExtensionMethods;
-using Gateway.API.Auth.Models.Auth;
 using Gateway.API.Exceptions;
 using Gateway.API.Interfaces;
 using Gateway.Domain.Entities;
+using Gateway.Domain.Models.Auth;
 using Microsoft.AspNetCore.Identity;
 
 namespace Gateway.API.Auth;
@@ -35,11 +35,11 @@ public class UserAuthenticationService : IUserAuthenticationService
 
         var result = await _userManager.CreateAsync(user, registerData.Password);
 
-        if (!result.Succeeded) 
+        if (!result.Succeeded)
             throw new AuthenticationException(result.Errors.AggregateErrors());
 
         var userIdentity = await _userManager.FindByNameAsync(user.UserName);
-    
+
         ////Generare token de verificarfe email...
         //var emailConfirmationToken = await _userManager
         //    .GenerateEmailConfirmationTokenAsync(userIdentity);
@@ -83,18 +83,12 @@ public class UserAuthenticationService : IUserAuthenticationService
             : await _userManager.FindByNameAsync(loginData.UserNameOrEmail);
 
 
-        if (user == null)
-        {
-            throw new AuthenticationException("Invalid credentials!");
-        }
+        if (user == null) throw new AuthenticationException("Invalid credentials!");
 
         //Verifica daca parola este corecta fara a incrementa numarul de incercari. (peek)
         var isValidPassword = await _userManager.CheckPasswordAsync(user, loginData.Password);
 
-        if (!isValidPassword)
-        {
-            throw new AuthenticationException("Invalid credentials!");
-        }
+        if (!isValidPassword) throw new AuthenticationException("Invalid credentials!");
 
         return new UserProfileDetailsApiModel
         {
@@ -102,7 +96,7 @@ public class UserAuthenticationService : IUserAuthenticationService
             LastName = user.LastName,
             Email = user.Email,
             UserName = user.UserName,
-            Token = user.GenerateJwtToken(jwtSecret, issuer, audience),
+            Token = user.GenerateJwtToken(jwtSecret, issuer, audience)
         };
     }
 

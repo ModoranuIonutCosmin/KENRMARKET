@@ -1,7 +1,5 @@
-﻿namespace Gateway.Domain.Shared
-{
-    public interface IAggregateRoot
-    {
-    }
-}
+﻿namespace Gateway.Domain.Shared;
 
+public interface IAggregateRoot
+{
+}

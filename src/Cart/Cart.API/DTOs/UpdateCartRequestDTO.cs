@@ -1,11 +1,9 @@
-﻿
-using Cart.Domain.Entities;
+﻿using Cart.Domain.Entities;
 
-namespace Cart.API.DTOs
+namespace Cart.API.DTOs;
+
+public class UpdateCartRequestDTO
 {
-    public class UpdateCartRequestDTO
-    {
-        public List<CartItem> CartItems { get; set; }
-        public string Promocode { get; set; }
-    }
+    public List<CartItem> CartItems { get; set; }
+    public string Promocode { get; set; }
 }

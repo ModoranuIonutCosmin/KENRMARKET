@@ -1,8 +1,8 @@
 ﻿using Gateway.API.Auth.ExtensionMethods;
-using Gateway.API.Auth.Models.Auth;
 using Gateway.API.Exceptions;
 using Gateway.API.Interfaces;
 using Gateway.Domain.Entities;
+using Gateway.Domain.Models.Auth;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
 
@@ -28,8 +28,8 @@ public class UserPasswordResetService : IUserPasswordResetService
 
         var queryParams = new Dictionary<string, string>
         {
-            {"token", token},
-            {"email", request.Email}
+            { "token", token },
+            { "email", request.Email }
         };
 
         var resetLink = QueryHelpers.AddQueryString(frontEndUrlResetPasswordUrl, queryParams);

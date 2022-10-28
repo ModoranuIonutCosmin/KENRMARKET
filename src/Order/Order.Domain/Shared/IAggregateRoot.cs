@@ -1,7 +1,5 @@
-﻿namespace Order.Domain.Shared
-{
-    public interface IAggregateRoot
-    {
-    }
-}
+﻿namespace Order.Domain.Shared;
 
+public interface IAggregateRoot
+{
+}

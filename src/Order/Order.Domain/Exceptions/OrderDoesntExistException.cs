@@ -1,14 +1,12 @@
-﻿namespace Order.Domain.Exceptions
-{
-    public class OrderDoesntExistException: Exception
-    {
-        public OrderDoesntExistException()
-        {
-        }
+﻿namespace Order.Domain.Exceptions;
 
-        public OrderDoesntExistException(string? message) : base(message)
-        {
-        }
+public class OrderDoesntExistException : Exception
+{
+    public OrderDoesntExistException()
+    {
+    }
+
+    public OrderDoesntExistException(string? message) : base(message)
+    {
     }
 }
-

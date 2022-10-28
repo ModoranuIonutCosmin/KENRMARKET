@@ -1,9 +1,8 @@
-﻿namespace Gateway.Domain.Shared
+﻿namespace Gateway.Domain.Shared;
+
+public interface IEntity
 {
-    public interface IEntity
-    {
-        List<IDomainEvent> DomainEvents { get; }
-        Guid Id { get; set; }
-        void AddDomainEvent(IDomainEvent domainEvent);
-    }
+    List<IDomainEvent> DomainEvents { get; }
+    Guid Id { get; set; }
+    void AddDomainEvent(IDomainEvent domainEvent);
 }

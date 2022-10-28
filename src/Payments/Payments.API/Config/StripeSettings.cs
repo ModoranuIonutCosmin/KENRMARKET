@@ -1,9 +1,8 @@
-﻿namespace Payments.API.Config
+﻿namespace Payments.API.Config;
+
+public class StripeSettings
 {
-    public class StripeSettings
-    {
-        public string SecretKey { get; set; }
-        public string PublishableKey { get; set; }
-        public string WebhookKey { get; set; }
-    }
+    public string SecretKey { get; set; }
+    public string PublishableKey { get; set; }
+    public string WebhookKey { get; set; }
 }

@@ -1,12 +1,10 @@
 ﻿using Payments.Application.Interfaces.Base;
 
-namespace Payments.Application.Interfaces
+namespace Payments.Application.Interfaces;
+
+public interface IUnitOfWork
 {
-    public interface IUnitOfWork
-    {
+    void Register(IRepository repository);
 
-        void Register(IRepository repository);
-
-        Task CommitTransaction();
-    }
+    Task CommitTransaction();
 }

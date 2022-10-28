@@ -1,10 +1,10 @@
 using System.Text;
 using Gateway.API.Auth;
-using Gateway.API.DataAccess;
 using Gateway.API.Interfaces;
 using Gateway.API.Services;
 using Gateway.Application.Profiles;
 using Gateway.Domain.Entities;
+using Gateway.Infrastructure.Data_Access;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -19,28 +19,29 @@ var configuration = builder.Configuration;
 // Add services to the container.
 
 
-
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
-builder.Services.AddHttpClient("ProductsService", (config) =>
-{
-    config.BaseAddress = new Uri(builder.Configuration["Services:Products"]);
-}).AddTransientHttpErrorPolicy(p => p.WaitAndRetryAsync(5, _ => TimeSpan.FromMilliseconds(500)));
+builder.Services
+    .AddHttpClient("ProductsService",
+        config => { config.BaseAddress = new Uri(builder.Configuration["Services:Products"]); })
+    .AddTransientHttpErrorPolicy(p => p.WaitAndRetryAsync(5, _ => TimeSpan.FromMilliseconds(500)));
 
-builder.Services.AddHttpClient("CartService", (config) =>
-{
-    config.BaseAddress = new Uri(builder.Configuration["Services:Cart"]);
-}).AddTransientHttpErrorPolicy(p => p.WaitAndRetryAsync(5, _ => TimeSpan.FromMilliseconds(500)));
+builder.Services
+    .AddHttpClient("CartService", config => { config.BaseAddress = new Uri(builder.Configuration["Services:Cart"]); })
+    .AddTransientHttpErrorPolicy(p => p.WaitAndRetryAsync(5, _ => TimeSpan.FromMilliseconds(500)));
 
+builder.Services
+    .AddHttpClient("OrdersService", config => { config.BaseAddress = new Uri(builder.Configuration["Services:Orders"]); })
+    .AddTransientHttpErrorPolicy(p => p.WaitAndRetryAsync(5, _ => TimeSpan.FromMilliseconds(500)));
 
-builder.Services.AddHttpClient("CustomersService", (config) =>
-{
-    config.BaseAddress = new Uri(builder.Configuration["Services:Customers"]);
-}).AddTransientHttpErrorPolicy(p => p.WaitAndRetryAsync(5, _ => TimeSpan.FromMilliseconds(500)));
+builder.Services
+    .AddHttpClient("CustomersService",
+        config => { config.BaseAddress = new Uri(builder.Configuration["Services:Customers"]); })
+    .AddTransientHttpErrorPolicy(p => p.WaitAndRetryAsync(5, _ => TimeSpan.FromMilliseconds(500)));
 
 
 builder.Services.AddApiVersioning(config =>
@@ -54,10 +55,7 @@ builder.Services.AddApiVersioning(config =>
 builder.Services.AddDbContext<AuthenticationDbContext>(opts =>
 {
     opts.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"),
-        opt =>
-        {
-            opt.MigrationsAssembly(typeof(AuthenticationDbContext).Assembly.FullName);
-        });
+        opt => { opt.MigrationsAssembly(typeof(AuthenticationDbContext).Assembly.FullName); });
 });
 /// 
 
@@ -116,19 +114,19 @@ builder.Services.AddSwaggerGen(opt =>
         Scheme = "bearer"
     });
     opt.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
             {
+                Reference = new OpenApiReference
                 {
-                    new OpenApiSecurityScheme
-                    {
-                        Reference = new OpenApiReference
-                        {
-                            Type = ReferenceType.SecurityScheme,
-                            Id = "Bearer"
-                        }
-                    },
-                    Array.Empty<string>()
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
                 }
-            });
+            },
+            Array.Empty<string>()
+        }
+    });
 });
 
 ///
@@ -153,6 +151,7 @@ builder.Services.AddTransient<IUserPasswordResetService, UserPasswordResetServic
 builder.Services.AddTransient<IUserAuthenticationService, UserAuthenticationService>();
 builder.Services.AddScoped<IProductsService, ProductsService>();
 builder.Services.AddScoped<ICartService, CartService>();
+builder.Services.AddScoped<IOrdersService, OrdersService>();
 builder.Services.AddScoped<ICartAggregatesService, CartAggregatesService>();
 
 

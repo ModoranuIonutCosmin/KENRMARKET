@@ -1,7 +1,5 @@
-﻿namespace Cart.Domain.Shared
-{
-    public interface IAggregateRoot
-    {
-    }
-}
+﻿namespace Cart.Domain.Shared;
 
+public interface IAggregateRoot
+{
+}

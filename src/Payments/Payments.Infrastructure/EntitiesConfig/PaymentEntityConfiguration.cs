@@ -2,18 +2,12 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Payments.Domain.Entities;
 
-namespace Payments.Infrastructure.EntitiesConfig
+namespace Payments.Infrastructure.EntitiesConfig;
+
+public class PaymentEntityConfiguration : IEntityTypeConfiguration<Payment>
 {
-    public class PaymentEntityConfiguration : IEntityTypeConfiguration<Payment>
+    public void Configure(EntityTypeBuilder<Payment> paymentConfiguration)
     {
-        public void Configure(EntityTypeBuilder<Payment> paymentConfiguration)
-        {
-            //Private fields
-
-
-
-
-        }
+        //Private fields
     }
 }
-

@@ -1,7 +1,5 @@
-﻿namespace Gateway.Application.Services
-{
-    public class ProductsService
-    {
-    }
-}
+﻿namespace Gateway.Application.Services;
 
+public class ProductsService
+{
+}

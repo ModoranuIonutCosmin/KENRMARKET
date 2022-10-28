@@ -1,9 +1,7 @@
-﻿namespace Products.Domain.Models
-{
-    public class SpecificationsMetadataGroup
-    {
-        public string Title { get; set; }
-        public List<SpecificationMetadataLine> Specifications { get; set; }
-    }
-}
+﻿namespace Products.Domain.Models;
 
+public class SpecificationsMetadataGroup
+{
+    public string Title { get; set; }
+    public List<SpecificationMetadataLine> Specifications { get; set; }
+}

@@ -1,10 +1,9 @@
-﻿namespace Products.Domain.Entities
-{
-    public class Category
-    {
-        public string Id { get; set; }
-        public string Name { get; set; }
-        public Category CategoryParent { get; set; }
-    }
-}
+﻿using Products.Domain.Shared;
 
+namespace Products.Domain.Entities;
+
+public class Category : Entity, IAggregateRoot
+{
+    public string Name { get; set; }
+    public List<Category> Children { get; set; } = new();
+}

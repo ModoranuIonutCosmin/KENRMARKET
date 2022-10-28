@@ -1,37 +1,33 @@
 ﻿using MassTransit.Mediator;
 using Microsoft.Extensions.Hosting;
 using Order.Application.Commands;
-using Order.Application.Interfaces;
 
-namespace Order.Application.Workers
+namespace Order.Application.Workers;
+
+public class ClearHangingOrdersWorker : BackgroundService
 {
-    public class ClearHangingOrdersWorker: BackgroundService
+    private static readonly TimeSpan MaxOrderAge = TimeSpan.FromHours(1);
+    private readonly IMediator _mediator;
+
+    public ClearHangingOrdersWorker(IMediator mediator)
     {
-        private readonly IMediator _mediator;
+        _mediator = mediator;
+    }
 
-        private static TimeSpan maxOrderAge = TimeSpan.FromHours(1);
-
-        public ClearHangingOrdersWorker(IMediator mediator)
+    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+    {
+        var clearHangingOrdersCommand = new ClearHangingOrdersCommand
         {
-            _mediator = mediator;
-        }
-        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+            MaxOrderAge = MaxOrderAge
+        };
+
+        while (!stoppingToken.IsCancellationRequested)
         {
-            ClearHangingOrdersCommand clearHangingOrdersCommand = new ClearHangingOrdersCommand()
-            {
-                MaxOrderAge = maxOrderAge
-            };
+            //clear hanging orders command handling
 
-            while (!stoppingToken.IsCancellationRequested)
-            {
-                //clear hanging orders command handling
+            await _mediator.Send(clearHangingOrdersCommand, stoppingToken);
 
-                await _mediator.Send(clearHangingOrdersCommand);
-
-                await Task.Delay(maxOrderAge);
-            }
-
+            await Task.Delay(MaxOrderAge, stoppingToken);
         }
     }
 }
-

@@ -25,11 +25,8 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddDbContext<PaymentsDBContext>(opts =>
 {
-    opts.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"), 
-        opt =>
-    {
-        opt.MigrationsAssembly(typeof(PaymentsDBContext).Assembly.FullName);
-    });
+    opts.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"),
+        opt => { opt.MigrationsAssembly(typeof(PaymentsDBContext).Assembly.FullName); });
 });
 
 
@@ -56,8 +53,6 @@ builder.Services.AddCors(options =>
             builder.AllowAnyMethod();
         });
 });
-
-
 
 
 //Stripe
@@ -103,8 +98,6 @@ builder.Services.AddMassTransit(x =>
 
         cfg.ConfigureEndpoints(context);
     });
-
-
 });
 
 //Services
@@ -123,7 +116,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
 
 
 app.MapControllers();

@@ -1,12 +1,10 @@
 ﻿using Order.Application.Interfaces.Base;
 
-namespace Order.Application.Interfaces
+namespace Order.Application.Interfaces;
+
+public interface IUnitOfWork
 {
-    public interface IUnitOfWork
-    {
+    void Register(IRepository repository);
 
-        void Register(IRepository repository);
-
-        Task CommitTransaction();
-    }
+    Task CommitTransaction();
 }

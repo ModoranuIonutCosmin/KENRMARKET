@@ -1,124 +1,167 @@
 ﻿using AutoMapper;
-using Gateway.API.Auth.Models.Carts;
 using Gateway.API.Interfaces;
-using Gateway.API.Models;
 using Gateway.Domain.Exceptions;
+using Gateway.Domain.Models.Carts;
 
-namespace Gateway.API.Services
+namespace Gateway.API.Services;
+
+public class CartAggregatesService : ICartAggregatesService
 {
-    public class CartAggregatesService : ICartAggregatesService
+    private readonly ICartService _cartService;
+    private readonly IMapper _mapper;
+    private readonly IProductsService _productsService;
+
+    public CartAggregatesService(IProductsService productsService,
+        ICartService cartService, IMapper mapper)
     {
-        private readonly IProductsService _productsService;
-        private readonly ICartService _cartService;
-        private readonly IMapper _mapper;
+        _productsService = productsService;
+        _cartService = cartService;
+        _mapper = mapper;
+    }
 
-        public CartAggregatesService(IProductsService productsService,
-            ICartService cartService, IMapper mapper)
+    public async Task<(bool IsSuccess, dynamic FullCartDetails)> GetFullCartDetails(Guid customerId)
+    {
+        var cartDetails = await _cartService.GetCartDetails(customerId);
+
+        if (cartDetails.IsOk)
         {
-            _productsService = productsService;
-            _cartService = cartService;
-            this._mapper = mapper;
+            dynamic result = new
+            {
+                CartDetails = _mapper.Map<CartDetails, CartDetailsDTO>(cartDetails.CartDetails)
+            };
+
+            return (true, result);
         }
 
-        public async Task<(bool IsSuccess, dynamic FullCartDetails)> GetFullCartDetails(Guid customerId)
-        {
-            var cartDetails = await _cartService.GetCartDetails(customerId);
-            var productsAvailable = await _productsService.GetProductsAsync();
+        return (false, null);
+    }
 
-            if (cartDetails.IsOk)
-            {
-                foreach (CartItem cartItem in cartDetails.CartDetails.CartItems)
-                {
-                    var product = productsAvailable.Products
-                        .FirstOrDefault(p => p.Id == cartItem.ProductId);
+    public async Task<(bool IsSuccess, dynamic CartDetails)> AddItemToCart(Guid customerId, CartItemDTO cartItemDto)
+    {
+        var productStatus = await _productsService.GetProductByIdAsync(cartItemDto.ProductId);
+        var cartStatus = await _cartService.GetCartDetails(customerId);
 
-                    cartItem.PictureUrl = product != null
-                        ? product.PhotoUrl
-                        : "dummy.png";
-                    cartItem.ProductName = product != null
-                        ? product.Name
-                        : "Product name is not available!";
-                    cartItem.UnitPrice = product != null
-                        ? product.Price
-                        : cartItem.UnitPrice;
-                }
+        var product = productStatus.Product;
+        var cart = cartStatus.CartDetails;
 
-                dynamic result = new
-                {
-                    CartDetails = cartDetails.CartDetails,
-                };
+        var errors = new List<dynamic>();
 
-                return (true, result);
-            }
-
+        if (!productStatus.IsOk || productStatus.Product == null ||
+            !cartStatus.IsOk || cartStatus.CartDetails == null)
             return (false, null);
+
+        var existentCartItem = cart.CartItems.SingleOrDefault(ci => ci.ProductId.Equals(cartItemDto.ProductId));
+
+        if (existentCartItem == null)
+        {
+            existentCartItem = _mapper.Map<CartItemDTO, CartItem>(cartItemDto);
+
+            cart.CartItems.Add(existentCartItem);
         }
 
-        public async Task<(bool IsSuccess, dynamic FullCartDetails)> ModifyCart(Guid customerId,
-            UpdateCartRequestDTO newCartContents)
+        existentCartItem.ProductName = product.Name;
+        existentCartItem.PictureUrl = product.PhotoUrl ?? "dummy.png";
+        ;
+        existentCartItem.AddedAt = product.AddedDate;
+        existentCartItem.Quantity = existentCartItem.Quantity + cartItemDto.Quantity;
+        existentCartItem.Id = Guid.Empty;
+
+        if (product.Quantity < existentCartItem.Quantity)
         {
-            var productsAvailable = await _productsService.GetProductsAsync();
-            var errors = new List<dynamic>();
+            existentCartItem.Quantity = product.Quantity;
 
-
-
-            List<CartItem> newCartItems = new List<CartItem>(newCartContents.CartItems);
-
-
-            foreach (var cartItem in newCartContents.CartItems)
+            errors.Add(new
             {
-                var matchingProduct =
-                    productsAvailable.Products.SingleOrDefault(p => p.Id.ToString() == cartItem.ProductId.ToString());
-
-                if (matchingProduct is null)
+                product,
+                exception = new InsufficientStockException("Insufficient stock"),
+                details = new
                 {
-                    newCartItems.Remove(cartItem);
-
-                    errors.Add(new
-                    {
-                        exception = new ProductDoesntExistException("Product doesn't exist"),
-                        details = new
-                        {
-                            conflictingProduct = cartItem
-                        }
-                    });
-
-                    continue;
+                    requestedQuantity = existentCartItem.Quantity + cartItemDto.Quantity,
+                    available = product.Quantity
                 }
-
-
-                if (matchingProduct.Quantity < cartItem.Quantity)
-                {
-                    errors.Add(new
-                    {
-                        product = matchingProduct,
-                        exception = new InsufficientStockException("Insufficient stock"),
-                        details = new
-                        {
-                            requestedQuantity = cartItem.Quantity,
-                            available = matchingProduct.Quantity
-                        }
-                    });
-
-                    cartItem.Quantity = matchingProduct.Quantity;
-                }
-            }
-
-            newCartContents.CartItems = newCartItems;
-
-            CartDetails newCart = _mapper.Map<UpdateCartRequestDTO, CartDetails>(newCartContents);
-
-            newCart.CustomerId = customerId;
-
-            var resultingContents = (await _cartService.UpdateCart(customerId, newCart)).CartDetails;
-
-            return (true, new
-            {
-                errorsOccured = errors.Any(),
-                cartDetails = resultingContents,
-                errors = errors
             });
         }
 
+        cartStatus = await _cartService.UpdateCart(customerId, cart);
+
+
+        return (cartStatus.IsOk, new
+        {
+            hasErrors = errors.Any(),
+            cartDetails = cartStatus.CartDetails,
+            errors
+        });
+    }
+
+    public async Task<(bool IsSuccess, dynamic FullCartDetails)> ModifyCart(Guid customerId,
+        UpdateCartRequestDTO newCartContents)
+    {
+        var productsAvailable = await _productsService.GetProductsAsync();
+        var errors = new List<dynamic>();
+
+        var newCartItems = new List<CartItemDTO>(newCartContents.CartItems);
+
+
+        foreach (var cartItem in newCartContents.CartItems)
+        {
+            var matchingProduct =
+                productsAvailable.Products.SingleOrDefault(p => p.Id.ToString() == cartItem.ProductId.ToString());
+
+            if (matchingProduct is null)
+            {
+                newCartItems.Remove(cartItem);
+
+                errors.Add(new
+                {
+                    exception = new ProductDoesntExistException("Product doesn't exist"),
+                    details = new
+                    {
+                        conflictingProduct = cartItem
+                    }
+                });
+
+                continue;
+            }
+
+
+            if (matchingProduct.Quantity < cartItem.Quantity)
+            {
+                errors.Add(new
+                {
+                    product = matchingProduct,
+                    exception = new InsufficientStockException("Insufficient stock"),
+                    details = new
+                    {
+                        requestedQuantity = cartItem.Quantity,
+                        available = matchingProduct.Quantity
+                    }
+                });
+
+                cartItem.Quantity = matchingProduct.Quantity;
+            }
+
+            cartItem.PictureUrl = matchingProduct.PhotoUrl ?? "dummy.png";
+            cartItem.UnitPrice = matchingProduct.Price;
+            cartItem.ProductName = matchingProduct.Name;
+        }
+
+        newCartContents.CartItems = newCartItems;
+
+        var newCart = _mapper.Map<UpdateCartRequestDTO, CartDetails>(newCartContents);
+
+        newCart.CustomerId = customerId;
+
+
+        //TODO: Studiat (si pictureUrl trebuie)
+        newCart.CartItems.ForEach(ci => ci.Id = Guid.Empty);
+
+        var resultingContents = (await _cartService.UpdateCart(customerId, newCart)).CartDetails;
+
+        return (true, new
+        {
+            errorsOccured = errors.Any(),
+            cartDetails = resultingContents,
+            errors
+        });
     }
 }

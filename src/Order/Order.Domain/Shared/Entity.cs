@@ -1,18 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Order.Domain.Shared
+namespace Order.Domain.Shared;
+
+public class Entity
 {
-    public class Entity
+    public Guid Id { get; set; }
+
+    [NotMapped] public List<IDomainEvent> DomainEvents { get; } = new();
+
+    protected void AddDomainEvent(IDomainEvent domainEvent)
     {
-        public Guid Id { get; set; }
-
-        [NotMapped] 
-        public List<IDomainEvent> DomainEvents { get; } = new();
-
-        protected void AddDomainEvent(IDomainEvent domainEvent)
-        {
-            DomainEvents.Add(domainEvent);
-        }
+        DomainEvents.Add(domainEvent);
     }
 }
-

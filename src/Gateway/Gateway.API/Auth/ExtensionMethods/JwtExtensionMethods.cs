@@ -20,7 +20,7 @@ public static class JwtExtensionMethods
             new Claim(ClaimsIdentity.DefaultNameClaimType, user.UserName),
 
             // Add user Id so that UserManager.GetUserAsync can find the user based on Id
-            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
         };
 
         var credentials = new SigningCredentials(

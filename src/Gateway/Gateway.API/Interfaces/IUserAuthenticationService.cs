@@ -1,4 +1,4 @@
-﻿using Gateway.API.Auth.Models.Auth;
+﻿using Gateway.Domain.Models.Auth;
 
 namespace Gateway.API.Interfaces;
 

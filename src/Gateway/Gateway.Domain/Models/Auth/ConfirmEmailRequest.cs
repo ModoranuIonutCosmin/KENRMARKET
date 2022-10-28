@@ -1,4 +1,4 @@
-﻿namespace Gateway.API.Auth.Models.Auth;
+﻿namespace Gateway.Domain.Models.Auth;
 
 public class ConfirmEmailRequest
 {

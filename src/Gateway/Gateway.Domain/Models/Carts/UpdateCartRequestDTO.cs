@@ -1,10 +1,7 @@
-﻿using Gateway.API.Models;
+﻿namespace Gateway.Domain.Models.Carts;
 
-namespace Gateway.API.Auth.Models.Carts
+public class UpdateCartRequestDTO
 {
-    public class UpdateCartRequestDTO
-    {
-        public List<CartItem> CartItems { get; set; }
-        public string Promocode { get; set; }
-    }
+    public List<CartItemDTO> CartItems { get; set; }
+    public string Promocode { get; set; }
 }

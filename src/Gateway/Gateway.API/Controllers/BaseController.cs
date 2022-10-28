@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace Gateway.API.Controllers;
 
@@ -7,6 +6,4 @@ namespace Gateway.API.Controllers;
 [ApiController]
 public class BaseController : ControllerBase
 {
-
-
 }

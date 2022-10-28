@@ -1,6 +1,4 @@
-﻿using Order.Domain.Entities;
-
-namespace Order.Infrastructure.Interfaces;
+﻿namespace Order.Infrastructure.Interfaces;
 
 public interface ICartDetailsFactory
 {

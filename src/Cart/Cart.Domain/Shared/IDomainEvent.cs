@@ -1,8 +1,7 @@
 ﻿using MediatR;
 
-namespace Cart.Domain.Shared
+namespace Cart.Domain.Shared;
+
+public interface IDomainEvent : INotification
 {
-    public interface IDomainEvent: INotification
-    {
-    }
 }

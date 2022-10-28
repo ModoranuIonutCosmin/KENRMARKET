@@ -2,75 +2,85 @@
 using Order.Domain.Models;
 using Order.Domain.Shared;
 
-namespace Order.Domain.Entities
+namespace Order.Domain.Entities;
+
+[Serializable]
+public class Order : Entity, IAggregateRoot
 {
-    [Serializable]
-    public class Order : Entity, IAggregateRoot
+    private List<OrderItem> _orderItems = new();
+    private Guid _buyerId;
+    private string _promocode;
+    private OrderStatus _orderStatus;
+    private DateTimeOffset _dateCreated;
+
+    protected Order()
     {
-        private Guid _buyerId;
-        public Guid BuyerId => _buyerId;
+    }
 
-        private List<OrderItem> _orderItems = new List<OrderItem>();
-        public IReadOnlyCollection<OrderItem> OrderItems => _orderItems;
-        private string _promocode;
-        public string Promocode => _promocode;
+    public Order(Guid buyerId, Address address)
+    {
+        _buyerId = buyerId;
+        Address = address;
 
-        public Address Address { get; set; } //TODO: Gasit cum se face Owned Entity sa fie Backed Field
-        public decimal Total => OrderItems.Sum(ci => ci.Quantity * ci.UnitPrice);
+        //TODO: Anuntat Payments ca se incepe order
+        _orderStatus = OrderStatus.InitialCreation;
+        _dateCreated = DateTimeOffset.UtcNow;
+    }
 
-        private DateTimeOffset _dateCreated;
-        public DateTimeOffset DateCreated => _dateCreated;
-
-        private OrderStatus _orderStatus;
-        public OrderStatus OrderStatus => _orderStatus;
-
-        protected Order()
+    public Guid BuyerId
+    {
+        get
         {
-
+            return _buyerId;
         }
+    }
 
-        public Order(Guid buyerId, Address address)
+    public IReadOnlyCollection<OrderItem> OrderItems => _orderItems;
+    public string Promocode
+    {
+        get { return _promocode; }
+    }
+
+    public Address Address { get; set; } //TODO: Gasit cum se face Owned Entity sa fie Backed Field
+    public decimal Total => OrderItems.Sum(ci => ci.Quantity * ci.UnitPrice);
+    public DateTimeOffset DateCreated
+    {
+        get { return _dateCreated; }
+    }
+
+    public OrderStatus OrderStatus
+    {
+        get { return _orderStatus; }
+    }
+
+    public void AddOrderItem(Guid productId, string productName, decimal quantity, decimal price, string pictureUrl)
+    {
+        if (_orderItems.Any(oi => oi.ProductId.Equals(productId)))
         {
-            this._buyerId = buyerId;
-            this.Address = address;
+            var orderItem = _orderItems.Single(oi => oi.ProductId.Equals(productId));
 
-            //TODO: Anuntat Payments ca se incepe order
-            _orderStatus = OrderStatus.InitialCreation;
-            _dateCreated = DateTimeOffset.UtcNow; 
+            orderItem.AddToQuantity(quantity);
         }
-
-        public void AddOrderItem(Guid productId, string productName, decimal quantity, decimal price, string pictureUrl)
+        else
         {
-
-            if (_orderItems.Any(oi => oi.ProductId.Equals(productId)))
+            _orderItems.Add(new OrderItem
             {
-                OrderItem orderItem = _orderItems.Single(oi => oi.ProductId.Equals(productId));
-
-                orderItem.AddToQuantity(quantity);
-            }
-            else
-            {
-                this._orderItems.Add(new OrderItem()
-                {
-                    ProductId = productId,
-                    ProductName = productName,
-                    Quantity = quantity,
-                    UnitPrice = price,
-                    PictureUrl = pictureUrl,
-                });
-            }
+                ProductId = productId,
+                ProductName = productName,
+                Quantity = quantity,
+                UnitPrice = price,
+                PictureUrl = pictureUrl
+            });
         }
+    }
 
-        public void SetOrderStatus(OrderStatus orderStatus)
-        {
-            _orderStatus = orderStatus;
-        }
+    public void SetOrderStatus(OrderStatus orderStatus)
+    {
+        _orderStatus = orderStatus;
+    }
 
-        public void SetPromocode(string promocode)
-        {
-            this._promocode = promocode;
-        }
-
+    public void SetPromocode(string promocode)
+    {
+        _promocode = promocode;
     }
 }
-
