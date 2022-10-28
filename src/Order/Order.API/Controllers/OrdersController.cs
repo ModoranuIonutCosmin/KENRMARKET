@@ -15,7 +15,7 @@ public class OrdersController : BaseController
         _mediator = mediator;
     }
 
-    [HttpPost("order")]
+    [HttpPost("createNewOrder")]
     public async Task<IActionResult> CreateNewOrder(CreateNewOrderCommand createNewOrderCommand)
     {
         return Ok(await _mediator.Send(createNewOrderCommand));
@@ -29,9 +29,27 @@ public class OrdersController : BaseController
 
         if (!orders.Any())
         {
-            return NotFound();
+            return NotFound(orders);
         }
         
         return Ok(orders);
+    }
+    
+    
+    [HttpGet("{orderId}")]
+    public async Task<IActionResult> GetOrder(
+        [FromRoute] Guid orderId)
+    {
+        var order = await _mediator.Send(new QueryOrderByIdCommand()
+        {
+            OrderId = orderId
+        });
+
+        if (order == null)
+        {
+            return NotFound(order);
+        }
+        
+        return Ok(order);
     }
 }

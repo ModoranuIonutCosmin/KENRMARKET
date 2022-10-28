@@ -1,5 +1,4 @@
 ﻿using Gateway.API.Models;
-using Order.Domain.DataModels;
 using Order.Domain.Entities;
 
 namespace Gateway.Domain.Models.Orders;

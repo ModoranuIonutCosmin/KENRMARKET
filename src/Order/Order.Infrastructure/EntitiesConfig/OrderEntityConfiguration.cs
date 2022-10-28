@@ -9,43 +9,63 @@ public class OrderEntityConfiguration : IEntityTypeConfiguration<Domain.Entities
 {
     public void Configure(EntityTypeBuilder<Domain.Entities.Order> orderConfiguration)
     {
+        orderConfiguration
+            .HasKey(o => o.Id);
+        
         //Private fields
 
+        // orderConfiguration
+        //     .Property<Guid>("_buyerId")
+        //     .UsePropertyAccessMode(PropertyAccessMode.Field)
+        //     .HasColumnName("BuyerId")
+        //     .IsRequired();
+        //
+        // orderConfiguration
+        //     .Property<string>("_promocode")
+        //     .UsePropertyAccessMode(PropertyAccessMode.Field)
+        //     .HasColumnName("Promocode")
+        //     .IsRequired(false);
+        //
+        // orderConfiguration
+        //     .Property<DateTimeOffset>("_dateCreated")
+        //     .UsePropertyAccessMode(PropertyAccessMode.Field)
+        //     .HasColumnName("DateCreated")
+        //     .IsRequired();
+        //
+        // orderConfiguration
+        //     .Property<OrderStatus>("_orderStatus")
+        //     .UsePropertyAccessMode(PropertyAccessMode.Field)
+        //     .HasColumnName("OrderStatus")
+        //     .IsRequired();
+        //
+        //
+        //
+        // orderConfiguration
+        //     .Property("_buyerId")
+        //     .HasMaxLength(256);
+        //
+        // orderConfiguration
+        //     .Property("_promocode")
+        //     .HasMaxLength(256);
+        
         orderConfiguration
-            .Property<Guid>("_buyerId")
-            .UsePropertyAccessMode(PropertyAccessMode.Field)
-            .HasColumnName("BuyerId")
+            .Property<Guid>(o => o.BuyerId)
             .IsRequired();
 
         orderConfiguration
-            .Property<string>("_promocode")
-            .UsePropertyAccessMode(PropertyAccessMode.Field)
-            .HasColumnName("Promocode")
+            .Property<string>(o => o.Promocode)
+            .HasMaxLength(256)
             .IsRequired(false);
 
         orderConfiguration
-            .Property<DateTimeOffset>("_dateCreated")
-            .UsePropertyAccessMode(PropertyAccessMode.Field)
-            .HasColumnName("DateCreated")
+            .Property<DateTimeOffset>(o => o.DateCreated)
             .IsRequired();
 
         orderConfiguration
-            .Property<OrderStatus>("_orderStatus")
-            .UsePropertyAccessMode(PropertyAccessMode.Field)
-            .HasColumnName("OrderStatus")
+            .Property<OrderStatus>(o => o.OrderStatus)
             .IsRequired();
 
-        orderConfiguration
-            .HasKey(o => o.Id);
-
-        orderConfiguration
-            .Property("_buyerId")
-            .HasMaxLength(256);
-
-        orderConfiguration
-            .Property("_promocode")
-            .HasMaxLength(256);
-
+ 
 
         orderConfiguration
             .HasMany(o => o.OrderItems)

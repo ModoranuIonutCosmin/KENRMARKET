@@ -12,10 +12,12 @@ namespace Gateway.API.Controllers;
 public class OrdersController : BaseController
 {
     private readonly IOrdersService _ordersService;
+    private readonly IOrdersAggregatesService _ordersAggregatesService;
 
-    public OrdersController(IOrdersService ordersService)
+    public OrdersController(IOrdersService ordersService, IOrdersAggregatesService ordersAggregatesService)
     {
         _ordersService = ordersService;
+        _ordersAggregatesService = ordersAggregatesService;
     }
 
     [HttpGet]
@@ -28,7 +30,25 @@ public class OrdersController : BaseController
 
         if (ordersStatus.isOk)
         {
-            return Ok(ordersStatus.orderDetails);
+            return Ok(ordersStatus.ordersDetails);
+        }
+
+        return NotFound();
+    }
+    
+    
+    [HttpGet]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    public async Task<IActionResult> GetPaymentLinkForCheckoutSession(Guid orderId)
+    {
+        var customerId = Guid.Parse(User.GetLoggedInUserId<string>());
+
+        var checkoutSessionStatus 
+            = await _ordersAggregatesService.GetCheckoutSessionForOrder(customerId, orderId);
+
+        if (checkoutSessionStatus.IsSuccess)
+        {
+            return Ok(checkoutSessionStatus.CheckoutSession);
         }
 
         return NotFound();

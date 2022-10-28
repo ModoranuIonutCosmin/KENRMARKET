@@ -37,6 +37,19 @@ public class ProductsRepository : IProductsRepository
         return products;
     }
 
+    public async Task<List<Product>> GetAllProductsWithIdsInList(List<Guid> productIds)
+    {
+        //TODO: Test
+        var productsCollection = dbContext.Products;
+        
+        var filter = Builders<Product>.Filter
+            .In(p => p.Id, productIds);
+
+        return await productsCollection
+            .Find(filter)
+            .ToListAsync();
+    }
+
     public async Task<List<Product>> FilterProducts(FilterOptions filterOptions)
     {
         var builder = Builders<Product>.Filter;

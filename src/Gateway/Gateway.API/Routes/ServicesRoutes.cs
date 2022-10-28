@@ -19,4 +19,16 @@ public static class ServicesRoutes
         public static string ModifyCartPut => "api/1.0/Carts/ModifyCart";
         public static string AddItemToCartPost => "api/1.0/Carts/AddItemToCart";
     }
+    
+    public static class Orders
+    {
+        public static string UsersOrders => "api/1.0/Orders/orders";
+        public static string SpecificOrder(Guid id) => $"api/1.0/Orders/{id}";
+        public static string CreateNewOrder => "api/1.0/Orders/createNewOrder";
+    }
+
+    public static class Payments
+    {
+        public static string CreateCheckoutSession => "api/1.0/Payments/createCheckoutSession";
+    }
 }

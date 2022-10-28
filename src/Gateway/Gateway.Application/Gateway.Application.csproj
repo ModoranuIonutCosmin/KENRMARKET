@@ -7,16 +7,17 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="AutoMapper" Version="11.0.1"/>
-        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0"/>
+        <PackageReference Include="AutoMapper" Version="11.0.1" />
+        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Gateway.Domain\Gateway.Domain.csproj"/>
+        <ProjectReference Include="..\Gateway.Domain\Gateway.Domain.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Interfaces\"/>
+        <Folder Include="Interfaces\" />
+        <Folder Include="Services" />
     </ItemGroup>
 
 </Project>

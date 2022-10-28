@@ -1,4 +1,5 @@
-﻿using Products.Application.Interfaces;
+﻿using IntegrationEvents.Models;
+using Products.Application.Interfaces;
 using Products.Application.Interfaces.Services;
 using Products.Domain.Entities;
 using Products.Domain.Models;
@@ -34,6 +35,31 @@ public class ProductsService : IProductsService
         if (rootCategory == null) return new List<Product>();
 
         return await _productsRepository.FilterProducts(filterOptions);
+    }
+
+    public async Task<bool> AreProductsOnStock(List<ProductQuantity> productQuantities)
+    {
+        
+        var requiredProductsIds = productQuantities
+            .Select(p => p.ProductId).ToList();
+
+        var requiredProducts = await _productsRepository
+            .GetAllProductsWithIdsInList(requiredProductsIds);
+
+        return requiredProducts
+            .Join(productQuantities, rp => rp.Id, pq => pq.ProductId,
+                (ap, rp) =>
+                {
+                    return new
+                    {
+                        availableProduct = ap,
+                        requiredProduct = rp
+                    };
+                })
+            .All((c) =>
+            {
+                return c.requiredProduct.Quantity <= c.availableProduct.Quantity;
+            });
     }
 
 

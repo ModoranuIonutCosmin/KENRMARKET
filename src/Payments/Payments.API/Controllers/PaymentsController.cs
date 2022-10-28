@@ -11,13 +11,10 @@ public class PaymentsController : BaseController
 {
     private readonly FrontEndInfo _frontEndInfo;
     private readonly IPaymentsGatewayService _paymentsGatewayService;
-    private readonly StripeSettings _stripeSettings;
 
     public PaymentsController(IPaymentsGatewayService paymentsGatewayService,
-        IOptions<StripeSettings> stripeOptions,
         IOptions<FrontEndInfo> frontEndInfo)
     {
-        _stripeSettings = stripeOptions.Value;
         _frontEndInfo = frontEndInfo.Value;
         _paymentsGatewayService = paymentsGatewayService;
     }

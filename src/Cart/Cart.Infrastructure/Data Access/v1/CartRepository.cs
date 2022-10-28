@@ -82,6 +82,22 @@ public class CartRepository : ICartRepository
         await _cartsDbContext.SaveChangesAsync();
     }
 
+    public async Task<CartDetails> DeleteCartContents(Guid customerId)
+    {
+        var cart = await GetCartDetails(customerId);
+
+        if (cart != null)
+        {
+            cart.CartItems = new List<CartItem>();
+        }
+
+        cart.Promocode = "";
+
+        await _cartsDbContext.SaveChangesAsync();
+
+        return cart;
+    }
+
     public async Task<CartDetails> ModifyCart(Guid customerId, CartDetails newCartDetails)
     {
         var shoppingCart = await _cartsDbContext.Carts

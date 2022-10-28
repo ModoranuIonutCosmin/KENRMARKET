@@ -3,7 +3,9 @@
 public enum OrderStatus
 {
     InitialCreation,
-    Submitted,
+    PendingValidation,
+    StocksValidationAccepted,
+    StocksValidationRejected,
     Paid,
-    Shipped
+    Shipped,
 }

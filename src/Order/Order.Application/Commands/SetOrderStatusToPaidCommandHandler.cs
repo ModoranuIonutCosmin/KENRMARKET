@@ -26,7 +26,9 @@ public class SetOrderStatusToPaidCommandHandler : IRequestHandler<SetOrderStatus
 
         if (order == null)
             throw new OrderDoesntExistException("Order id doesn't identify any order existent in our system.");
-
+        
+        
+        //TODO: Beautify
         await _orderRepository.SetOrderStatus(request.OrderId, OrderStatus.Paid);
 
         await _unitOfWork.CommitTransaction();

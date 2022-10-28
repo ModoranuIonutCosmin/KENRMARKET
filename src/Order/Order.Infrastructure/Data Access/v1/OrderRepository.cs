@@ -24,8 +24,9 @@ public class OrderRepository : Repository<Domain.Entities.Order, Guid>, IOrderRe
 
     public async Task<List<Domain.Entities.Order>> GetOrdersForUser(Guid customerId)
     {
-       return await _ordersDbContext.Orders
-               .Where(o => o.BuyerId.Equals(customerId))
+        return await _ordersDbContext.Orders
+            .Where(o => o.BuyerId.Equals(customerId))
+            .Include(o => o.OrderItems)
             .OrderByDescending(o => o.DateCreated)
             .ToListAsync();
     }

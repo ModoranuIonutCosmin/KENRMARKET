@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Order.Domain.Shared;
 
@@ -6,7 +7,9 @@ public class Entity
 {
     public Guid Id { get; set; }
 
-    [NotMapped] public List<IDomainEvent> DomainEvents { get; } = new();
+    [NotMapped]
+    [JsonIgnore]
+    public List<IDomainEvent> DomainEvents { get; } = new();
 
     protected void AddDomainEvent(IDomainEvent domainEvent)
     {

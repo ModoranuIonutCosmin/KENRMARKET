@@ -1,9 +1,11 @@
-﻿namespace Order.Domain.DataModels;
+﻿namespace Gateway.Domain.Models.Orders;
 
 public enum OrderStatus
 {
     InitialCreation,
-    Submitted,
+    PendingValidation,
+    StocksValidationAccepted,
+    StocksValidationRejected,
     Paid,
-    Shipped
+    Shipped,
 }

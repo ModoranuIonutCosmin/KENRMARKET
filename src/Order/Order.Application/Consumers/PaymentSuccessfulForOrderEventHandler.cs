@@ -6,7 +6,7 @@ using Order.Application.Commands;
 
 namespace Order.Application.Consumers;
 
-public class PaymentSuccessfulForOrderEventHandler : IntegrationEventHandler<PaymentSuccessfulForOrderEvent>
+public class PaymentSuccessfulForOrderEventHandler : IntegrationEventHandler<OrderPaymentSuccessfulForEvent>
 {
     private readonly ILogger<PaymentSuccessfulForOrderEventHandler> _logger;
     private readonly IMediator _mediator;
@@ -18,7 +18,7 @@ public class PaymentSuccessfulForOrderEventHandler : IntegrationEventHandler<Pay
         _mediator = mediator;
     }
 
-    public override async Task Handle(PaymentSuccessfulForOrderEvent @event)
+    public override async Task Handle(OrderPaymentSuccessfulForEvent @event)
     {
         await _mediator.Send(new SetOrderStatusToPaidCommand
         {

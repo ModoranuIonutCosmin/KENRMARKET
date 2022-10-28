@@ -2,6 +2,7 @@
 using MediatR;
 using Order.Application.DTOs;
 using Order.Application.Interfaces;
+using Order.Domain.DataModels;
 
 namespace Order.Application.Commands;
 
@@ -23,10 +24,11 @@ public class CreateNewOrderCommandHandler : IRequestHandler<CreateNewOrderComman
         var newOrder = new Domain.Entities.Order(request.BuyerId, request.Address);
 
         //TODO: Throttle la numarul de ordere concurente.
-
         request.CartItems
             .ForEach(ci => newOrder.AddOrderItem(ci.Id, ci.ProductName, ci.Quantity,
                 ci.UnitPrice, ci.PictureUrl));
+        
+        newOrder.SetOrderStatus(OrderStatus.PendingValidation);
 
         await _orderRepository.AddNewOrder(newOrder);
 

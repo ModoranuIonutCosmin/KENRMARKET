@@ -1,20 +1,28 @@
 ﻿using AutoMapper;
 using Cart.Application.Interfaces;
 using Cart.Application.Interfaces.Services;
-using Cart.Domain.Entities;
+using Cart.Domain.Exceptions;
 using Cart.Domain.Models;
+using IntegrationEvents.Contracts;
+using IntegrationEvents.Models;
+using MassTransit;
+using CartDetails = Cart.Domain.Entities.CartDetails;
+using CartItem = Cart.Domain.Entities.CartItem;
 
 namespace Cart.Application.Features;
 
 public class CartService : ICartService
 {
     private readonly ICartRepository _cartRepository;
+    private readonly IPublishEndpoint _publishEndpoint;
     private readonly IMapper _mapper;
 
     public CartService(ICartRepository cartRepository,
+        IPublishEndpoint publishEndpoint,
         IMapper mapper)
     {
         _cartRepository = cartRepository;
+        _publishEndpoint = publishEndpoint;
         _mapper = mapper;
     }
 
@@ -55,5 +63,29 @@ public class CartService : ICartService
     public async Task<CartDetails> ModifyCart(Guid customerId, CartDetails newCartDetails)
     {
         return await _cartRepository.ModifyCart(customerId, newCartDetails);
+    }
+
+    public async Task<CartDetails> Checkout(Guid customerId, Address address)
+    {
+
+        var cartDetails = await _cartRepository.GetCartDetails(customerId);
+
+        if (!cartDetails.CartItems.Any())
+        {
+            throw new CheckoutFailedCartEmptyException("Cart is empty, can't checkout!");
+        }
+
+        await _publishEndpoint
+            .Publish(new CheckoutAcceptedIntegrationEvent(customerId,
+                _mapper.Map<List<IntegrationEvents.Models.CartItem>>(cartDetails.CartItems),
+                address
+                ));
+        
+        return cartDetails;
+    }
+    
+    public async Task<CartDetails> DeleteCartContents(Guid customerId)
+    {
+        return await _cartRepository.DeleteCartContents(customerId);
     }
 }

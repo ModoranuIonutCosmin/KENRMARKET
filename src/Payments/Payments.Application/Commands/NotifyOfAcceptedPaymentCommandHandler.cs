@@ -1,4 +1,5 @@
 ﻿using IntegrationEvents.Contracts;
+using IntegrationEvents.Models;
 using MassTransit;
 using MediatR;
 using Payments.Application.Interfaces;
@@ -37,8 +38,8 @@ public class NotifyOfAcceptedPaymentCommandHandler : IRequestHandler<NotifyOfAcc
 
         await _paymentsRepository.AddPaymentAsync(payment);
 
-        await _publishEndpoint.Publish(new PaymentSuccessfulForOrderEvent(payment.PaymentAmount,
-            payment.OrderId, payment.PaymentDate, payment.PayerId), cancellationToken);
+        await _publishEndpoint.Publish(new OrderPaymentSuccessfulForEvent(payment.PaymentAmount,
+            payment.OrderId, payment.PaymentDate, payment.PayerId, OrderStatus.Paid), cancellationToken);
 
         await _unitOfWork.CommitTransaction();
 

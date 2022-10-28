@@ -7,5 +7,7 @@ public interface IProductsRepository
 {
     Task<Product> GetProduct(Guid id);
     Task<List<Product>> GetAllProducts();
+
+    Task<List<Product>> GetAllProductsWithIdsInList(List<Guid> productIds);
     Task<List<Product>> FilterProducts(FilterOptions filterOptions);
 }

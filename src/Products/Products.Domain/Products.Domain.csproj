@@ -7,12 +7,16 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Folder Include="Entities\"/>
-        <Folder Include="Models\"/>
+        <Folder Include="Entities\" />
+        <Folder Include="Models\" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="MediatR.Contracts" Version="1.0.1"/>
+        <PackageReference Include="MediatR.Contracts" Version="1.0.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\..\IntegrationEvents\IntegrationEvents.csproj" />
     </ItemGroup>
 
 </Project>

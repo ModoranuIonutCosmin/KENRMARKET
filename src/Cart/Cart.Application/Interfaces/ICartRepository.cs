@@ -10,4 +10,5 @@ public interface ICartRepository
     Task<CartDetails> SetCartPromocode(Guid customerId, string promocode);
     Task<CartDetails> ModifyCart(Guid customerId, CartDetails newCartDetails);
     Task UpdateCartItem(Guid cartId, CartItem newCartItem);
+    Task<CartDetails> DeleteCartContents(Guid customerId);
 }

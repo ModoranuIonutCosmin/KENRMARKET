@@ -1,7 +1,8 @@
-﻿using Cart.Application.Interfaces.Services;
+﻿using Cart.API.DTOs;
+using Cart.Application.Interfaces.Services;
 using Cart.Domain.Entities;
-using Cart.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
+using CartItemDTO = Cart.Domain.Models.CartItemDTO;
 
 namespace Cart.API.Controllers;
 
@@ -16,7 +17,8 @@ public class CartsController : BaseController
     }
 
     [HttpPut("ModifyCart")]
-    public async Task<IActionResult> ModifyCart([FromQuery] Guid customerId, [FromBody] CartDetails newCartDetails)
+    public async Task<IActionResult> ModifyCart([FromQuery] Guid customerId,
+        [FromBody] CartDetails newCartDetails)
     {
         //TODO: 
 
@@ -38,5 +40,17 @@ public class CartsController : BaseController
     public async Task<IActionResult> GetCartContents(Guid customerId)
     {
         return Ok(await _cartService.GetCartDetails(customerId));
+    }
+
+    [HttpPost("Checkout")]
+    public async Task<IActionResult> CheckoutCart([FromBody] CheckoutRequestDTO checkoutRequest)
+    {
+        return Created("", await _cartService.Checkout(checkoutRequest.CustomerId, checkoutRequest.Address));
+    }
+    
+    [HttpDelete("DeleteCart")]
+    public async Task<IActionResult> DeleteCartContents(Guid customerId)
+    {
+        return Ok(await _cartService.DeleteCartContents(customerId));
     }
 }
