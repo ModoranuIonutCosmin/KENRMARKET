@@ -1,10 +1,13 @@
 ﻿using Products.Domain.Entities;
+using Products.Domain.Models;
 
-namespace Products.Application.Interfaces
+namespace Products.Application.Interfaces;
+
+public interface IProductsRepository
 {
-    public interface IProductsRepository
-    {
-        Task<List<Product>> GetAllProducts();
-    }
-}
+    Task<Product> GetProduct(Guid id);
+    Task<List<Product>> GetAllProducts();
 
+    Task<List<Product>> GetAllProductsWithIdsInList(List<Guid> productIds);
+    Task<List<Product>> FilterProducts(FilterOptions filterOptions);
+}

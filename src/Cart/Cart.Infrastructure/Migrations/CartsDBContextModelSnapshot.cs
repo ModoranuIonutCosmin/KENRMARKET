@@ -24,18 +24,22 @@ namespace Cart.Infrastructure.Migrations
 
             modelBuilder.Entity("Cart.Domain.Entities.CartDetails", b =>
                 {
-                    b.Property<string>("CustomerId")
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CustomerId")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Promocode")
                         .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.HasKey("CustomerId");
+                    b.HasKey("Id");
 
-                    b.HasIndex("CustomerId");
+                    b.HasAlternateKey("CustomerId");
 
                     b.ToTable("Carts");
                 });
@@ -49,20 +53,17 @@ namespace Cart.Infrastructure.Migrations
                     b.Property<DateTimeOffset>("AddedAt")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<string>("CartCustomerId")
-                        .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                    b.Property<Guid?>("CartDetailsId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("PictureUrl")
                         .IsRequired()
                         .HasMaxLength(2048)
                         .HasColumnType("nvarchar(2048)");
 
-                    b.Property<string>("ProductId")
-                        .IsRequired()
+                    b.Property<Guid>("ProductId")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ProductName")
                         .IsRequired()
@@ -77,23 +78,16 @@ namespace Cart.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CartCustomerId");
-
-                    b.HasIndex("ProductId")
-                        .IsUnique();
+                    b.HasIndex("CartDetailsId");
 
                     b.ToTable("CartItems");
                 });
 
             modelBuilder.Entity("Cart.Domain.Entities.CartItem", b =>
                 {
-                    b.HasOne("Cart.Domain.Entities.CartDetails", "CartDetails")
+                    b.HasOne("Cart.Domain.Entities.CartDetails", null)
                         .WithMany("CartItems")
-                        .HasForeignKey("CartCustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CartDetails");
+                        .HasForeignKey("CartDetailsId");
                 });
 
             modelBuilder.Entity("Cart.Domain.Entities.CartDetails", b =>

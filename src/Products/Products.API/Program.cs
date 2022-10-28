@@ -6,7 +6,6 @@ using Products.Infrastructure.Data_Access;
 using Products.Infrastructure.Data_Access.Config;
 using Products.Infrastructure.Data_Access.v1;
 using Products.Infrastructure.Interfaces;
-using Products.Infrastructure.Mappings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,11 +18,12 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<DbContext>();
 builder.Services.AddSingleton<IMongoDBSettings, MongoDBSettings>(
-    (_) =>  builder.Configuration
-            .GetSection("ConnectionStrings:Mongo")
-            .Get<MongoDBSettings>());
+    _ => builder.Configuration
+        .GetSection("ConnectionStrings:Mongo")
+        .Get<MongoDBSettings>());
 
 builder.Services.AddTransient<IProductsRepository, ProductsRepository>();
+builder.Services.AddTransient<ICategoriesRepository, CategoriesRepository>();
 builder.Services.AddScoped<IProductsService, ProductsService>();
 
 
@@ -57,7 +57,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
 
 
 app.MapControllers();

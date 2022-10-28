@@ -19,11 +19,8 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddDbContext<CartsDBContext>(opts =>
 {
-    opts.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"), 
-        opt =>
-    {
-        opt.MigrationsAssembly(typeof(CartsDBContext).Assembly.FullName);
-    });
+    opts.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"),
+        opt => { opt.MigrationsAssembly(typeof(CartsDBContext).Assembly.FullName); });
 });
 
 builder.Services.AddTransient<ICartRepository, CartRepository>();
@@ -60,7 +57,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
 
 
 app.MapControllers();

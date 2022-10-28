@@ -6,10 +6,9 @@ public class CustomersFactory : ICustomersFactory
 {
     public List<Customer> CreateCustomers()
     {
-
-        return new List<Customer>()
+        return new List<Customer>
         {
-            new Customer()
+            new()
             {
                 Id = new Guid("08c4c998-6641-4408-9310-08c1dca3df26"),
                 FirstName = "Pearlie",
@@ -18,7 +17,7 @@ public class CustomersFactory : ICustomersFactory
                 PhoneNumber = "5166783555",
                 Email = "AAAAA10110101@gmail.com",
                 BirthDate = DateTimeOffset.UtcNow,
-                Address = new Address()
+                Address = new Address
                 {
                     State = "North Dakota",
                     Apartment = "K9",
@@ -26,10 +25,10 @@ public class CustomersFactory : ICustomersFactory
                     County = "",
                     PostalCode = "11570",
                     AddressLine1 = "234 Sunrise Hwy",
-                    AddressLine2 = "234 Sunrise Hwy",
+                    AddressLine2 = "234 Sunrise Hwy"
                 }
             },
-            new Customer()
+            new()
             {
                 Id = new Guid("acbcb196-0d48-4865-9417-eddb9c1b5ce0"),
                 FirstName = "Gretchen",
@@ -38,7 +37,7 @@ public class CustomersFactory : ICustomersFactory
                 PhoneNumber = "7607467866",
                 Email = "GibsonKREATION101@gmail.com",
                 BirthDate = DateTimeOffset.UtcNow,
-                Address = new Address()
+                Address = new Address
                 {
                     State = "California",
                     Apartment = "K6",
@@ -46,10 +45,9 @@ public class CustomersFactory : ICustomersFactory
                     County = "",
                     PostalCode = "92029",
                     AddressLine1 = "2030 Auto Park Way",
-                    AddressLine2 = "2030 Auto Park Way",
+                    AddressLine2 = "2030 Auto Park Way"
                 }
-            },
-
+            }
         };
     }
 }

@@ -1,32 +1,56 @@
-﻿using Cart.Application.Interfaces.Services;
+﻿using Cart.API.DTOs;
+using Cart.Application.Interfaces.Services;
 using Cart.Domain.Entities;
-using Cart.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
+using CartItemDTO = Cart.Domain.Models.CartItemDTO;
 
-namespace Cart.API.Controllers
+namespace Cart.API.Controllers;
+
+[ApiVersion("1.0")]
+public class CartsController : BaseController
 {
-    [ApiVersion("1.0")]
-    public class CartsController : BaseController 
+    private readonly ICartService _cartService;
+
+    public CartsController(ICartService cartService)
     {
-        private readonly ICartService _cartService;
+        _cartService = cartService;
+    }
 
-        public CartsController(ICartService cartService)
-        {
-            this._cartService = cartService;
-        }
+    [HttpPut("ModifyCart")]
+    public async Task<IActionResult> ModifyCart([FromQuery] Guid customerId,
+        [FromBody] CartDetails newCartDetails)
+    {
+        //TODO: 
 
-        [HttpPost]
-        public async Task<IActionResult> AddItemToCart([FromBody] CartItemViewModel cartItem, string customerId)
-        {
-            var result = await _cartService.AddCartItem(customerId, cartItem);
+        var result = await _cartService.ModifyCart(customerId, newCartDetails);
 
-            return Created("", result);
-        }
+        return Ok(result);
+    }
 
-        [HttpGet("Cart")]
-        public async Task<IActionResult> GetCartContents(string customerId)
-        {
-            return Ok(await _cartService.GetCartDetails(customerId));
-        }
+    [HttpPost("AddItemToCart")]
+    public async Task<IActionResult> AddItemToCart([FromBody] CartItemDTO cartItem, Guid customerId)
+    {
+        var result = await _cartService.AddCartItem(customerId, cartItem);
+
+        return Created("", result);
+    }
+
+
+    [HttpGet("Cart")]
+    public async Task<IActionResult> GetCartContents(Guid customerId)
+    {
+        return Ok(await _cartService.GetCartDetails(customerId));
+    }
+
+    [HttpPost("Checkout")]
+    public async Task<IActionResult> CheckoutCart([FromBody] CheckoutRequestDTO checkoutRequest)
+    {
+        return Created("", await _cartService.Checkout(checkoutRequest.CustomerId, checkoutRequest.Address));
+    }
+    
+    [HttpDelete("DeleteCart")]
+    public async Task<IActionResult> DeleteCartContents(Guid customerId)
+    {
+        return Ok(await _cartService.DeleteCartContents(customerId));
     }
 }

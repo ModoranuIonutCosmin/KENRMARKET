@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "Products.API": {
+    "Cart.API": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger",
