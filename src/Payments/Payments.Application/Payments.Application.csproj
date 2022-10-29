@@ -7,20 +7,20 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="AutoMapper" Version="11.0.1"/>
-        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0"/>
-        <PackageReference Include="MassTransit.Abstractions" Version="8.0.7"/>
-        <PackageReference Include="MediatR" Version="11.0.0"/>
-        <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0"/>
-        <PackageReference Include="Stripe.net" Version="40.12.0"/>
+        <PackageReference Include="AutoMapper" Version="12.0.0" />
+        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
+        <PackageReference Include="MassTransit.Abstractions" Version="8.0.8-develop.621" />
+        <PackageReference Include="MediatR" Version="11.0.0" />
+        <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+        <PackageReference Include="Stripe.net" Version="40.15.0-beta.1" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Payments.Domain\Payments.Domain.csproj"/>
+        <ProjectReference Include="..\Payments.Domain\Payments.Domain.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Querries\"/>
+        <Folder Include="Querries\" />
     </ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-﻿namespace Order.Domain.Entities;
+﻿namespace Gateway.Domain.Models.Orders;
 
 [Serializable]
 public class OrderItem

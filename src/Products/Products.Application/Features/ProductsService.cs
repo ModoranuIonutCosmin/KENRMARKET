@@ -1,4 +1,5 @@
 ﻿using IntegrationEvents.Models;
+using MongoDB.Driver;
 using Products.Application.Interfaces;
 using Products.Application.Interfaces.Services;
 using Products.Domain.Entities;
@@ -35,6 +36,13 @@ public class ProductsService : IProductsService
         if (rootCategory == null) return new List<Product>();
 
         return await _productsRepository.FilterProducts(filterOptions);
+    }
+
+    public async Task<Product> DeductStocksForProduct(Guid productId, decimal deduction)
+    {
+        //TODO: De schimbat din optimistic conc????
+
+        return await _productsRepository.DeductProductStock(productId, deduction);
     }
 
     public async Task<bool> AreProductsOnStock(List<ProductQuantity> productQuantities)

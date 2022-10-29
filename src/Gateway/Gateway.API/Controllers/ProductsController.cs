@@ -14,7 +14,7 @@ public class ProductsController : BaseController
         _productsService = productsService;
     }
 
-    [HttpGet]
+    [HttpGet("products")]
     public async Task<IActionResult> Products()
     {
         var productsStatus = await _productsService.GetProductsAsync();
@@ -24,7 +24,7 @@ public class ProductsController : BaseController
         return NotFound();
     }
 
-    [HttpPut("{productId}")]
+    [HttpGet("{productId}")]
     public async Task<IActionResult> ProductById([FromRoute] Guid productId)
     {
         var productStatus = await _productsService.GetProductByIdAsync(productId);

@@ -1,4 +1,5 @@
 using System.Text;
+using IntegrationEvents.Contracts;
 using MassTransit;
 using Microsoft.IdentityModel.Tokens;
 using Order.SignalR.Hubs;
@@ -44,7 +45,7 @@ builder.Services.AddMassTransit(x =>
 {
     x.SetKebabCaseEndpointNameFormatter();
 
-    var entryAssemblies = AppDomain.CurrentDomain.GetAssemblies();
+    var entryAssemblies = typeof(OrderStatusChangedToPaidIntegrationEvent).Assembly;
 
     x.AddConsumers(entryAssemblies);
 
@@ -78,7 +79,6 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 
-app.MapControllers();
 app.MapHub<OrdersHub>("/ordersHub");
 
 app.Run();

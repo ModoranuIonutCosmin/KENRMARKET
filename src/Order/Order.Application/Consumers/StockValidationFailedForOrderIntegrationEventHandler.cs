@@ -5,21 +5,21 @@ using Order.Application.Interfaces;
 using Order.Application.Querries;
 using Order.Domain.DataModels;
 
-namespace Order.Application.DomainEventsHandlers;
+namespace Order.Application.Consumers;
 
-public class StockValidatedForOrderIntegrationEventHandler : IntegrationEventHandler<StockValidatedForOrderIntegrationEvent>
+public class StockValidationFailedForOrderIntegrationEventHandler : IntegrationEventHandler<StockValidationFailedForOrderIntegrationEvent>
 {
     private readonly IMediator _mediator;
     private readonly IUnitOfWork _unitOfWork;
 
-    public StockValidatedForOrderIntegrationEventHandler(IMediator mediator,
+    public StockValidationFailedForOrderIntegrationEventHandler(IMediator mediator,
         IUnitOfWork unitOfWork)
     {
         _mediator = mediator;
         _unitOfWork = unitOfWork;
     }
 
-    public override async Task Handle(StockValidatedForOrderIntegrationEvent @event)
+    public override async Task Handle(StockValidationFailedForOrderIntegrationEvent @event)
     {
         QueryOrderByIdCommand queryOrderByIdCommand = new QueryOrderByIdCommand()
         {

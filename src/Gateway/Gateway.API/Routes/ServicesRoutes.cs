@@ -18,6 +18,7 @@ public static class ServicesRoutes
         public static string CartDetails => "api/1.0/Carts/cart";
         public static string ModifyCartPut => "api/1.0/Carts/ModifyCart";
         public static string AddItemToCartPost => "api/1.0/Carts/AddItemToCart";
+        public static string Checkout => "api/1.0/Carts/Checkout";
     }
     
     public static class Orders

@@ -3,6 +3,7 @@ using IntegrationEvents.Contracts;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Order.Application.Commands;
+using Order.Domain.DataModels;
 
 namespace Order.Application.Consumers;
 
@@ -20,9 +21,10 @@ public class PaymentSuccessfulForOrderEventHandler : IntegrationEventHandler<Ord
 
     public override async Task Handle(OrderPaymentSuccessfulForEvent @event)
     {
-        await _mediator.Send(new SetOrderStatusToPaidCommand
+        await _mediator.Send(new SetOrderStatusCommand
         {
-            OrderId = @event.OrderId
+            OrderId = @event.OrderId,
+            OrderStatus = OrderStatus.Paid
         });
 
         _logger.LogInformation($"Message received, order {@event.OrderId} is now set as paid");

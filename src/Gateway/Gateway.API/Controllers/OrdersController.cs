@@ -20,7 +20,7 @@ public class OrdersController : BaseController
         _ordersAggregatesService = ordersAggregatesService;
     }
 
-    [HttpGet]
+    [HttpGet("orders")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> Orders()
     {
@@ -37,7 +37,7 @@ public class OrdersController : BaseController
     }
     
     
-    [HttpGet]
+    [HttpGet("checkoutSession")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> GetPaymentLinkForCheckoutSession(Guid orderId)
     {

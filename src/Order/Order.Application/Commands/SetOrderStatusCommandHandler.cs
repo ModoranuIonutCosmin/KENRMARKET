@@ -7,20 +7,20 @@ using Order.Domain.Exceptions;
 
 namespace Order.Application.Commands;
 
-public class SetOrderStatusToPaidCommandHandler : IRequestHandler<SetOrderStatusToPaidCommand, OrderDTO>
+public class SetOrderStatusCommandHandler : IRequestHandler<SetOrderStatusCommand, OrderDTO>
 {
     private readonly IMapper _mapper;
     private readonly IOrderRepository _orderRepository;
     private readonly IUnitOfWork _unitOfWork;
 
-    public SetOrderStatusToPaidCommandHandler(IOrderRepository orderRepository, IMapper mapper, IUnitOfWork unitOfWork)
+    public SetOrderStatusCommandHandler(IOrderRepository orderRepository, IMapper mapper, IUnitOfWork unitOfWork)
     {
         _orderRepository = orderRepository;
         _mapper = mapper;
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<OrderDTO> Handle(SetOrderStatusToPaidCommand request, CancellationToken cancellationToken)
+    public async Task<OrderDTO> Handle(SetOrderStatusCommand request, CancellationToken cancellationToken)
     {
         var order = await _orderRepository.GetById(request.OrderId);
 
@@ -29,7 +29,7 @@ public class SetOrderStatusToPaidCommandHandler : IRequestHandler<SetOrderStatus
         
         
         //TODO: Beautify
-        await _orderRepository.SetOrderStatus(request.OrderId, OrderStatus.Paid);
+        await _orderRepository.SetOrderStatus(request.OrderId, request.OrderStatus);
 
         await _unitOfWork.CommitTransaction();
 

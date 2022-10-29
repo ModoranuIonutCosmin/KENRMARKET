@@ -8,10 +8,10 @@ public class OrderStartedDomainEvent : IDomainEvent
     {
         Order = order;
 
-        Id = Guid.NewGuid();
+        CustomerId = Guid.NewGuid();
     }
 
-    public Guid Id { get; set; }
+    public Guid CustomerId { get; set; }
     
     public Entities.Order Order { get; set; }
 }

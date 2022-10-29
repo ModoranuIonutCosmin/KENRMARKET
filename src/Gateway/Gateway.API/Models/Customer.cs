@@ -1,4 +1,6 @@
-﻿namespace Gateway.API.Models;
+﻿using Gateway.Domain.Models.Orders;
+
+namespace Gateway.API.Models;
 
 public class Customer
 {

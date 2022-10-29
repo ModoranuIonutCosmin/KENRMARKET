@@ -1,17 +1,24 @@
 ﻿using Cart.Application.Interfaces;
 using Cart.Domain.Entities;
+using Cart.Infrastructure.Data_Access.Base;
 using Cart.Infrastructure.Seed;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace Cart.Infrastructure.Data_Access.v1;
 
-public class CartRepository : ICartRepository
+public class CartRepository : Repository<CartDetails, Guid>, ICartRepository
 {
     private readonly CartsDBContext _cartsDbContext;
+    private readonly ILogger<CartRepository> _logger;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public CartRepository(CartsDBContext cartsDbContext)
+    public CartRepository(CartsDBContext cartsDbContext, ILogger<CartRepository> logger,
+        IUnitOfWork unitOfWork) : base(cartsDbContext, logger, unitOfWork)
     {
         _cartsDbContext = cartsDbContext;
+        _logger = logger;
+        _unitOfWork = unitOfWork;
 
         if (!cartsDbContext.Carts.Any())
         {
@@ -34,7 +41,6 @@ public class CartRepository : ICartRepository
                 Promocode = ""
             });
 
-            await _cartsDbContext.SaveChangesAsync();
         }
 
 
@@ -49,7 +55,6 @@ public class CartRepository : ICartRepository
 
         cart.Promocode = promocode;
 
-        await _cartsDbContext.SaveChangesAsync();
 
         return cart;
     }
@@ -70,7 +75,6 @@ public class CartRepository : ICartRepository
 
         cartDetails.CartItems.Add(cartItem);
 
-        await _cartsDbContext.SaveChangesAsync();
     }
 
     public async Task UpdateCartItem(Guid cartId, CartItem newCartItem)
@@ -79,7 +83,6 @@ public class CartRepository : ICartRepository
 
         _cartsDbContext.Entry(cartItem).CurrentValues.SetValues(newCartItem);
 
-        await _cartsDbContext.SaveChangesAsync();
     }
 
     public async Task<CartDetails> DeleteCartContents(Guid customerId)
@@ -93,7 +96,6 @@ public class CartRepository : ICartRepository
 
         cart.Promocode = "";
 
-        await _cartsDbContext.SaveChangesAsync();
 
         return cart;
     }
@@ -110,8 +112,6 @@ public class CartRepository : ICartRepository
         {
             await _cartsDbContext.AddAsync(newCartDetails);
 
-            await _cartsDbContext.SaveChangesAsync();
-
             return newCartDetails;
         }
 
@@ -119,8 +119,6 @@ public class CartRepository : ICartRepository
         shoppingCart.Promocode = newCartDetails.Promocode;
 
         _cartsDbContext.Carts.Update(shoppingCart);
-
-        await _cartsDbContext.SaveChangesAsync();
 
         return newCartDetails;
     }

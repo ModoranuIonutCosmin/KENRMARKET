@@ -14,14 +14,17 @@ namespace Cart.Application.Features;
 public class CartService : ICartService
 {
     private readonly ICartRepository _cartRepository;
+    private readonly IUnitOfWork _unitOfWork;
     private readonly IPublishEndpoint _publishEndpoint;
     private readonly IMapper _mapper;
 
     public CartService(ICartRepository cartRepository,
+        IUnitOfWork unitOfWork,
         IPublishEndpoint publishEndpoint,
         IMapper mapper)
     {
         _cartRepository = cartRepository;
+        _unitOfWork = unitOfWork;
         _publishEndpoint = publishEndpoint;
         _mapper = mapper;
     }
@@ -30,15 +33,24 @@ public class CartService : ICartService
     {
         await _cartRepository.EnsureCartExists(customerId);
 
+        await _unitOfWork.CommitTransaction();
+
         return _mapper.Map<CartDetails, CartDetailsViewModel>(await _cartRepository.GetCartDetails(customerId));
     }
 
     public async Task<CartDetailsViewModel> AddCartPromocode(Guid customerId, string promocode)
     {
         await _cartRepository.EnsureCartExists(customerId);
+        
+        await _unitOfWork.CommitTransaction();
 
+        var cartDetails = await _cartRepository.SetCartPromocode(customerId, promocode);
+
+        await _unitOfWork.CommitTransaction();
+        
         return _mapper.Map<CartDetails, CartDetailsViewModel>(
-            await _cartRepository.SetCartPromocode(customerId, promocode));
+            cartDetails);
+
     }
 
     public async Task<CartItemDTO> AddCartItem(Guid customerId, CartItemDTO cartItem)
@@ -46,6 +58,8 @@ public class CartService : ICartService
         var cartItemEntity = _mapper.Map<CartItemDTO, CartItem>(cartItem);
 
         await _cartRepository.EnsureCartExists(customerId);
+        
+        await _unitOfWork.CommitTransaction();
 
         var cartDetails = await _cartRepository.GetCartDetails(customerId);
 
@@ -57,12 +71,19 @@ public class CartService : ICartService
         else
             await _cartRepository.UpdateCartItem(cartDetails.Id, cartItemEntity);
 
+        await _unitOfWork.CommitTransaction();
+
         return _mapper.Map<CartItem, CartItemDTO>(cartItemEntity);
     }
 
     public async Task<CartDetails> ModifyCart(Guid customerId, CartDetails newCartDetails)
     {
-        return await _cartRepository.ModifyCart(customerId, newCartDetails);
+        
+        var cartDetails = await _cartRepository.ModifyCart(customerId, newCartDetails);
+
+        await _unitOfWork.CommitTransaction();
+
+        return cartDetails;
     }
 
     public async Task<CartDetails> Checkout(Guid customerId, Address address)
@@ -80,12 +101,18 @@ public class CartService : ICartService
                 _mapper.Map<List<IntegrationEvents.Models.CartItem>>(cartDetails.CartItems),
                 address
                 ));
+
+        await _unitOfWork.CommitTransaction();
         
         return cartDetails;
     }
     
     public async Task<CartDetails> DeleteCartContents(Guid customerId)
     {
-        return await _cartRepository.DeleteCartContents(customerId);
+        var cartContents = await _cartRepository.DeleteCartContents(customerId);
+
+        await _unitOfWork.CommitTransaction();
+        
+        return cartContents;
     }
 }

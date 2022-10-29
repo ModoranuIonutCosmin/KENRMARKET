@@ -61,7 +61,8 @@ public class CartAggregatesService : ICartAggregatesService
 
         existentCartItem.ProductName = product.Name;
         existentCartItem.PictureUrl = product.PhotoUrl ?? "dummy.png";
-        ;
+
+        existentCartItem.UnitPrice = product.Price;
         existentCartItem.AddedAt = product.AddedDate;
         existentCartItem.Quantity = existentCartItem.Quantity + cartItemDto.Quantity;
         existentCartItem.Id = Guid.Empty;

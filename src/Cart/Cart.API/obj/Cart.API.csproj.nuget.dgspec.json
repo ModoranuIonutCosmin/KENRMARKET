@@ -47,7 +47,7 @@
           "dependencies": {
             "MassTransit": {
               "target": "Package",
-              "version": "[8.0.7, )"
+              "version": "[8.0.8-develop.621, )"
             }
           },
           "imports": [
@@ -349,6 +349,14 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "MassTransit.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.8-develop.621, )"
+            },
+            "MassTransit.RabbitMQ": {
+              "target": "Package",
+              "version": "[8.0.8-develop.621, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[6.0.8, )"

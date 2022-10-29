@@ -1,7 +1,4 @@
-﻿using Gateway.API.Models;
-using Order.Domain.Entities;
-
-namespace Gateway.Domain.Models.Orders;
+﻿namespace Gateway.Domain.Models.Orders;
 
 [Serializable]
 public class Order

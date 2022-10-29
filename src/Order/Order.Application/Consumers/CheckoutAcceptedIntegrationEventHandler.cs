@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
 using IntegrationEvents.Base;
+using IntegrationEvents.Contracts;
 using MediatR;
 using Order.Application.Commands;
 
-namespace IntegrationEvents.Contracts;
+namespace Order.Application.Consumers;
 
 public class CheckoutAcceptedIntegrationEventHandler : IntegrationEventHandler<CheckoutAcceptedIntegrationEvent>
 {

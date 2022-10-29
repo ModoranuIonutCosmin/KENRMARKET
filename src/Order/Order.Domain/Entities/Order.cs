@@ -68,19 +68,34 @@ public class Order : Entity, IAggregateRoot
     {
         OrderStatus = orderStatus;
 
+        IDomainEvent domainEvent;
+        
         switch (orderStatus)
         {
             case OrderStatus.InitialCreation:
                 break;
             case OrderStatus.PendingValidation:
 
-                var domainEvent = new OrderStatusChangedToPendingValidationDomainEvent(this, BuyerId);
+                domainEvent = new OrderStatusChangedToPendingValidationDomainEvent(this, BuyerId);
                 
                 this.AddDomainEvent(domainEvent);
                 break;
-            case OrderStatus.Paid:
+            case OrderStatus.StocksValidationAccepted:
+                domainEvent = new OrderStatusChangedToStockValidatedDomainEvent(this, BuyerId);
                 
-                //TODO: Schimbat din command aici setarea
+                this.AddDomainEvent(domainEvent);
+                break;
+            
+            case OrderStatus.StocksValidationRejected:
+                domainEvent = new OrderStatusChangedToStockRejectedDomainEvent(this, BuyerId);
+
+                this.AddDomainEvent(domainEvent);
+                break;
+            
+            case OrderStatus.Paid:
+                domainEvent = new OrderStatusChangedToPaidValidationDomainEvent(this, BuyerId);
+
+                this.AddDomainEvent(domainEvent);
                 break;
         }
     }

@@ -1,4 +1,4 @@
-﻿namespace Gateway.API.Services;
+﻿namespace Gateway.API.Interfaces;
 
 public interface IOrdersService
 {

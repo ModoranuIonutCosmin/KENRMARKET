@@ -150,9 +150,11 @@ builder.Services.AddCors(options =>
 builder.Services.AddTransient<IUserPasswordResetService, UserPasswordResetService>();
 builder.Services.AddTransient<IUserAuthenticationService, UserAuthenticationService>();
 builder.Services.AddScoped<IProductsService, ProductsService>();
+builder.Services.AddScoped<IPaymentsService, PaymentsService>();
 builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IOrdersService, OrdersService>();
 builder.Services.AddScoped<ICartAggregatesService, CartAggregatesService>();
+builder.Services.AddScoped<IOrdersAggregatesService, OrdersAggregatesService>();
 
 
 var app = builder.Build();

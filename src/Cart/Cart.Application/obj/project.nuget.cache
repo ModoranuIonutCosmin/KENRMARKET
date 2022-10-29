@@ -1,13 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "AqseyaZbrFXbD8COIaEUzffkxq/7Fnn5HsDNxad9+rKjWPohlXdMI6EU/WV5thhA7gdF2F5BVw4GFw7dzgNI5Q==",
+  "dgSpecHash": "gX6czhAmPJbBm8dP935TJ8Kli/wRmM5wEDXUnfe0k6AykkiV17QPUUrLDXZHpG2Yzcg1CSI4SbnZd5H1cDVoPQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\zero6\\source\\repos\\KMarketplace\\src\\Cart\\Cart.Application\\Cart.Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\zero6\\.nuget\\packages\\automapper\\11.0.1\\automapper.11.0.1.nupkg.sha512",
     "C:\\Users\\zero6\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\11.0.0\\automapper.extensions.microsoft.dependencyinjection.11.0.0.nupkg.sha512",
-    "C:\\Users\\zero6\\.nuget\\packages\\masstransit\\8.0.7\\masstransit.8.0.7.nupkg.sha512",
-    "C:\\Users\\zero6\\.nuget\\packages\\masstransit.abstractions\\8.0.7\\masstransit.abstractions.8.0.7.nupkg.sha512",
+    "C:\\Users\\zero6\\.nuget\\packages\\masstransit\\8.0.8-develop.621\\masstransit.8.0.8-develop.621.nupkg.sha512",
+    "C:\\Users\\zero6\\.nuget\\packages\\masstransit.abstractions\\8.0.8-develop.621\\masstransit.abstractions.8.0.8-develop.621.nupkg.sha512",
     "C:\\Users\\zero6\\.nuget\\packages\\mediatr.contracts\\1.0.1\\mediatr.contracts.1.0.1.nupkg.sha512",
     "C:\\Users\\zero6\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\zero6\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\3.1.18\\microsoft.extensions.configuration.abstractions.3.1.18.nupkg.sha512",

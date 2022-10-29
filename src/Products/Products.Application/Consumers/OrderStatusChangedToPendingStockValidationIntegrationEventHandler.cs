@@ -6,19 +6,19 @@ using Products.Application.Interfaces.Services;
 
 namespace Products.Application.Consumers;
 
-public class OrderPendingStockValidationIntegrationEventHandler : IntegrationEventHandler<OrderPendingStockValidationIntegrationEvent>
+public class OrderStatusChangedToPendingStockValidationIntegrationEventHandler : IntegrationEventHandler<OrderStatusChangedToPendingStockValidationIntegrationEvent>
 {
     private readonly IProductsService _productsService;
     private readonly IPublishEndpoint _publishEndpoint;
 
-    public OrderPendingStockValidationIntegrationEventHandler(IProductsService productsService,
+    public OrderStatusChangedToPendingStockValidationIntegrationEventHandler(IProductsService productsService,
         IPublishEndpoint publishEndpoint)
     {
         _productsService = productsService;
         _publishEndpoint = publishEndpoint;
     }
     
-    public override async Task Handle(OrderPendingStockValidationIntegrationEvent @event)
+    public override async Task Handle(OrderStatusChangedToPendingStockValidationIntegrationEvent @event)
     {
         IIntegrationEvent validationCheckResultIntegrationEvent =
             await _productsService.AreProductsOnStock(@event.OrderProducts)
@@ -26,5 +26,7 @@ public class OrderPendingStockValidationIntegrationEventHandler : IntegrationEve
                 : new StockValidationFailedForOrderIntegrationEvent(@event.CustomerId, @event.OrderId, @event.OrderStatus);
 
         await _publishEndpoint.Publish(validationCheckResultIntegrationEvent);
+        
+        
     }
 }
