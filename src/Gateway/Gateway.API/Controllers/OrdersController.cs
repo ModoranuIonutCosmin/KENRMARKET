@@ -36,10 +36,26 @@ public class OrdersController : BaseController
         return NotFound();
     }
     
-    
-    [HttpGet("checkoutSession")]
+    [HttpGet("order/{id}")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public async Task<IActionResult> GetPaymentLinkForCheckoutSession(Guid orderId)
+    public async Task<IActionResult> Orders([FromRoute] Guid id)
+    {
+        var customerId = Guid.Parse(User.GetLoggedInUserId<string>());
+
+        var orderStatus = await _ordersService.GetSpecificOrder(id);
+        
+        if (orderStatus.isOk && orderStatus.orderDetails.BuyerId.Equals(customerId))
+        {
+            return Ok(orderStatus.orderDetails);
+        }
+
+        return NotFound();
+    }
+    
+    
+    [HttpPost("checkoutSession")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    public async Task<IActionResult> GetPaymentLinkForCheckoutSession([FromBody]Guid orderId)
     {
         var customerId = Guid.Parse(User.GetLoggedInUserId<string>());
 

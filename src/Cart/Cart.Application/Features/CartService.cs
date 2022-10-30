@@ -61,6 +61,11 @@ public class CartService : ICartService
         
         await _unitOfWork.CommitTransaction();
 
+        if (cartItem.Quantity <= 0)
+        {
+            throw new InvalidCartItemQuantityValueException("Invalid cart item value");
+        }
+        
         var cartDetails = await _cartRepository.GetCartDetails(customerId);
 
         var existentCartItem = cartDetails.CartItems

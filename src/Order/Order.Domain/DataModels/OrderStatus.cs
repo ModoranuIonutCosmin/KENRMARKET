@@ -2,10 +2,10 @@
 
 public enum OrderStatus
 {
-    InitialCreation,
-    PendingValidation,
-    StocksValidationAccepted,
-    StocksValidationRejected,
-    Paid,
-    Shipped,
+    InitialCreation = 1,
+    PendingValidation = 2,
+    StocksValidationAccepted = 3,
+    StocksValidationRejected = 4,
+    Paid = 5,
+    Shipped = 6,
 }

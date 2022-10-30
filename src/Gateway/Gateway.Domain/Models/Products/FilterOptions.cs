@@ -1,4 +1,6 @@
-﻿namespace Gateway.Domain.Models.Products;
+﻿using Gateway.API.Models;
+
+namespace Gateway.Domain.Models.Products;
 
 public class FilterOptions
 {

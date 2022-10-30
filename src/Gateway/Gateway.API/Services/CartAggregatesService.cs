@@ -77,7 +77,7 @@ public class CartAggregatesService : ICartAggregatesService
                 exception = new InsufficientStockException("Insufficient stock"),
                 details = new
                 {
-                    requestedQuantity = existentCartItem.Quantity + cartItemDto.Quantity,
+                    requestedQuantity = cartItemDto.Quantity,
                     available = product.Quantity
                 }
             });

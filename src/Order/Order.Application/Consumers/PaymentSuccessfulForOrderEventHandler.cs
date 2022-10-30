@@ -7,7 +7,7 @@ using Order.Domain.DataModels;
 
 namespace Order.Application.Consumers;
 
-public class PaymentSuccessfulForOrderEventHandler : IntegrationEventHandler<OrderPaymentSuccessfulForEvent>
+public class PaymentSuccessfulForOrderEventHandler : IntegrationEventHandler<OrderPaymentSuccessfulIntegrationEvent>
 {
     private readonly ILogger<PaymentSuccessfulForOrderEventHandler> _logger;
     private readonly IMediator _mediator;
@@ -19,7 +19,7 @@ public class PaymentSuccessfulForOrderEventHandler : IntegrationEventHandler<Ord
         _mediator = mediator;
     }
 
-    public override async Task Handle(OrderPaymentSuccessfulForEvent @event)
+    public override async Task Handle(OrderPaymentSuccessfulIntegrationEvent @event)
     {
         await _mediator.Send(new SetOrderStatusCommand
         {

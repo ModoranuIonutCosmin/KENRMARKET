@@ -1,7 +1,9 @@
 ﻿using IntegrationEvents.Contracts;
 using IntegrationEvents.Models;
 using MassTransit;
+using MediatR;
 using Order.Application.Interfaces;
+using Order.Application.Querries;
 using Order.Domain.DomainEvents;
 
 namespace Order.Application.DomainEventsHandlers;
@@ -10,12 +12,15 @@ public class OrderStatusChangedToPendingValidationDomainEventHandler :
     DomainEventHandler<OrderStatusChangedToPendingValidationDomainEvent>
 {
     private readonly IPublishEndpoint _publishEndpoint;
+    private readonly IMediator _mediator;
     private readonly IUnitOfWork _unitOfWork;
 
     public OrderStatusChangedToPendingValidationDomainEventHandler(IPublishEndpoint publishEndpoint,
+        IMediator mediator,
         IUnitOfWork unitOfWork)
     {
         _publishEndpoint = publishEndpoint;
+        _mediator = mediator;
         _unitOfWork = unitOfWork;
     }
 

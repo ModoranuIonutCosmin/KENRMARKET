@@ -62,7 +62,7 @@ public class OrdersService : IOrdersService
             var httpClient = _httpClientFactory.CreateClient("OrdersService");
 
             var response = await httpClient.GetAsync(ServicesRoutes.Orders.SpecificOrder(orderId));
-
+            
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();

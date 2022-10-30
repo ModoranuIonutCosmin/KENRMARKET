@@ -15,6 +15,7 @@ public class OrderStatusChangedToPaidIntegrationEventHandler : IntegrationEventH
     
     public override async Task Handle(OrderStatusChangedToPaidIntegrationEvent @event)
     {
+        //TODO: Mutat in fisierul lui
         foreach (var orderProduct in @event.Order.OrderItems)
         {
             await _productsService.DeductStocksForProduct(orderProduct.ProductId, orderProduct.Quantity);

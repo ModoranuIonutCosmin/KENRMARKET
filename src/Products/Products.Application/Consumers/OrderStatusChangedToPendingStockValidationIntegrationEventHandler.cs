@@ -20,13 +20,18 @@ public class OrderStatusChangedToPendingStockValidationIntegrationEventHandler :
     
     public override async Task Handle(OrderStatusChangedToPendingStockValidationIntegrationEvent @event)
     {
-        IIntegrationEvent validationCheckResultIntegrationEvent =
-            await _productsService.AreProductsOnStock(@event.OrderProducts)
-                ? new StockValidatedForOrderIntegrationEvent(@event.CustomerId, @event.OrderId, @event.OrderStatus)
-                : new StockValidationFailedForOrderIntegrationEvent(@event.CustomerId, @event.OrderId, @event.OrderStatus);
-
-        await _publishEndpoint.Publish(validationCheckResultIntegrationEvent);
-        
-        
+        if (await _productsService.AreProductsOnStock(@event.OrderProducts))
+        {
+            await _publishEndpoint.Publish(
+                    new StockValidatedForOrderIntegrationEvent(@event.CustomerId, @event.OrderId, @event.OrderStatus)
+                );
+        }
+        else
+        {
+            await _publishEndpoint.Publish(
+                new StockValidationFailedForOrderIntegrationEvent(@event.CustomerId, @event.OrderId,
+                    @event.OrderStatus)
+            );
+        }
     }
 }

@@ -25,7 +25,7 @@ public class CreateNewOrderCommandHandler : IRequestHandler<CreateNewOrderComman
 
         //TODO: Throttle la numarul de ordere concurente.
         request.CartItems
-            .ForEach(ci => newOrder.AddOrderItem(ci.Id, ci.ProductName, ci.Quantity,
+            .ForEach(ci => newOrder.AddOrderItem(ci.ProductId, ci.ProductName, ci.Quantity,
                 ci.UnitPrice, ci.PictureUrl));
         
         newOrder.SetOrderStatus(OrderStatus.PendingValidation);

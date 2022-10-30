@@ -21,6 +21,6 @@ public class QueryOrderByIdCommandHandler : IRequestHandler<QueryOrderByIdComman
     public async Task<Domain.Entities.Order> Handle(QueryOrderByIdCommand request,
         CancellationToken cancellationToken)
     {
-        return await _orderRepository.GetByIdAsync(request.OrderId);
+        return await _orderRepository.GetById(request.OrderId);
     }
 }

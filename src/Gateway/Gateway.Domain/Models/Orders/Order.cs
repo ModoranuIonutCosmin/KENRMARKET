@@ -3,11 +3,12 @@
 [Serializable]
 public class Order
 {
-    public Guid BuyerId { get; }
+    public Guid Id { get; set; }
+    public Guid BuyerId { get; set; }
     public List<OrderItem> OrderItems { get; set; }
-    public string Promocode { get; private set; }
+    public string Promocode { get; set; }
     public Address Address { get; set; }
     public decimal Total { get; set; }
     public DateTimeOffset DateCreated { get; }
-    public OrderStatus OrderStatus { get; private set; }
+    public OrderStatus OrderStatus { get; set; }
 }

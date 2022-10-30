@@ -23,11 +23,11 @@ public class PaymentsService : IPaymentsService
     {
         try
         {
-            var httpClient = _httpClientFactory.CreateClient("CartService");
+            var httpClient = _httpClientFactory.CreateClient("PaymentsService");
             
             var body = JsonSerializer.Serialize(order);
 
-            var response = await httpClient.PutAsync(ServicesRoutes.Payments.CreateCheckoutSession,
+            var response = await httpClient.PostAsync(ServicesRoutes.Payments.CreateCheckoutSession,
                 new StringContent(body, Encoding.UTF8, "application/json"));
 
             if (response.IsSuccessStatusCode)

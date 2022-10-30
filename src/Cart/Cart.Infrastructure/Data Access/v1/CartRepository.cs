@@ -27,7 +27,7 @@ public class CartRepository : Repository<CartDetails, Guid>, ICartRepository
         }
     }
 
-    public async Task<CartDetails> EnsureCartExists(Guid customerId)
+    public async Task EnsureCartExists(Guid customerId)
     {
         var cartExists = _cartsDbContext
             .Carts
@@ -38,14 +38,10 @@ public class CartRepository : Repository<CartDetails, Guid>, ICartRepository
             await _cartsDbContext.Carts.AddAsync(new CartDetails
             {
                 CustomerId = customerId,
-                Promocode = ""
+                Promocode = "",
+                CartItems = new List<CartItem>(),
             });
-
         }
-
-
-        return await _cartsDbContext.Carts
-            .SingleAsync(c => c.CustomerId.Equals(customerId));
     }
 
     public async Task<CartDetails> SetCartPromocode(Guid customerId, string promocode)

@@ -21,10 +21,7 @@ public class StockValidationFailedForOrderIntegrationEventHandler : IntegrationE
 
     public override async Task Handle(StockValidationFailedForOrderIntegrationEvent @event)
     {
-        QueryOrderByIdCommand queryOrderByIdCommand = new QueryOrderByIdCommand()
-        {
-            OrderId = @event.OrderId
-        };
+        QueryOrderByIdCommand queryOrderByIdCommand = new QueryOrderByIdCommand(@event.OrderId);
 
         var order = await _mediator.Send(queryOrderByIdCommand);
         

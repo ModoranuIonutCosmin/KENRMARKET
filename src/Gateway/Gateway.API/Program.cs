@@ -31,6 +31,12 @@ builder.Services
     .AddTransientHttpErrorPolicy(p => p.WaitAndRetryAsync(5, _ => TimeSpan.FromMilliseconds(500)));
 
 builder.Services
+    .AddHttpClient("PaymentsService",
+        config => { config.BaseAddress = new Uri(builder.Configuration["Services:Payments"]); })
+    .AddTransientHttpErrorPolicy(p => p.WaitAndRetryAsync(5, _ => TimeSpan.FromMilliseconds(500)));
+
+
+builder.Services
     .AddHttpClient("CartService", config => { config.BaseAddress = new Uri(builder.Configuration["Services:Cart"]); })
     .AddTransientHttpErrorPolicy(p => p.WaitAndRetryAsync(5, _ => TimeSpan.FromMilliseconds(500)));
 
