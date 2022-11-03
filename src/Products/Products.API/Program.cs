@@ -1,5 +1,8 @@
+using HealthChecks.UI.Client;
 using MassTransit;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using MongoDB.Driver;
 using Products.Application.Features;
 using Products.Application.Interfaces;
@@ -51,6 +54,7 @@ builder.Services.AddMassTransit(x =>
             h.Password(configuration["EventQueue:Password"]);
         });
 
+
         cfg.ConfigureEndpoints(context);
 
         cfg.AutoStart = true;
@@ -80,8 +84,27 @@ builder.Services.AddCors(options =>
         });
 });
 
+var rabbitConString = $"amqp://{configuration["EventQueue:Username"]}:{configuration["EventQueue:Password"]}@{configuration["EventQueue:Host"]}:5672";
+
+builder.Services.AddHealthChecks()
+    .AddMongoDb(configuration["ConnectionStrings:Mongo:Host"], "MongoDb", HealthStatus.Degraded);
+
+
+
+
 var app = builder.Build();
 
+
+
+app.MapHealthChecks("/hc", new HealthCheckOptions()
+{
+    Predicate = _ => true,
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
+app.MapHealthChecks("/liveness", new HealthCheckOptions
+{
+    Predicate = r => r.Name.Contains("self")
+});
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -95,5 +118,6 @@ app.UseAuthorization();
 
 
 app.MapControllers();
+
 
 app.Run();

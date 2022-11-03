@@ -56,6 +56,8 @@ public class CartAggregatesService : ICartAggregatesService
         {
             existentCartItem = _mapper.Map<CartItemDTO, CartItem>(cartItemDto);
 
+            existentCartItem.Quantity = 0;
+
             cart.CartItems.Add(existentCartItem);
         }
 
@@ -64,8 +66,17 @@ public class CartAggregatesService : ICartAggregatesService
 
         existentCartItem.UnitPrice = product.Price;
         existentCartItem.AddedAt = product.AddedDate;
-        existentCartItem.Quantity = existentCartItem.Quantity + cartItemDto.Quantity;
         existentCartItem.Id = Guid.Empty;
+
+        if (existentCartItem.Quantity > 0)
+        {
+            existentCartItem.Quantity = existentCartItem.Quantity + cartItemDto.Quantity;
+        }
+        else
+        {
+            existentCartItem.Quantity = cartItemDto.Quantity;
+        }
+
 
         if (product.Quantity < existentCartItem.Quantity)
         {

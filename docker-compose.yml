@@ -4,26 +4,53 @@ services:
   gateway.api:
     image: ${DOCKER_REGISTRY-}gatewayapi
     build:
-      context: .
-      dockerfile: src/Gateway/Gateway.API/Dockerfile
+      context: src
+      dockerfile: Gateway/Gateway.API/Dockerfile
+
+
+  webstatus:
+   image: ${DOCKER_REGISTRY-}webstatusapi
+   build:
+       context: src
+       dockerfile: Watchdog/Watchdog.WebApp/Dockerfile
 
   cart.api:
     image: ${DOCKER_REGISTRY-}cartapi
     build:
-      context: .
-      dockerfile: src/Cart/Cart.API/Dockerfile
+      context: src
+      dockerfile: Cart/Cart.API/Dockerfile
 
 
   customers.api:
     image: ${DOCKER_REGISTRY-}customersapi
     build:
-      context: .
-      dockerfile: src/Customers/Customers.API/Dockerfile
+      context: src
+      dockerfile: Customers/Customers.API/Dockerfile
 
 
   products.api:
     image: ${DOCKER_REGISTRY-}productsapi
     build:
-      context: .
-      dockerfile: src/Products/Products.API/Dockerfile
+      context: src
+      dockerfile: Products/Products.API/Dockerfile
+  
+  payments.api:
+    image: ${DOCKER_REGISTRY-}paymentsapi
+    build:
+      context: src
+      dockerfile: Payments/Payments.API/Dockerfile
+  
+  order.api:
+    image: ${DOCKER_REGISTRY-}orderapi
+    build:
+      context: src
+      dockerfile: Order/Order.API/Dockerfile
+  
+  ordersignalr.api:
+    image: ${DOCKER_REGISTRY-}ordersignalrapi
+    build:
+      context: src
+      dockerfile: Order/Order.SignalR/Dockerfile
 
+  messageBroker:
+    image: rabbitmq:3.11.2-management

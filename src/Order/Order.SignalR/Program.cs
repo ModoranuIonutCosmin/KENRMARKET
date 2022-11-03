@@ -1,6 +1,9 @@
 using System.Text;
+using HealthChecks.UI.Client;
 using IntegrationEvents.Contracts;
 using MassTransit;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.IdentityModel.Tokens;
 using Order.SignalR.Hubs;
 
@@ -64,7 +67,22 @@ builder.Services.AddMassTransit(x =>
     });
 });
 
+builder.Services.AddHealthChecks();
+
+
 var app = builder.Build();
+
+
+
+app.MapHealthChecks("/hc", new HealthCheckOptions()
+{
+    Predicate = _ => true,
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
+app.MapHealthChecks("/liveness", new HealthCheckOptions
+{
+    Predicate = r => r.Name.Contains("self")
+});
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

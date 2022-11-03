@@ -18,7 +18,7 @@ public class UnitOfWork : IUnitOfWork
 
     public void Register(IRepository repository)
     {
-        _registeredRepositories.Add(repository.GetType().Name, repository);
+        _registeredRepositories[repository.GetType().Name] =  repository;
     }
 
     public async Task CommitTransaction()

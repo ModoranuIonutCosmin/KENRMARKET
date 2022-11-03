@@ -3,9 +3,12 @@ using Cart.Application.Interfaces;
 using Cart.Application.Interfaces.Services;
 using Cart.Infrastructure.Data_Access;
 using Cart.Infrastructure.Data_Access.v1;
+using HealthChecks.UI.Client;
 using MassTransit;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -79,7 +82,23 @@ builder.Services.AddCors(options =>
         });
 });
 
+builder.Services.AddHealthChecks()
+    .AddSqlServer(configuration.GetConnectionString("SqlServer"), failureStatus: HealthStatus.Degraded);
+
+
 var app = builder.Build();
+
+
+
+app.MapHealthChecks("/hc", new HealthCheckOptions()
+{
+    Predicate = _ => true,
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
+app.MapHealthChecks("/liveness", new HealthCheckOptions
+{
+    Predicate = r => r.Name.Contains("self")
+});
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

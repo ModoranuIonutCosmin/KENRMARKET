@@ -5,9 +5,12 @@ using Gateway.API.Services;
 using Gateway.Application.Profiles;
 using Gateway.Domain.Entities;
 using Gateway.Infrastructure.Data_Access;
+using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Polly;
@@ -162,8 +165,23 @@ builder.Services.AddScoped<IOrdersService, OrdersService>();
 builder.Services.AddScoped<ICartAggregatesService, CartAggregatesService>();
 builder.Services.AddScoped<IOrdersAggregatesService, OrdersAggregatesService>();
 
+builder.Services.AddHealthChecks()
+    .AddSqlServer(configuration.GetConnectionString("SqlServer"), failureStatus: HealthStatus.Degraded);
+
 
 var app = builder.Build();
+
+
+
+app.MapHealthChecks("/hc", new HealthCheckOptions()
+{
+    Predicate = _ => true,
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
+app.MapHealthChecks("/liveness", new HealthCheckOptions
+{
+    Predicate = r => r.Name.Contains("self")
+});
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

@@ -2,11 +2,17 @@ using Customers.Application.Features;
 using Customers.Application.Interfaces;
 using Customers.Infrastructure.Data_Access;
 using Customers.Infrastructure.Data_Access.v1;
+using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+var configuration = builder.Configuration;
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -44,7 +50,23 @@ builder.Services.AddCors(options =>
         });
 });
 
+builder.Services.AddHealthChecks()
+    .AddSqlServer(configuration.GetConnectionString("SqlServer"), failureStatus: HealthStatus.Degraded);
+
+
 var app = builder.Build();
+
+
+
+app.MapHealthChecks("/hc", new HealthCheckOptions()
+{
+    Predicate = _ => true,
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
+app.MapHealthChecks("/liveness", new HealthCheckOptions
+{
+    Predicate = r => r.Name.Contains("self")
+});
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
