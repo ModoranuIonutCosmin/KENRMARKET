@@ -40,12 +40,9 @@ public class OrdersController : BaseController
     public async Task<IActionResult> GetOrder(
         [FromRoute] Guid orderId)
     {
-        var order = await _mediator.Send(new QueryOrderByIdCommand()
-        {
-            OrderId = orderId
-        });
+        var order = await _mediator.Send(new QueryOrderByIdCommand(orderId));
 
-        if (order == null)
+        if (order == null)  
         {
             return NotFound(order);
         }

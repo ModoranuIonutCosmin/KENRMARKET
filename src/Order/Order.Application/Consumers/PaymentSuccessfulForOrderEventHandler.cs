@@ -3,10 +3,11 @@ using IntegrationEvents.Contracts;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Order.Application.Commands;
+using Order.Domain.DataModels;
 
 namespace Order.Application.Consumers;
 
-public class PaymentSuccessfulForOrderEventHandler : IntegrationEventHandler<OrderPaymentSuccessfulForEvent>
+public class PaymentSuccessfulForOrderEventHandler : IntegrationEventHandler<OrderPaymentSuccessfulIntegrationEvent>
 {
     private readonly ILogger<PaymentSuccessfulForOrderEventHandler> _logger;
     private readonly IMediator _mediator;
@@ -18,11 +19,12 @@ public class PaymentSuccessfulForOrderEventHandler : IntegrationEventHandler<Ord
         _mediator = mediator;
     }
 
-    public override async Task Handle(OrderPaymentSuccessfulForEvent @event)
+    public override async Task Handle(OrderPaymentSuccessfulIntegrationEvent @event)
     {
-        await _mediator.Send(new SetOrderStatusToPaidCommand
+        await _mediator.Send(new SetOrderStatusCommand
         {
-            OrderId = @event.OrderId
+            OrderId = @event.OrderId,
+            OrderStatus = OrderStatus.Paid
         });
 
         _logger.LogInformation($"Message received, order {@event.OrderId} is now set as paid");

@@ -1,7 +1,8 @@
-﻿namespace Gateway.Domain.Models.Products;
+﻿namespace Gateway.API.Models;
 
 public class Category
 {
+    public string Id { get; set; }
     public string Name { get; set; }
-    public List<Category> Children { get; set; } = new();
+    public Category CategoryParent { get; set; }
 }

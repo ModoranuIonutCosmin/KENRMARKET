@@ -56,15 +56,27 @@ public class CartAggregatesService : ICartAggregatesService
         {
             existentCartItem = _mapper.Map<CartItemDTO, CartItem>(cartItemDto);
 
+            existentCartItem.Quantity = 0;
+
             cart.CartItems.Add(existentCartItem);
         }
 
         existentCartItem.ProductName = product.Name;
         existentCartItem.PictureUrl = product.PhotoUrl ?? "dummy.png";
-        ;
+
+        existentCartItem.UnitPrice = product.Price;
         existentCartItem.AddedAt = product.AddedDate;
-        existentCartItem.Quantity = existentCartItem.Quantity + cartItemDto.Quantity;
         existentCartItem.Id = Guid.Empty;
+
+        if (existentCartItem.Quantity > 0)
+        {
+            existentCartItem.Quantity = existentCartItem.Quantity + cartItemDto.Quantity;
+        }
+        else
+        {
+            existentCartItem.Quantity = cartItemDto.Quantity;
+        }
+
 
         if (product.Quantity < existentCartItem.Quantity)
         {
@@ -76,7 +88,7 @@ public class CartAggregatesService : ICartAggregatesService
                 exception = new InsufficientStockException("Insufficient stock"),
                 details = new
                 {
-                    requestedQuantity = existentCartItem.Quantity + cartItemDto.Quantity,
+                    requestedQuantity = cartItemDto.Quantity,
                     available = product.Quantity
                 }
             });

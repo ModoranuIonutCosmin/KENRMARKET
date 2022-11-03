@@ -1,4 +1,9 @@
+using HealthChecks.UI.Client;
+using MassTransit;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
+using MongoDB.Driver;
 using Products.Application.Features;
 using Products.Application.Interfaces;
 using Products.Application.Interfaces.Services;
@@ -9,6 +14,8 @@ using Products.Infrastructure.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+var configuration = builder.Configuration;
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -16,11 +23,43 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<DbContext>();
+
+var settings = builder.Configuration
+    .GetSection("ConnectionStrings:Mongo")
+    .Get<MongoDBSettings>();
+
+builder.Services.AddSingleton<ProductsDbContext>();
 builder.Services.AddSingleton<IMongoDBSettings, MongoDBSettings>(
-    _ => builder.Configuration
-        .GetSection("ConnectionStrings:Mongo")
-        .Get<MongoDBSettings>());
+    _ => settings);
+
+builder.Services.AddSingleton<IMongoClient>(_ => new MongoClient(settings.Host));
+builder.Services.AddSingleton<IMongoDatabase>(provider => provider.GetService<IMongoClient>()
+    .GetDatabase(settings.DatabaseName));
+
+
+builder.Services.AddMassTransit(x =>
+{
+    x.SetKebabCaseEndpointNameFormatter();
+
+    var entryAssemblies = typeof(IProductsService).Assembly;
+
+    x.AddConsumers(entryAssemblies);
+
+    x.UsingRabbitMq((context, cfg) =>
+
+    {
+        cfg.Host(configuration["EventQueue:Host"], "/", h =>
+        {
+            h.Username(configuration["EventQueue:Username"]);
+            h.Password(configuration["EventQueue:Password"]);
+        });
+
+
+        cfg.ConfigureEndpoints(context);
+
+        cfg.AutoStart = true;
+    });
+});
 
 builder.Services.AddTransient<IProductsRepository, ProductsRepository>();
 builder.Services.AddTransient<ICategoriesRepository, CategoriesRepository>();
@@ -45,8 +84,27 @@ builder.Services.AddCors(options =>
         });
 });
 
+var rabbitConString = $"amqp://{configuration["EventQueue:Username"]}:{configuration["EventQueue:Password"]}@{configuration["EventQueue:Host"]}:5672";
+
+builder.Services.AddHealthChecks()
+    .AddMongoDb(configuration["ConnectionStrings:Mongo:Host"], "MongoDb", HealthStatus.Degraded);
+
+
+
+
 var app = builder.Build();
 
+
+
+app.MapHealthChecks("/hc", new HealthCheckOptions()
+{
+    Predicate = _ => true,
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
+app.MapHealthChecks("/liveness", new HealthCheckOptions
+{
+    Predicate = r => r.Name.Contains("self")
+});
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -60,5 +118,6 @@ app.UseAuthorization();
 
 
 app.MapControllers();
+
 
 app.Run();

@@ -3,15 +3,11 @@ WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
-WORKDIR /src
-COPY ["src/Order/Order.SignalR/Order.SignalR.csproj", "Order.SignalR/"]
-RUN dotnet restore "src/Order/Order.SignalR/Order.SignalR.csproj"
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS publish
+WORKDIR "/src"
 COPY . .
-WORKDIR "/src/Order.SignalR"
-RUN dotnet build "Order.SignalR.csproj" -c Release -o /app/build
-
-FROM build AS publish
+WORKDIR "/src/Order/Order.SignalR"
+RUN dotnet restore
 RUN dotnet publish "Order.SignalR.csproj" -c Release -o /app/publish
 
 FROM base AS final

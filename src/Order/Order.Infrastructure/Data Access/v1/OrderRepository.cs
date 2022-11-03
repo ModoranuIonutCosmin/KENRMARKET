@@ -41,7 +41,8 @@ public class OrderRepository : Repository<Domain.Entities.Order, Guid>, IOrderRe
     public async Task<Domain.Entities.Order> GetById(Guid orderId)
     {
         return await _ordersDbContext.Orders
-            .FirstOrDefaultAsync(o => o.Id.Equals(orderId));
+                .Include(o => o.OrderItems)
+                .SingleOrDefaultAsync(o => o.Id.Equals(orderId));
     }
 
     public async Task<Domain.Entities.Order> SetOrderStatus(Guid orderId, OrderStatus newStatus)

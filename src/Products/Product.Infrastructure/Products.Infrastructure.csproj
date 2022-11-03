@@ -7,15 +7,18 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="MongoDB.Driver" Version="2.18.0"/>
+        <PackageReference Include="MassTransit.EntityFrameworkCore" Version="8.0.8-develop.621" />
+        <PackageReference Include="MassTransit.MongoDb" Version="8.0.8-develop.621" />
+        <PackageReference Include="MassTransit.RabbitMQ" Version="8.0.8-develop.621" />
+        <PackageReference Include="MongoDB.Driver" Version="2.18.0" />
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Data Access\v1\"/>
+        <Folder Include="Data Access\v1\" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Products.Application\Products.Application.csproj"/>
+        <ProjectReference Include="..\Products.Application\Products.Application.csproj" />
     </ItemGroup>
 
 </Project>

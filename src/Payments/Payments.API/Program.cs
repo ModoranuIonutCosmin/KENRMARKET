@@ -1,8 +1,11 @@
 using System.Reflection;
+using HealthChecks.UI.Client;
 using MassTransit;
 using MediatR;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Payments.API.Config;
 using Payments.Application.Interfaces;
 using Payments.Application.Payments;
@@ -104,7 +107,24 @@ builder.Services.AddMassTransit(x =>
 
 builder.Services.AddTransient<IPaymentsGatewayService, PaymentsGatewayService>();
 
+
+builder.Services.AddHealthChecks()
+    .AddSqlServer(configuration.GetConnectionString("SqlServer"), failureStatus: HealthStatus.Degraded);
+
+
 var app = builder.Build();
+
+
+
+app.MapHealthChecks("/hc", new HealthCheckOptions()
+{
+    Predicate = _ => true,
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
+app.MapHealthChecks("/liveness", new HealthCheckOptions
+{
+    Predicate = r => r.Name.Contains("self")
+});
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

@@ -1,4 +1,5 @@
 ﻿using Cart.Domain.Entities;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cart.Infrastructure.Data_Access;
@@ -48,6 +49,11 @@ public class CartsDBContext : DbContext
         modelBuilder.Entity<CartItem>()
             .Property(p => p.ProductName)
             .HasMaxLength(512);
+        
+        
+        modelBuilder.AddInboxStateEntity();
+        modelBuilder.AddOutboxMessageEntity();
+        modelBuilder.AddOutboxStateEntity();
 
         //Relations
         modelBuilder.Entity<CartDetails>()

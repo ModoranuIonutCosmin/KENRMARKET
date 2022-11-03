@@ -1,8 +1,10 @@
 ﻿using System.Text;
 using System.Text.Json;
 using Gateway.API.Interfaces;
+using Gateway.API.Models;
 using Gateway.API.Routes;
 using Gateway.Domain.Models.Carts;
+using Gateway.Domain.Models.Orders;
 using Microsoft.AspNetCore.WebUtilities;
 
 namespace Gateway.API.Services;
@@ -129,6 +131,46 @@ public class CartService : ICartService
                 var returnedCartItem = JsonSerializer.Deserialize<CartItemDTO>(content, deserializationOptions);
 
                 return (true, returnedCartItem, null);
+            }
+
+            return (false, null, response.ReasonPhrase);
+        }
+        catch (Exception ex)
+        {
+            _logger?.LogError(ex.Message);
+
+            return (false, null, ex.Message);
+        }
+    }
+
+    public async Task<(bool IsOk, CartDetailsDTO CartDetails, string ErrorMessage)> CheckoutCart(Guid customerId,
+        Address shippingAddress)
+    {
+        try
+        {
+            var httpClient = _httpClientFactory.CreateClient("CartService");
+
+            var body = JsonSerializer.Serialize(new CheckoutRequestDTO()
+            {
+                Address = shippingAddress,
+                CustomerId = customerId
+            });
+
+            var response = await httpClient.PostAsync(ServicesRoutes.Cart.Checkout,
+                new StringContent(body, Encoding.UTF8, "application/json"));
+
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+
+                var deserializationOptions = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+
+                var cartDetails = JsonSerializer.Deserialize<CartDetailsDTO>(content, deserializationOptions);
+
+                return (true, cartDetails, null);
             }
 
             return (false, null, response.ReasonPhrase);

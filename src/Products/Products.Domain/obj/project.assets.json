@@ -2,10 +2,10 @@
   "version": 3,
   "targets": {
     "net6.0": {
-      "MassTransit/8.0.7": {
+      "MassTransit/8.0.8-develop.621": {
         "type": "package",
         "dependencies": {
-          "MassTransit.Abstractions": "8.0.7",
+          "MassTransit.Abstractions": "8.0.8-develop.621",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.18",
           "Microsoft.Extensions.Diagnostics.HealthChecks": "3.1.18",
           "Microsoft.Extensions.Hosting.Abstractions": "3.1.18",
@@ -18,28 +18,40 @@
           "System.Threading.Channels": "6.0.0"
         },
         "compile": {
-          "lib/net6.0/MassTransit.dll": {}
+          "lib/net6.0/MassTransit.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net6.0/MassTransit.dll": {}
+          "lib/net6.0/MassTransit.dll": {
+            "related": ".xml"
+          }
         }
       },
-      "MassTransit.Abstractions/8.0.7": {
+      "MassTransit.Abstractions/8.0.8-develop.621": {
         "type": "package",
         "compile": {
-          "lib/net6.0/MassTransit.Abstractions.dll": {}
+          "lib/net6.0/MassTransit.Abstractions.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net6.0/MassTransit.Abstractions.dll": {}
+          "lib/net6.0/MassTransit.Abstractions.dll": {
+            "related": ".xml"
+          }
         }
       },
       "MediatR.Contracts/1.0.1": {
         "type": "package",
         "compile": {
-          "lib/netstandard2.0/MediatR.Contracts.dll": {}
+          "lib/netstandard2.0/MediatR.Contracts.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/MediatR.Contracts.dll": {}
+          "lib/netstandard2.0/MediatR.Contracts.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.Extensions.Configuration.Abstractions/3.1.18": {
@@ -48,19 +60,27 @@
           "Microsoft.Extensions.Primitives": "3.1.18"
         },
         "compile": {
-          "lib/netcoreapp3.1/Microsoft.Extensions.Configuration.Abstractions.dll": {}
+          "lib/netcoreapp3.1/Microsoft.Extensions.Configuration.Abstractions.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netcoreapp3.1/Microsoft.Extensions.Configuration.Abstractions.dll": {}
+          "lib/netcoreapp3.1/Microsoft.Extensions.Configuration.Abstractions.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.Extensions.DependencyInjection.Abstractions/3.1.18": {
         "type": "package",
         "compile": {
-          "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {}
+          "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {}
+          "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.Extensions.Diagnostics.HealthChecks/3.1.18": {
@@ -71,19 +91,27 @@
           "Microsoft.Extensions.Options": "3.1.18"
         },
         "compile": {
-          "lib/netcoreapp3.1/Microsoft.Extensions.Diagnostics.HealthChecks.dll": {}
+          "lib/netcoreapp3.1/Microsoft.Extensions.Diagnostics.HealthChecks.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netcoreapp3.1/Microsoft.Extensions.Diagnostics.HealthChecks.dll": {}
+          "lib/netcoreapp3.1/Microsoft.Extensions.Diagnostics.HealthChecks.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions/3.1.18": {
         "type": "package",
         "compile": {
-          "lib/netcoreapp3.1/Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions.dll": {}
+          "lib/netcoreapp3.1/Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netcoreapp3.1/Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions.dll": {}
+          "lib/netcoreapp3.1/Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.Extensions.FileProviders.Abstractions/3.1.18": {
@@ -92,10 +120,14 @@
           "Microsoft.Extensions.Primitives": "3.1.18"
         },
         "compile": {
-          "lib/netcoreapp3.1/Microsoft.Extensions.FileProviders.Abstractions.dll": {}
+          "lib/netcoreapp3.1/Microsoft.Extensions.FileProviders.Abstractions.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netcoreapp3.1/Microsoft.Extensions.FileProviders.Abstractions.dll": {}
+          "lib/netcoreapp3.1/Microsoft.Extensions.FileProviders.Abstractions.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.Extensions.Hosting.Abstractions/3.1.18": {
@@ -107,19 +139,27 @@
           "Microsoft.Extensions.Logging.Abstractions": "3.1.18"
         },
         "compile": {
-          "lib/netcoreapp3.1/Microsoft.Extensions.Hosting.Abstractions.dll": {}
+          "lib/netcoreapp3.1/Microsoft.Extensions.Hosting.Abstractions.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netcoreapp3.1/Microsoft.Extensions.Hosting.Abstractions.dll": {}
+          "lib/netcoreapp3.1/Microsoft.Extensions.Hosting.Abstractions.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.Extensions.Logging.Abstractions/3.1.18": {
         "type": "package",
         "compile": {
-          "lib/netstandard2.0/Microsoft.Extensions.Logging.Abstractions.dll": {}
+          "lib/netstandard2.0/Microsoft.Extensions.Logging.Abstractions.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/Microsoft.Extensions.Logging.Abstractions.dll": {}
+          "lib/netstandard2.0/Microsoft.Extensions.Logging.Abstractions.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.Extensions.Options/3.1.18": {
@@ -129,19 +169,27 @@
           "Microsoft.Extensions.Primitives": "3.1.18"
         },
         "compile": {
-          "lib/netcoreapp3.1/Microsoft.Extensions.Options.dll": {}
+          "lib/netcoreapp3.1/Microsoft.Extensions.Options.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netcoreapp3.1/Microsoft.Extensions.Options.dll": {}
+          "lib/netcoreapp3.1/Microsoft.Extensions.Options.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.Extensions.Primitives/3.1.18": {
         "type": "package",
         "compile": {
-          "lib/netcoreapp3.1/Microsoft.Extensions.Primitives.dll": {}
+          "lib/netcoreapp3.1/Microsoft.Extensions.Primitives.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netcoreapp3.1/Microsoft.Extensions.Primitives.dll": {}
+          "lib/netcoreapp3.1/Microsoft.Extensions.Primitives.dll": {
+            "related": ".xml"
+          }
         }
       },
       "System.Diagnostics.DiagnosticSource/6.0.0": {
@@ -150,10 +198,14 @@
           "System.Runtime.CompilerServices.Unsafe": "6.0.0"
         },
         "compile": {
-          "lib/net6.0/System.Diagnostics.DiagnosticSource.dll": {}
+          "lib/net6.0/System.Diagnostics.DiagnosticSource.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net6.0/System.Diagnostics.DiagnosticSource.dll": {}
+          "lib/net6.0/System.Diagnostics.DiagnosticSource.dll": {
+            "related": ".xml"
+          }
         },
         "build": {
           "buildTransitive/netcoreapp3.1/_._": {}
@@ -180,10 +232,14 @@
       "System.Runtime.CompilerServices.Unsafe/6.0.0": {
         "type": "package",
         "compile": {
-          "lib/net6.0/System.Runtime.CompilerServices.Unsafe.dll": {}
+          "lib/net6.0/System.Runtime.CompilerServices.Unsafe.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net6.0/System.Runtime.CompilerServices.Unsafe.dll": {}
+          "lib/net6.0/System.Runtime.CompilerServices.Unsafe.dll": {
+            "related": ".xml"
+          }
         },
         "build": {
           "buildTransitive/netcoreapp3.1/_._": {}
@@ -195,10 +251,14 @@
           "System.Runtime.CompilerServices.Unsafe": "6.0.0"
         },
         "compile": {
-          "lib/net6.0/System.Text.Encodings.Web.dll": {}
+          "lib/net6.0/System.Text.Encodings.Web.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net6.0/System.Text.Encodings.Web.dll": {}
+          "lib/net6.0/System.Text.Encodings.Web.dll": {
+            "related": ".xml"
+          }
         },
         "build": {
           "buildTransitive/netcoreapp3.1/_._": {}
@@ -217,10 +277,14 @@
           "System.Text.Encodings.Web": "6.0.0"
         },
         "compile": {
-          "lib/net6.0/System.Text.Json.dll": {}
+          "lib/net6.0/System.Text.Json.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net6.0/System.Text.Json.dll": {}
+          "lib/net6.0/System.Text.Json.dll": {
+            "related": ".xml"
+          }
         },
         "build": {
           "buildTransitive/netcoreapp3.1/_._": {}
@@ -229,10 +293,14 @@
       "System.Threading.Channels/6.0.0": {
         "type": "package",
         "compile": {
-          "lib/net6.0/System.Threading.Channels.dll": {}
+          "lib/net6.0/System.Threading.Channels.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net6.0/System.Threading.Channels.dll": {}
+          "lib/net6.0/System.Threading.Channels.dll": {
+            "related": ".xml"
+          }
         },
         "build": {
           "buildTransitive/netcoreapp3.1/_._": {}
@@ -242,7 +310,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
-          "MassTransit": "8.0.7"
+          "MassTransit": "8.0.8-develop.621"
         },
         "compile": {
           "bin/placeholder/IntegrationEvents.dll": {}
@@ -254,10 +322,10 @@
     }
   },
   "libraries": {
-    "MassTransit/8.0.7": {
-      "sha512": "HZu75UKz5Dl/5mlJ/knNG+nq9hXplxovoGDazaofnrEEuI3J9O9QIINKvP2oQb/u12zm24CrDz9R6j+JPkZm8Q==",
+    "MassTransit/8.0.8-develop.621": {
+      "sha512": "d1pficOGw05XRE1GGTo7IwDeSIiEAhedWctttzJVWJqaZS6ZTgPOqNqcgfbQ44u3PjIc1w7ORJ9+d726MQUFgw==",
       "type": "package",
-      "path": "masstransit/8.0.7",
+      "path": "masstransit/8.0.8-develop.621",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -269,15 +337,15 @@
         "lib/netstandard2.0/MassTransit.xml",
         "lib/netstandard2.1/MassTransit.dll",
         "lib/netstandard2.1/MassTransit.xml",
-        "masstransit.8.0.7.nupkg.sha512",
+        "masstransit.8.0.8-develop.621.nupkg.sha512",
         "masstransit.nuspec",
         "mt-logo-small.png"
       ]
     },
-    "MassTransit.Abstractions/8.0.7": {
-      "sha512": "KsFoC4uIm9rkCyiJv4DJubvd1pWUPXA6/J88mtTIRsduy3tt1SBlhH3/sb7LND6/aG8KKr+Ehs9fTnS5Cimrkw==",
+    "MassTransit.Abstractions/8.0.8-develop.621": {
+      "sha512": "QpOKsW7x9AGj0HL9kh0x3SyIGLEWaJkKCBPFzgdcqS8LMnulFECWAaX0bSDrfyLtluNuRvI3sklkPE+NWQ3nXQ==",
       "type": "package",
-      "path": "masstransit.abstractions/8.0.7",
+      "path": "masstransit.abstractions/8.0.8-develop.621",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -289,7 +357,7 @@
         "lib/netstandard2.0/MassTransit.Abstractions.xml",
         "lib/netstandard2.1/MassTransit.Abstractions.dll",
         "lib/netstandard2.1/MassTransit.Abstractions.xml",
-        "masstransit.abstractions.8.0.7.nupkg.sha512",
+        "masstransit.abstractions.8.0.8-develop.621.nupkg.sha512",
         "masstransit.abstractions.nuspec",
         "mt-logo-small.png"
       ]
@@ -722,8 +790,8 @@
     },
     "IntegrationEvents/1.0.0": {
       "type": "project",
-      "path": "../../../../IntegrationEvents/IntegrationEvents.csproj",
-      "msbuildProject": "../../../../IntegrationEvents/IntegrationEvents.csproj"
+      "path": "../../IntegrationEvents/IntegrationEvents.csproj",
+      "msbuildProject": "../../IntegrationEvents/IntegrationEvents.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -767,6 +835,9 @@
           "projectReferences": {
             "C:\\Users\\zero6\\source\\repos\\IntegrationEvents\\IntegrationEvents.csproj": {
               "projectPath": "C:\\Users\\zero6\\source\\repos\\IntegrationEvents\\IntegrationEvents.csproj"
+            },
+            "C:\\Users\\zero6\\source\\repos\\KMarketplace\\src\\IntegrationEvents\\IntegrationEvents.csproj": {
+              "projectPath": "C:\\Users\\zero6\\source\\repos\\KMarketplace\\src\\IntegrationEvents\\IntegrationEvents.csproj"
             }
           }
         }

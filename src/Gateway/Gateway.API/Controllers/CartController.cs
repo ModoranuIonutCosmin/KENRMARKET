@@ -1,6 +1,8 @@
 ﻿using Gateway.API.Auth.ExtensionMethods;
 using Gateway.API.Interfaces;
+using Gateway.API.Models;
 using Gateway.Domain.Models.Carts;
+using Gateway.Domain.Models.Orders;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -11,13 +13,16 @@ namespace Gateway.API.Controllers;
 public class CartController : BaseController
 {
     private readonly ICartAggregatesService _cartAggregates;
+    private readonly ICartService _cartService;
 
-    public CartController(ICartAggregatesService cartAggregates)
+    public CartController(ICartAggregatesService cartAggregates,
+        ICartService cartService)
     {
         _cartAggregates = cartAggregates;
+        _cartService = cartService;
     }
 
-    [HttpGet]
+    [HttpGet("cartContents")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> GetCartContents()
     {
@@ -33,7 +38,7 @@ public class CartController : BaseController
     //TODO: Verificat data exista deja si stackat peste cu + quantity
 
 
-    [HttpPut]
+    [HttpPut("updateCart")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> UpdateCart(UpdateCartRequestDTO cartDetails)
     {
@@ -46,7 +51,7 @@ public class CartController : BaseController
         return NotFound();
     }
 
-    [HttpPost]
+    [HttpPost("addItemToCart")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> AddCartItem(CartItemDTO itemToAddDTO)
     {
@@ -55,6 +60,20 @@ public class CartController : BaseController
         var result = await _cartAggregates.AddItemToCart(customerId, itemToAddDTO);
 
         if (result.IsSuccess) return Ok(result.CartDetails);
+
+        return NotFound();
+    }
+    
+    
+    [HttpPost("checkout")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    public async Task<IActionResult> Checkout([FromBody]Address shippingAddress)
+    {
+        var customerId = Guid.Parse(User.GetLoggedInUserId<string>());
+
+        var result = await _cartService.CheckoutCart(customerId, shippingAddress);
+
+        if (result.IsOk) return Created("", result.CartDetails);
 
         return NotFound();
     }
