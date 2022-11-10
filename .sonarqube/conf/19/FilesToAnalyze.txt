@@ -1,0 +1,11 @@
+﻿C:\Users\zero6\source\repos\KMarketplace\src\Products\Product.Infrastructure\Data Access\Base\Repository.cs
+C:\Users\zero6\source\repos\KMarketplace\src\Products\Product.Infrastructure\Data Access\Config\MongoDBSettings.cs
+C:\Users\zero6\source\repos\KMarketplace\src\Products\Product.Infrastructure\Data Access\ProductsDbContext.cs
+C:\Users\zero6\source\repos\KMarketplace\src\Products\Product.Infrastructure\Data Access\v1\CategoriesRepository.cs
+C:\Users\zero6\source\repos\KMarketplace\src\Products\Product.Infrastructure\Data Access\v1\ProductsRepository.cs
+C:\Users\zero6\source\repos\KMarketplace\src\Products\Product.Infrastructure\Interfaces\IMongoDBSettings.cs
+C:\Users\zero6\source\repos\KMarketplace\src\Products\Product.Infrastructure\Mappings\BaseEntityMappings.cs
+C:\Users\zero6\source\repos\KMarketplace\src\Products\Product.Infrastructure\Mappings\CategoriesMappings.cs
+C:\Users\zero6\source\repos\KMarketplace\src\Products\Product.Infrastructure\Mappings\ProductMappings.cs
+C:\Users\zero6\source\repos\KMarketplace\src\Products\Product.Infrastructure\Seed\IProductsFactory.cs
+C:\Users\zero6\source\repos\KMarketplace\src\Products\Product.Infrastructure\Seed\ProductsFactory.cs

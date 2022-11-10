@@ -1,0 +1,39 @@
+<div class="product product-2">
+  <figure class="product-media">
+    <span class="product-label label-circle label-top">Top</span>
+    <a > <!-- TODO: Href -->
+      <img src="{{this.productInfo.imageUrl}}" alt="Product image"
+           class="product-image">
+    </a>
+
+    <div class="product-action-vertical">
+      <a href="#" class="btn-product-icon btn-wishlist" title="Add to wishlist"></a>
+      <!-- TODO: Event -->
+    </div><!-- End .product-action -->
+
+    <div class="product-action">
+      <a href="#" class="btn-product btn-cart" title="Add to cart"><span>add to cart</span></a>
+      <!-- TODO: Event -->
+
+    </div><!-- End .product-action -->
+  </figure><!-- End .product-media -->
+
+  <div class="product-body">
+    <div class="product-cat">
+      <a href="#">{{this.productInfo.categoryName}}</a>
+    </div><!-- End .product-cat -->
+    <h3 class="product-title"><a href="product.html">{{this.productInfo.name}}</a></h3>
+    <!-- End .product-title -->
+    <div class="product-price">
+      ${{this.productInfo.price}}
+    </div><!-- End .product-price -->
+    <div class="ratings-container">
+      <div class="ratings">
+
+        <!-- TODO: NgStyle si procentaj sa reprezinte stele% -->
+        <div class="ratings-val" style="width: 100%;"></div><!-- End .ratings-val -->
+      </div><!-- End .ratings -->
+      <span class="ratings-text">( {{this.productInfo.reviewsCount}} Reviews )</span>
+    </div><!-- End .rating-container -->
+  </div><!-- End .product-body -->
+</div><!-- End .product -->

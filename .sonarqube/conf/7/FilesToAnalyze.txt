@@ -1,0 +1,9 @@
+﻿C:\Users\zero6\source\repos\KMarketplace\src\Products\Products.Domain\Entities\Category.cs
+C:\Users\zero6\source\repos\KMarketplace\src\Products\Products.Domain\Entities\Product.cs
+C:\Users\zero6\source\repos\KMarketplace\src\Products\Products.Domain\Models\FilterOptions.cs
+C:\Users\zero6\source\repos\KMarketplace\src\Products\Products.Domain\Models\SpecificationMetadataLine.cs
+C:\Users\zero6\source\repos\KMarketplace\src\Products\Products.Domain\Models\Specifications.cs
+C:\Users\zero6\source\repos\KMarketplace\src\Products\Products.Domain\Models\SpecificationsMetadataGroup.cs
+C:\Users\zero6\source\repos\KMarketplace\src\Products\Products.Domain\Shared\Entity.cs
+C:\Users\zero6\source\repos\KMarketplace\src\Products\Products.Domain\Shared\IAggregateRoot.cs
+C:\Users\zero6\source\repos\KMarketplace\src\Products\Products.Domain\Shared\IDomainEvent.cs

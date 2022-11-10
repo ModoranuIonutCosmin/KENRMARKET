@@ -1,0 +1,15 @@
+C:\Users\zero6\source\repos\KMarketplace\src\Products\Products.Domain\bin\Debug\net6.0\Products.Domain.deps.json
+C:\Users\zero6\source\repos\KMarketplace\src\Products\Products.Domain\bin\Debug\net6.0\Products.Domain.dll
+C:\Users\zero6\source\repos\KMarketplace\src\Products\Products.Domain\bin\Debug\net6.0\Products.Domain.pdb
+C:\Users\zero6\source\repos\KMarketplace\src\Products\Products.Domain\bin\Debug\net6.0\IntegrationEvents.dll
+C:\Users\zero6\source\repos\KMarketplace\src\Products\Products.Domain\bin\Debug\net6.0\IntegrationEvents.pdb
+C:\Users\zero6\source\repos\KMarketplace\src\Products\Products.Domain\obj\Debug\net6.0\Products.Domain.csproj.AssemblyReference.cache
+C:\Users\zero6\source\repos\KMarketplace\src\Products\Products.Domain\obj\Debug\net6.0\Products.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\zero6\source\repos\KMarketplace\src\Products\Products.Domain\obj\Debug\net6.0\Products.Domain.AssemblyInfoInputs.cache
+C:\Users\zero6\source\repos\KMarketplace\src\Products\Products.Domain\obj\Debug\net6.0\Products.Domain.AssemblyInfo.cs
+C:\Users\zero6\source\repos\KMarketplace\src\Products\Products.Domain\obj\Debug\net6.0\Products.Domain.csproj.CoreCompileInputs.cache
+C:\Users\zero6\source\repos\KMarketplace\src\Products\Products.Domain\obj\Debug\net6.0\Products.Domain.csproj.CopyComplete
+C:\Users\zero6\source\repos\KMarketplace\src\Products\Products.Domain\obj\Debug\net6.0\Products.Domain.dll
+C:\Users\zero6\source\repos\KMarketplace\src\Products\Products.Domain\obj\Debug\net6.0\refint\Products.Domain.dll
+C:\Users\zero6\source\repos\KMarketplace\src\Products\Products.Domain\obj\Debug\net6.0\Products.Domain.pdb
+C:\Users\zero6\source\repos\KMarketplace\src\Products\Products.Domain\obj\Debug\net6.0\ref\Products.Domain.dll

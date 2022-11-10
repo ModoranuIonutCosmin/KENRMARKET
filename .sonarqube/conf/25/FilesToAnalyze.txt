@@ -1,0 +1,9 @@
+﻿C:\Users\zero6\source\repos\KMarketplace\src\Cart\Cart.Application\Consumers\OrderStartedDomainEventHandler.cs
+C:\Users\zero6\source\repos\KMarketplace\src\Cart\Cart.Application\Features\CartService.cs
+C:\Users\zero6\source\repos\KMarketplace\src\Cart\Cart.Application\Interfaces\Base\IRepository.cs
+C:\Users\zero6\source\repos\KMarketplace\src\Cart\Cart.Application\Interfaces\ICartRepository.cs
+C:\Users\zero6\source\repos\KMarketplace\src\Cart\Cart.Application\Interfaces\IUnitOfWork.cs
+C:\Users\zero6\source\repos\KMarketplace\src\Cart\Cart.Application\Interfaces\Services\ICartService.cs
+C:\Users\zero6\source\repos\KMarketplace\src\Cart\Cart.Application\Profiles\CartDetailsToCartDetailsViewModel.cs
+C:\Users\zero6\source\repos\KMarketplace\src\Cart\Cart.Application\Profiles\CartItemToCartItemViewModel.cs
+C:\Users\zero6\source\repos\KMarketplace\src\Cart\Cart.Application\Profiles\IntegrEventToCartApiModelsProfile.cs

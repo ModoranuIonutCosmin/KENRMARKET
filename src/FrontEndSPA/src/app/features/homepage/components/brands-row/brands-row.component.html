@@ -1,0 +1,10 @@
+<div class="container">
+  <hr class="mb-0">
+    <owl-carousel-o [options]="customOptions">
+      <ng-template carouselSlide *ngFor="let brand of brandsDataSource.brands">
+        <a href="{{brand.clickActionDestinationUrl}}" class="brand">
+          <img src="{{brand.imgUrl}}" alt="{{brand.name}}">
+        </a>
+      </ng-template>
+    </owl-carousel-o><!-- End .owl-carousel -->
+</div><!-- End .container -->

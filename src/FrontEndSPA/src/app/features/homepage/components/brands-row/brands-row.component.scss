@@ -1,0 +1,15 @@
+.brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px
+}
+
+.brand img {
+  width: auto !important;
+  max-width: 100% !important
+}
+
+.brand:focus {
+  outline: none !important
+}

@@ -1,0 +1,19 @@
+
+<div class="container for-you">
+  <div class="heading heading-flex mb-3">
+    <div class="heading-left">
+      <h2 class="title">{{this.productsGridViewModel.title}}</h2><!-- End .title -->
+    </div><!-- End .heading-left -->
+
+    <div class="heading-right">
+      <a href="{{this.productsGridViewModel.actionUrl}}" class="title-link">{{this.productsGridViewModel.actionName}}<i class="icon-long-arrow-right"></i></a>
+    </div><!-- End .heading-right -->
+  </div><!-- End .heading -->
+
+  <div class="products">
+    <div class="row justify-content-center item">
+      <app-product-card *ngFor="let product of this.productsGridViewModel.products"
+                        [productInfo]="product"></app-product-card>
+    </div><!-- End .row -->
+  </div><!-- End .products -->
+</div><!-- End .container -->
