@@ -1,0 +1,43 @@
+
+<div class="container">
+
+<c-carousel pause="hover" [interval]="10000">
+  <c-carousel-indicators></c-carousel-indicators>
+  <c-carousel-inner>
+    <c-carousel-item *ngFor="let slide of this.dealsDataSource.deals">
+      <div class="position-relative">
+        <div class="details">
+          <header>
+            <h2 class="deal__type">{{slide.type}}</h2>
+            <h1 class="deal__title">{{slide.title}}</h1>
+          </header>
+
+          <div class="price">
+            <sup class="old">{{slide.priceLabel}}</sup>
+            <span class="new">{{slide.priceValue}}</span>
+          </div>
+
+          <div class="actions">
+            <a class="btn btn-primary btn-round" href="{{slide.actionButtonDestinationUrl}}">
+              <span>{{slide.actionButtonText}}</span>
+              <i class="icon-long-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+
+        <img
+          [src]="slide.bannerImgUrl"
+          alt="{{ slide.title }}"
+          class="d-block w-100"
+          loading="lazy" />
+      </div>
+
+
+
+    </c-carousel-item>
+  </c-carousel-inner>
+  <c-carousel-control [routerLink] caption="Previous" direction="prev"></c-carousel-control>
+  <c-carousel-control [routerLink] caption="Next" direction="next"></c-carousel-control>
+</c-carousel>
+</div>

@@ -1,0 +1,77 @@
+
+.cta-img {
+  height: 100%;
+}
+
+.cta-border {
+  position: relative;
+  border: none;
+  background-color: #666666;
+  background-size: cover;
+  font-size: 2rem;
+  padding-top: 4.9rem;
+  padding-bottom: 4.9rem
+}
+
+.cta-border .cta-img {
+  position: absolute;
+  top: -5px
+}
+
+.cta-border .cta-text {
+  margin-right: 0
+}
+
+.cta-border .cta-text p {
+  font-size: 2rem;
+  line-height: 1.3;
+  letter-spacing: -.01em;
+  color: #fff
+}
+
+.cta-border .cta-text::before {
+  display: none
+}
+
+.cta-border p {
+  max-width: none
+}
+
+.cta-border p strong {
+  font-weight: 600
+}
+
+.cta-border .btn:not(.btn-block) {
+  min-width: 230px
+}
+
+.cta-border .btn {
+  margin-right: 70px;
+  margin-left: 70px
+}
+
+.cta-border .btn i:last-child {
+  margin-left: 2.5rem
+}
+
+.cta-heading {
+  margin-bottom: 2.2rem
+}
+
+.cta-heading .cta-title {
+  margin-bottom: .2rem
+}
+
+.cta-title {
+  font-weight: 600;
+  font-size: 2.4rem;
+  letter-spacing: -.025em
+}
+
+.cta-desc {
+  font-size: 1.6rem
+}
+
+.cta .btn:not(.btn-block) {
+  min-width: 178px
+}

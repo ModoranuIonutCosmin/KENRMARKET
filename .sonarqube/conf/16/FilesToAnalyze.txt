@@ -1,0 +1,7 @@
+﻿C:\Users\zero6\source\repos\KMarketplace\src\Customers\Customers.Infrastructure\Data Access\CustomersDBContext.cs
+C:\Users\zero6\source\repos\KMarketplace\src\Customers\Customers.Infrastructure\Data Access\v1\CustomersRepository.cs
+C:\Users\zero6\source\repos\KMarketplace\src\Customers\Customers.Infrastructure\Migrations\20220901193135_Initial.cs
+C:\Users\zero6\source\repos\KMarketplace\src\Customers\Customers.Infrastructure\Migrations\20220901193135_Initial.Designer.cs
+C:\Users\zero6\source\repos\KMarketplace\src\Customers\Customers.Infrastructure\Migrations\CustomersDBContextModelSnapshot.cs
+C:\Users\zero6\source\repos\KMarketplace\src\Customers\Customers.Infrastructure\Seed\CustomersFactory.cs
+C:\Users\zero6\source\repos\KMarketplace\src\Customers\Customers.Infrastructure\Seed\ICustomersFactory.cs

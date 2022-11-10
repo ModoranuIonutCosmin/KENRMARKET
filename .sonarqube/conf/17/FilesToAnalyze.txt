@@ -1,0 +1,11 @@
+﻿C:\Users\zero6\source\repos\KMarketplace\src\Payments\Payments.Infrastructure\Data Access\Base\Repository.cs
+C:\Users\zero6\source\repos\KMarketplace\src\Payments\Payments.Infrastructure\Data Access\PaymentsDBContext.cs
+C:\Users\zero6\source\repos\KMarketplace\src\Payments\Payments.Infrastructure\Data Access\UnitOfWork.cs
+C:\Users\zero6\source\repos\KMarketplace\src\Payments\Payments.Infrastructure\Data Access\v1\PaymentsRepository.cs
+C:\Users\zero6\source\repos\KMarketplace\src\Payments\Payments.Infrastructure\EntitiesConfig\PaymentEntityConfiguration.cs
+C:\Users\zero6\source\repos\KMarketplace\src\Payments\Payments.Infrastructure\Migrations\20221017150000_InitialCreation.cs
+C:\Users\zero6\source\repos\KMarketplace\src\Payments\Payments.Infrastructure\Migrations\20221017150000_InitialCreation.Designer.cs
+C:\Users\zero6\source\repos\KMarketplace\src\Payments\Payments.Infrastructure\Migrations\20221023085545_AdddedOutbox.cs
+C:\Users\zero6\source\repos\KMarketplace\src\Payments\Payments.Infrastructure\Migrations\20221023085545_AdddedOutbox.Designer.cs
+C:\Users\zero6\source\repos\KMarketplace\src\Payments\Payments.Infrastructure\Migrations\PaymentsDBContextModelSnapshot.cs
+C:\Users\zero6\source\repos\KMarketplace\src\Payments\Payments.Infrastructure\Seed\CartDetailsFactory.cs

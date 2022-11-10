@@ -1,0 +1,20 @@
+<div class="container">
+  <h2 class="title text-center mb-4">{{this.categoriesDataSource.title}}</h2><!-- End .title text-center -->
+
+  <div class="cat-blocks-container">
+    <div class="row">
+      <div class="col-6 col-sm-4 col-lg-2" *ngFor="let category of categoriesDataSource.categories" >
+        <a href="{{category.actionClickDestinationUrl}}" class="cat-block">
+          <figure>
+            <span>
+            <img src="{{category.imageUrl}}"
+            alt="{{category.title}}">
+            </span>
+          </figure>
+
+          <h3 class="cat-block-title">{{category.title}}</h3><!-- End .cat-block-title -->
+        </a>
+      </div><!-- End .col-sm-4 col-lg-2 -->
+    </div><!-- End .row -->
+  </div><!-- End .cat-blocks-container -->
+</div><!-- End .container -->
