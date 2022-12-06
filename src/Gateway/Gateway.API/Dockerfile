@@ -6,7 +6,7 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS publish
 WORKDIR "/src"
 COPY . .
-WORKDIR "/src/Gateway/Gateway.API"
+WORKDIR "/src/src/Gateway/Gateway.API"
 RUN dotnet restore
 RUN dotnet publish "Gateway.API.csproj" -c Release -o /app/publish
 

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\zero6\\source\\repos\\KMarketplace\\src\\Cart\\Cart.API\\Cart.API.csproj": {}
+    "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Cart\\Cart.API\\Cart.API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\zero6\\source\\repos\\KMarketplace\\src\\Cart\\Cart.API\\Cart.API.csproj": {
+    "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Cart\\Cart.API\\Cart.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\zero6\\source\\repos\\KMarketplace\\src\\Cart\\Cart.API\\Cart.API.csproj",
+        "projectUniqueName": "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Cart\\Cart.API\\Cart.API.csproj",
         "projectName": "Cart.API",
-        "projectPath": "C:\\Users\\zero6\\source\\repos\\KMarketplace\\src\\Cart\\Cart.API\\Cart.API.csproj",
+        "projectPath": "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Cart\\Cart.API\\Cart.API.csproj",
         "packagesPath": "C:\\Users\\zero6\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\zero6\\source\\repos\\KMarketplace\\src\\Cart\\Cart.API\\obj\\",
+        "outputPath": "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Cart\\Cart.API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -33,11 +33,11 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\zero6\\source\\repos\\KMarketplace\\src\\Cart\\Cart.Application\\Cart.Application.csproj": {
-                "projectPath": "C:\\Users\\zero6\\source\\repos\\KMarketplace\\src\\Cart\\Cart.Application\\Cart.Application.csproj"
+              "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Application\\Cart.Application.csproj": {
+                "projectPath": "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Application\\Cart.Application.csproj"
               },
-              "C:\\Users\\zero6\\source\\repos\\KMarketplace\\src\\Cart\\Cart.Infrastructure\\Cart.Infrastructure.csproj": {
-                "projectPath": "C:\\Users\\zero6\\source\\repos\\KMarketplace\\src\\Cart\\Cart.Infrastructure\\Cart.Infrastructure.csproj"
+              "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Infrastructure\\Cart.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Infrastructure\\Cart.Infrastructure.csproj"
               }
             }
           }
@@ -90,6 +90,24 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[6.0.11, 6.0.11]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[6.0.11, 6.0.11]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[6.0.11, 6.0.11]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[6.0.11, 6.0.11]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -98,18 +116,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\zero6\\source\\repos\\KMarketplace\\src\\Cart\\Cart.Application\\Cart.Application.csproj": {
+    "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Application\\Cart.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\zero6\\source\\repos\\KMarketplace\\src\\Cart\\Cart.Application\\Cart.Application.csproj",
+        "projectUniqueName": "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Application\\Cart.Application.csproj",
         "projectName": "Cart.Application",
-        "projectPath": "C:\\Users\\zero6\\source\\repos\\KMarketplace\\src\\Cart\\Cart.Application\\Cart.Application.csproj",
+        "projectPath": "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Application\\Cart.Application.csproj",
         "packagesPath": "C:\\Users\\zero6\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\zero6\\source\\repos\\KMarketplace\\src\\Cart\\Cart.Application\\obj\\",
+        "outputPath": "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Application\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -131,8 +149,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\zero6\\source\\repos\\KMarketplace\\src\\Cart\\Cart.Domain\\Cart.Domain.csproj": {
-                "projectPath": "C:\\Users\\zero6\\source\\repos\\KMarketplace\\src\\Cart\\Cart.Domain\\Cart.Domain.csproj"
+              "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Domain\\Cart.Domain.csproj": {
+                "projectPath": "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Domain\\Cart.Domain.csproj"
               }
             }
           }
@@ -167,23 +185,37 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[6.0.11, 6.0.11]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[6.0.11, 6.0.11]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[6.0.11, 6.0.11]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\zero6\\source\\repos\\KMarketplace\\src\\Cart\\Cart.Domain\\Cart.Domain.csproj": {
+    "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Domain\\Cart.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\zero6\\source\\repos\\KMarketplace\\src\\Cart\\Cart.Domain\\Cart.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Domain\\Cart.Domain.csproj",
         "projectName": "Cart.Domain",
-        "projectPath": "C:\\Users\\zero6\\source\\repos\\KMarketplace\\src\\Cart\\Cart.Domain\\Cart.Domain.csproj",
+        "projectPath": "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Domain\\Cart.Domain.csproj",
         "packagesPath": "C:\\Users\\zero6\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\zero6\\source\\repos\\KMarketplace\\src\\Cart\\Cart.Domain\\obj\\",
+        "outputPath": "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -205,8 +237,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\zero6\\source\\repos\\KMarketplace\\src\\IntegrationEvents\\IntegrationEvents.csproj": {
-                "projectPath": "C:\\Users\\zero6\\source\\repos\\KMarketplace\\src\\IntegrationEvents\\IntegrationEvents.csproj"
+              "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\IntegrationEvents\\IntegrationEvents.csproj": {
+                "projectPath": "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\IntegrationEvents\\IntegrationEvents.csproj"
               }
             }
           }
@@ -237,23 +269,37 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[6.0.11, 6.0.11]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[6.0.11, 6.0.11]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[6.0.11, 6.0.11]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\zero6\\source\\repos\\KMarketplace\\src\\Cart\\Cart.Infrastructure\\Cart.Infrastructure.csproj": {
+    "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Infrastructure\\Cart.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\zero6\\source\\repos\\KMarketplace\\src\\Cart\\Cart.Infrastructure\\Cart.Infrastructure.csproj",
+        "projectUniqueName": "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Infrastructure\\Cart.Infrastructure.csproj",
         "projectName": "Cart.Infrastructure",
-        "projectPath": "C:\\Users\\zero6\\source\\repos\\KMarketplace\\src\\Cart\\Cart.Infrastructure\\Cart.Infrastructure.csproj",
+        "projectPath": "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Infrastructure\\Cart.Infrastructure.csproj",
         "packagesPath": "C:\\Users\\zero6\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\zero6\\source\\repos\\KMarketplace\\src\\Cart\\Cart.Infrastructure\\obj\\",
+        "outputPath": "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -275,8 +321,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\zero6\\source\\repos\\KMarketplace\\src\\Cart\\Cart.Application\\Cart.Application.csproj": {
-                "projectPath": "C:\\Users\\zero6\\source\\repos\\KMarketplace\\src\\Cart\\Cart.Application\\Cart.Application.csproj"
+              "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Application\\Cart.Application.csproj": {
+                "projectPath": "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Application\\Cart.Application.csproj"
               }
             }
           }
@@ -319,23 +365,37 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[6.0.11, 6.0.11]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[6.0.11, 6.0.11]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[6.0.11, 6.0.11]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\zero6\\source\\repos\\KMarketplace\\src\\IntegrationEvents\\IntegrationEvents.csproj": {
+    "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\IntegrationEvents\\IntegrationEvents.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\zero6\\source\\repos\\KMarketplace\\src\\IntegrationEvents\\IntegrationEvents.csproj",
+        "projectUniqueName": "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\IntegrationEvents\\IntegrationEvents.csproj",
         "projectName": "IntegrationEvents",
-        "projectPath": "C:\\Users\\zero6\\source\\repos\\KMarketplace\\src\\IntegrationEvents\\IntegrationEvents.csproj",
+        "projectPath": "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\IntegrationEvents\\IntegrationEvents.csproj",
         "packagesPath": "C:\\Users\\zero6\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\zero6\\source\\repos\\KMarketplace\\src\\IntegrationEvents\\obj\\",
+        "outputPath": "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\IntegrationEvents\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -385,12 +445,26 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[6.0.11, 6.0.11]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[6.0.11, 6.0.11]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[6.0.11, 6.0.11]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }

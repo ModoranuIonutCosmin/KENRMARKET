@@ -44,7 +44,8 @@ builder.Services
     .AddTransientHttpErrorPolicy(p => p.WaitAndRetryAsync(5, _ => TimeSpan.FromMilliseconds(500)));
 
 builder.Services
-    .AddHttpClient("OrdersService", config => { config.BaseAddress = new Uri(builder.Configuration["Services:Orders"]); })
+    .AddHttpClient("OrdersService",
+        config => { config.BaseAddress = new Uri(builder.Configuration["Services:Orders"]); })
     .AddTransientHttpErrorPolicy(p => p.WaitAndRetryAsync(5, _ => TimeSpan.FromMilliseconds(500)));
 
 builder.Services
@@ -172,7 +173,6 @@ builder.Services.AddHealthChecks()
 var app = builder.Build();
 
 
-
 app.MapHealthChecks("/hc", new HealthCheckOptions()
 {
     Predicate = _ => true,
@@ -183,12 +183,8 @@ app.MapHealthChecks("/liveness", new HealthCheckOptions
     Predicate = r => r.Name.Contains("self")
 });
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 

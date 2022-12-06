@@ -115,7 +115,6 @@ builder.Services.AddHealthChecks()
 var app = builder.Build();
 
 
-
 app.MapHealthChecks("/hc", new HealthCheckOptions()
 {
     Predicate = _ => true,
@@ -126,12 +125,8 @@ app.MapHealthChecks("/liveness", new HealthCheckOptions
     Predicate = r => r.Name.Contains("self")
 });
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 

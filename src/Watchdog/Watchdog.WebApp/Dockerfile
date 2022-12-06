@@ -6,8 +6,8 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS publish
 WORKDIR "/src"
 COPY . .
-WORKDIR "/src/Watchdog/Watchdog.WebApp"
-RUN dotnet restore
+WORKDIR "/src/src/Watchdog/Watchdog.WebApp"
+RUN dotnet restore "Watchdog.WebApp.csproj"
 RUN dotnet publish "Watchdog.WebApp.csproj" -c Release -o /app/publish
 
 FROM base AS final

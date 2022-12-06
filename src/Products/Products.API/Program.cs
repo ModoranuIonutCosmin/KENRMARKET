@@ -84,16 +84,14 @@ builder.Services.AddCors(options =>
         });
 });
 
-var rabbitConString = $"amqp://{configuration["EventQueue:Username"]}:{configuration["EventQueue:Password"]}@{configuration["EventQueue:Host"]}:5672";
+var rabbitConString =
+    $"amqp://{configuration["EventQueue:Username"]}:{configuration["EventQueue:Password"]}@{configuration["EventQueue:Host"]}:5672";
 
 builder.Services.AddHealthChecks()
     .AddMongoDb(configuration["ConnectionStrings:Mongo:Host"], "MongoDb", HealthStatus.Degraded);
 
 
-
-
 var app = builder.Build();
-
 
 
 app.MapHealthChecks("/hc", new HealthCheckOptions()
@@ -105,12 +103,8 @@ app.MapHealthChecks("/liveness", new HealthCheckOptions
 {
     Predicate = r => r.Name.Contains("self")
 });
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 

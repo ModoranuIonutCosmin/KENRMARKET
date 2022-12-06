@@ -6,8 +6,8 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS publish
 WORKDIR "/src"
 COPY . .
-WORKDIR "/src/Payments/Payments.API"
-RUN dotnet restore
+WORKDIR "/src/src/Payments/Payments.API"
+RUN dotnet restore "Payments.API.csproj"
 RUN dotnet publish "Payments.API.csproj" -c Release -o /app/publish
 
 FROM base AS final

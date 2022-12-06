@@ -6,8 +6,8 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS publish
 WORKDIR "/src"
 COPY . .
-WORKDIR "/src/Cart/Cart.API"
-RUN dotnet restore
+WORKDIR "/src/src/Cart/Cart.API"
+RUN dotnet restore "Cart.API.csproj"
 RUN dotnet publish "Cart.API.csproj" -c Release -o /app/publish
 
 FROM base AS final
