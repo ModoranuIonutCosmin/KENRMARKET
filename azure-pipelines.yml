@@ -1,34 +1,28 @@
-# ASP.NET
-# Build and test ASP.NET projects.
-# Add steps that publish symbols, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/apps/aspnet/build-aspnet-4
-
 trigger:
-- master
-
-pool:
-  vmImage: 'windows-latest'
-
-variables:
-  solution: '**/*.sln'
-  buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
-
-steps:
-- task: NuGetToolInstaller@1
-
-- task: NuGetCommand@2
-  inputs:
-    restoreSolution: '$(solution)'
-
-- task: VSBuild@1
-  inputs:
-    solution: '$(solution)'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
-
-- task: VSTest@2
-  inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+  branches:
+    include:
+    - refs/heads/master
+name: $(date:yyyyMMdd)$(rev:.r)
+jobs:
+- job: RunDockerCompose
+  displayName: Run docker compose
+  pool:
+    vmImage: ubuntu-20.04
+  steps:
+  - checkout: self
+    clean: true
+    fetchTags: false
+  - task: DockerCompose@0
+    displayName: Run a Docker Compose command
+    inputs:
+      containerregistrytype: Container Registry
+      dockerRegistryEndpoint: a7bcfb2d-65bd-4826-a6bc-df8c3d1b45c8
+      dockerComposeFile: docker-compose.yml
+      additionalDockerComposeFiles: docker-compose.override.yml
+      dockerComposeFileArgs: >
+        DOCKER_REGISTRY=modoranuc/
+      dockerComposeCommand: push
+    env:
+      DOCKER_REGISTRY: 'modoranuc/'
+    
+...
