@@ -1,9 +1,0 @@
-﻿C:\Users\zero6\source\repos\KMarketplace\src\Products\Products.Application\Consumers\OrderStatusChangedToPaidIntegrationEventHandler.cs
-C:\Users\zero6\source\repos\KMarketplace\src\Products\Products.Application\Consumers\OrderStatusChangedToPendingStockValidationIntegrationEventHandler.cs
-C:\Users\zero6\source\repos\KMarketplace\src\Products\Products.Application\Features\ProductsService.cs
-C:\Users\zero6\source\repos\KMarketplace\src\Products\Products.Application\Interfaces\Base\IRepository.cs
-C:\Users\zero6\source\repos\KMarketplace\src\Products\Products.Application\Interfaces\ICategoriesRepository.cs
-C:\Users\zero6\source\repos\KMarketplace\src\Products\Products.Application\Interfaces\IProductsRepository.cs
-C:\Users\zero6\source\repos\KMarketplace\src\Products\Products.Application\Interfaces\Services\IProductsService.cs
-C:\Users\zero6\source\repos\KMarketplace\src\Products\Products.Application\Profiles\IntegrationEventModelsProfile.cs
-C:\Users\zero6\source\repos\KMarketplace\src\Products\Products.Application\Properties\launchSettings.json

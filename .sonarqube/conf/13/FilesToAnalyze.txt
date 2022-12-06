@@ -1,7 +1,0 @@
-﻿C:\Users\zero6\source\repos\KMarketplace\src\Gateway\Gateway.Infrastructure\Data Access\AuthenticationDbContext.cs
-C:\Users\zero6\source\repos\KMarketplace\src\Gateway\Gateway.Infrastructure\Data Access\Config\ApplicationUserEntityConfig.cs
-C:\Users\zero6\source\repos\KMarketplace\src\Gateway\Gateway.Infrastructure\Migrations\20221026122756_Initial.cs
-C:\Users\zero6\source\repos\KMarketplace\src\Gateway\Gateway.Infrastructure\Migrations\20221026122756_Initial.Designer.cs
-C:\Users\zero6\source\repos\KMarketplace\src\Gateway\Gateway.Infrastructure\Migrations\20221026134221_Initial2.cs
-C:\Users\zero6\source\repos\KMarketplace\src\Gateway\Gateway.Infrastructure\Migrations\20221026134221_Initial2.Designer.cs
-C:\Users\zero6\source\repos\KMarketplace\src\Gateway\Gateway.Infrastructure\Migrations\AuthenticationDbContextModelSnapshot.cs

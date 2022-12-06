@@ -1,3 +1,0 @@
-﻿C:\Users\zero6\source\repos\KMarketplace\src\Customers\Customers.Domain\Entities\Address.cs
-C:\Users\zero6\source\repos\KMarketplace\src\Customers\Customers.Domain\Entities\Customer.cs
-C:\Users\zero6\source\repos\KMarketplace\src\Customers\Customers.Domain\Properties\launchSettings.json

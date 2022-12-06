@@ -1,9 +1,0 @@
-﻿C:\Users\zero6\source\repos\KMarketplace\src\Payments\Payments.Application\Commands\NotifyOfAcceptedPaymentCommand.cs
-C:\Users\zero6\source\repos\KMarketplace\src\Payments\Payments.Application\Commands\NotifyOfAcceptedPaymentCommandHandler.cs
-C:\Users\zero6\source\repos\KMarketplace\src\Payments\Payments.Application\DTOs\OrderDTO.cs
-C:\Users\zero6\source\repos\KMarketplace\src\Payments\Payments.Application\Interfaces\Base\IRepository.cs
-C:\Users\zero6\source\repos\KMarketplace\src\Payments\Payments.Application\Interfaces\IPaymentsGatewayService.cs
-C:\Users\zero6\source\repos\KMarketplace\src\Payments\Payments.Application\Interfaces\IPaymentsRepository.cs
-C:\Users\zero6\source\repos\KMarketplace\src\Payments\Payments.Application\Interfaces\IUnitOfWork.cs
-C:\Users\zero6\source\repos\KMarketplace\src\Payments\Payments.Application\Payments\PaymentsGatewayService.cs
-C:\Users\zero6\source\repos\KMarketplace\src\Payments\Payments.Application\Profiles\OrderToOrderDTOMappingProfile.cs

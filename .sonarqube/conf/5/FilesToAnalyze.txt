@@ -1,9 +1,0 @@
-﻿C:\Users\zero6\source\repos\KMarketplace\src\Payments\Payments.Domain\DataModels\OrderStatus.cs
-C:\Users\zero6\source\repos\KMarketplace\src\Payments\Payments.Domain\DataModels\PaymentMethod.cs
-C:\Users\zero6\source\repos\KMarketplace\src\Payments\Payments.Domain\Entities\Payment.cs
-C:\Users\zero6\source\repos\KMarketplace\src\Payments\Payments.Domain\Models\Address.cs
-C:\Users\zero6\source\repos\KMarketplace\src\Payments\Payments.Domain\Models\CheckoutSession.cs
-C:\Users\zero6\source\repos\KMarketplace\src\Payments\Payments.Domain\Models\Order.cs
-C:\Users\zero6\source\repos\KMarketplace\src\Payments\Payments.Domain\Models\OrderItem.cs
-C:\Users\zero6\source\repos\KMarketplace\src\Payments\Payments.Domain\Shared\Entity.cs
-C:\Users\zero6\source\repos\KMarketplace\src\Payments\Payments.Domain\Shared\IAggregateRoot.cs

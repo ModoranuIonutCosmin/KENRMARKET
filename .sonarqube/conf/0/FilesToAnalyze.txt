@@ -1,3 +1,0 @@
-﻿C:\Users\zero6\source\repos\KMarketplace\docker-compose.override.yml
-C:\Users\zero6\source\repos\KMarketplace\docker-compose.yml
-C:\Users\zero6\source\repos\KMarketplace\.dockerignore
