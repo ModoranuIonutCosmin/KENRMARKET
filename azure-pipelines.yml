@@ -6,14 +6,14 @@ parameters:
   - name: 'dockerfiles'
     type: object
     default:
-      - [$(Build.SourcesDirectory)\src\Cart\Cart.API\Dockerfile, cart.api]
-      - [$(Build.SourcesDirectory)\src\Customers\Customers.API\Dockerfile, customers.api]
-      - [$(Build.SourcesDirectory)\src\Gateway\Gateway.API\Dockerfile, gateway.api]
-      - [$(Build.SourcesDirectory)\src\Order\Order.API\Dockerfile, order.api]
-      - [$(Build.SourcesDirectory)\src\Payments\Payments.API\Dockerfile, payments.api]
-      - [$(Build.SourcesDirectory)\src\Products\Products.API\Dockerfile, products.api]
-      - [$(Build.SourcesDirectory)\src\Watchdog\Watchdog.WebApp\Dockerfile, webstatus]
-      - [$(Build.SourcesDirectory)\src\Order\Order.SignalR\Dockerfile, ordersignalr.api]
+      - [$(Build.SourcesDirectory)/src/Cart/Cart.API/Dockerfile, cartapi]
+      - [$(Build.SourcesDirectory)/src/Customers/Customers.API/Dockerfile, customersapi]
+      - [$(Build.SourcesDirectory)/src/Gateway/Gateway.API/Dockerfile, gatewayapi]
+      - [$(Build.SourcesDirectory)/src/Order/Order.API/Dockerfile, orderapi]
+      - [$(Build.SourcesDirectory)/src/Payments/Payments.API/Dockerfile, paymentsapi]
+      - [$(Build.SourcesDirectory)/src/Products/Products.API/Dockerfile, productsapi]
+      - [$(Build.SourcesDirectory)/src/Watchdog/Watchdog.WebApp/Dockerfile, watchdogwebapp]
+      - [$(Build.SourcesDirectory)/src/Order/Order.SignalR/Dockerfile, ordersignalr]
   - name: 'registryName'
     type: string
     default: 'modoranuc'
@@ -24,7 +24,7 @@ jobs:
 - job: PushDockerImages
   displayName: Push images to docker hub
   pool:
-    vmImage: 'windows-latest'
+    vmImage: 'ubuntu-latest'
   steps:
   - checkout: self
     clean: true
