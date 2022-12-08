@@ -24,8 +24,7 @@ jobs:
 - job: PushDockerImages
   displayName: Push images to docker hub
   pool:
-    # name: WindowsLocal
-    vmImage: 'ubuntu-latest'
+    vmImage: 'windows-latest'
   steps:
   - checkout: self
     clean: true
