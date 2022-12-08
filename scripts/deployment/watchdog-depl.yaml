@@ -1,0 +1,83 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webstatus
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webstatus
+  template:
+    metadata:
+      labels:
+        app: webstatus
+    spec:
+      containers:
+      - name: webstatus
+        image: modoranuc/webstatusapi
+        imagePullPolicy: Always
+        env:
+          - name: Services__Cart
+            value: http://cartsservice:8080
+          - name: Services__Customers
+            value: http://customersservice:8080
+          - name: Services__Products
+            value: http://productsservice:8080
+          - name: Services__Orders
+            value: http://ordersservice:8080
+          - name: Services__Payments
+            value: http://paymentsservice:8080
+          ##
+          - name: onnectionStrings__SqlServer
+            value: Server=host.minikube.internal;User ID=local;Password=aaaa1234;Database=Auths;TrustServerCertificate=true
+          - name: EventQueue__Host
+            value: host.minikube.internal
+          - name: EventQueue__Username
+            value: guest
+          - name: EventQueue__Password
+            value: guest
+            #
+          - name: HealthChecksUI__HealthChecks__0__Name 
+            value: Cart Health Check
+          - name: HealthChecksUI__HealthChecks__0__Uri  
+            value: http://cartsservice:8080/hc
+            #
+          - name: HealthChecksUI__HealthChecks__1__Name 
+            value: Customers Health Check
+          - name: HealthChecksUI__HealthChecks__1__Uri  
+            value: http://customersservice:8080/hc
+            #
+          - name: HealthChecksUI__HealthChecks__2__Name 
+            value: Products Health Check
+          - name: HealthChecksUI__HealthChecks__2__Uri  
+            value: http://productsservice:8080/hc
+            #
+          - name: HealthChecksUI__HealthChecks__3__Name 
+            value: Ordering Health Check
+          - name: HealthChecksUI__HealthChecks__3__Uri  
+            value: http://ordersservice:8080/hc
+            #
+          - name: HealthChecksUI__HealthChecks__4__Name 
+            value: Payments Health Check
+          - name: HealthChecksUI__HealthChecks__4__Uri  
+            value: http://paymentsservice:8080/hc
+            #
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
+      
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webstatusservice
+spec:
+  selector:
+    app: webstatus
+  ports:
+  - port: 8080
+    targetPort: 80
+

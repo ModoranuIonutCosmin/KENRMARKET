@@ -21,7 +21,7 @@ public class ProductsController : BaseController
     }
 
     [HttpPost("filtered")]
-    public async Task<IActionResult> GetAllProducts([FromBody] FilterOptions filterOptions)
+    public async Task<IActionResult> GetProductsFiltered([FromBody] FilterOptions filterOptions)
     {
         return Ok(await productsService.GetProductsFiltered(filterOptions));
     }

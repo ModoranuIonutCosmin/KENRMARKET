@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: productsapi
+  name: paymentsapi
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: productsapi
+      app: paymentsapi
   template:
     metadata:
       labels:
-        app: productsapi
+        app: paymentsapi
     spec:
       containers:
-      - name: productsapi
-        image: modoranuc/productsapi
+      - name: paymentsapi
+        image: modoranuc/paymentsapi
         imagePullPolicy: Always
         env:
-          - name: ConnectionStrings__Mongo__Host
-            value: mongodb://host.minikube.internal:27017
+          - name: onnectionStrings__SqlServer
+            value: Server=host.minikube.internal;User ID=local;Password=aaaa1234;Database=Payments;TrustServerCertificate=true
           - name: EventQueue__Host
             value: host.minikube.internal
           - name: EventQueue__Username
@@ -36,10 +36,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: productsservice
+  name: paymentsservice
 spec:
   selector:
-    app: productsapi
+    app: paymentsapi
   ports:
   - port: 8080
     targetPort: 80

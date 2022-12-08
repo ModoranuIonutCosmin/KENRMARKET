@@ -1,11 +1,15 @@
+using System.Security.Authentication;
 using System.Text;
 using Gateway.API.Auth;
+using Gateway.API.Exceptions;
 using Gateway.API.Interfaces;
 using Gateway.API.Services;
 using Gateway.Application.Profiles;
 using Gateway.Domain.Entities;
+using Gateway.Domain.Exceptions;
 using Gateway.Infrastructure.Data_Access;
 using HealthChecks.UI.Client;
+using Hellang.Middleware.ProblemDetails;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -141,6 +145,36 @@ builder.Services.AddSwaggerGen(opt =>
 
 ///
 
+// ProblemDetails
+
+builder.Services.AddProblemDetails((options) =>
+{
+
+    options.IncludeExceptionDetails = (_, _) => true;
+    // This will map NotImplementedException to the 501 Not Implemented status code.
+    options.MapToStatusCode<NotImplementedException>(StatusCodes.Status501NotImplemented);
+
+    // This will map HttpRequestException to the 503 Service Unavailable status code.
+    options.MapToStatusCode<HttpRequestException>(StatusCodes.Status503ServiceUnavailable);
+    
+    
+    options.MapToStatusCode<AuthenticationException>(StatusCodes.Status403Forbidden);
+
+
+    options.MapToStatusCode<InvalidConfirmationLinkException>(StatusCodes.Status400BadRequest);
+    options.MapToStatusCode<InvalidPasswordResetLink>(StatusCodes.Status400BadRequest);
+
+
+    options.MapToStatusCode<ProductDoesntExistException>(StatusCodes.Status404NotFound);
+    options.MapToStatusCode<UserNotFoundException>(StatusCodes.Status404NotFound);
+
+    options.MapToStatusCode<StockForOrderNotValidatedException>(StatusCodes.Status403Forbidden);
+    
+    // Because exceptions are handled polymorphically, this will act as a "catch all" mapping, which is why it's added last.
+    // If an exception other than NotImplementedException and HttpRequestException is thrown, this will handle it.
+    options.MapToStatusCode<Exception>(StatusCodes.Status500InternalServerError);
+});
+
 //Automapper
 
 //TODO: Better way?
@@ -183,8 +217,12 @@ app.MapHealthChecks("/liveness", new HealthCheckOptions
     Predicate = r => r.Name.Contains("self")
 });
 
+
+
 app.UseSwagger();
 app.UseSwaggerUI();
+
+app.UseProblemDetails();
 
 app.UseHttpsRedirection();
 

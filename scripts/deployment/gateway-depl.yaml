@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gatewayapi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gatewayapi
+  template:
+    metadata:
+      labels:
+        app: gatewayapi
+    spec:
+      containers:
+      - name: gatewayapi
+        image: modoranuc/gatewayapi
+        imagePullPolicy: Always
+        env:
+          - name: ConnectionStrings__SqlServer
+            value: Server=host.minikube.internal;User ID=local;Password=aaaa1234;Database=Auths;TrustServerCertificate=true
+          - name: Services__Cart
+            value: http://cartsservice:8080
+          - name: Services__Customers
+            value: http://customersservice:8080
+          - name: Services__Products
+            value: http://productsservice:8080
+          - name: Services__Orders
+            value: http://ordersservice:8080
+          - name: Services__Payments
+            value: http://paymentsservice:8080
+        
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
+      
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gatewayservice
+spec:
+  selector:
+    app: gatewayapi
+  ports:
+  - port: 8080
+    targetPort: 80
+

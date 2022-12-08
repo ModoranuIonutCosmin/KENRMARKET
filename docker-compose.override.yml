@@ -28,7 +28,7 @@ services:
     container_name: webstatus
 
     environment:
-     -  ASPNETCORE_ENVIRONMENT=Development
+     - ASPNETCORE_ENVIRONMENT=Development
      - Services__Cart=http://cart.api
      - Services__Customers=http://customers.api
      - Services__Products=http://products.api

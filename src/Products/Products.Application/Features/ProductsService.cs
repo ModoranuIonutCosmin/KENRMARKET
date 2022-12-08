@@ -33,7 +33,8 @@ public class ProductsService : IProductsService
     {
         var rootCategory = await _categoriesRepository.GetCategoryByName(filterOptions.CategoryName);
 
-        if (rootCategory == null) return new List<Product>();
+        var categoriesSearched = rootCategory != null ? RecurseCategories(rootCategory)
+        : new List<Category>();
 
         return await _productsRepository.FilterProducts(filterOptions);
     }
@@ -47,7 +48,7 @@ public class ProductsService : IProductsService
 
     public async Task<bool> AreProductsOnStock(List<ProductQuantity> productQuantities)
     {
-        
+
         var requiredProductsIds = productQuantities
             .Select(p => p.ProductId).ToList();
 

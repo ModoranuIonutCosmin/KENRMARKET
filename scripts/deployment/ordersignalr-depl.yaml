@@ -1,24 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: productsapi
+  name: ordersignalr
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: productsapi
+      app: ordersignalr
   template:
     metadata:
       labels:
-        app: productsapi
+        app: ordersignalr
     spec:
       containers:
-      - name: productsapi
-        image: modoranuc/productsapi
+      - name: ordersignalr
+        image: modoranuc/ordersignalrapi
         imagePullPolicy: Always
         env:
-          - name: ConnectionStrings__Mongo__Host
-            value: mongodb://host.minikube.internal:27017
           - name: EventQueue__Host
             value: host.minikube.internal
           - name: EventQueue__Username
@@ -36,10 +34,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: productsservice
+  name: ordersignalrservice
 spec:
   selector:
-    app: productsapi
+    app: ordersignalr
   ports:
   - port: 8080
     targetPort: 80

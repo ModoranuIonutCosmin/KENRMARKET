@@ -31,5 +31,6 @@ public static class ServicesRoutes
     public static class Payments
     {
         public static string CreateCheckoutSession => "api/1.0/Payments/createCheckoutSession";
+        public static string PaymentsWebhook => "api/1.0/webhook";
     }
 }

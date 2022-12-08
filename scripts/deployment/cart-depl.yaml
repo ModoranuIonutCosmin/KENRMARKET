@@ -1,24 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: productsapi
+  name: cartapi
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: productsapi
+      app: cartapi
   template:
     metadata:
       labels:
-        app: productsapi
+        app: cartapi
     spec:
       containers:
-      - name: productsapi
-        image: modoranuc/productsapi
+      - name: cartapi
+        image: modoranuc/cartapi
         imagePullPolicy: Always
         env:
-          - name: ConnectionStrings__Mongo__Host
-            value: mongodb://host.minikube.internal:27017
+      # - ConnectionStrings__SqlServer=Server=host.docker.internal;User ID=local;Password=aaaa1234;Database=Cart;TrustServerCertificate=true
+
+          - name: ConnectionStrings__SqlServer
+            value: Server=host.minikube.internal;User ID=local;Password=aaaa1234;Database=Cart;TrustServerCertificate=true
           - name: EventQueue__Host
             value: host.minikube.internal
           - name: EventQueue__Username
@@ -36,10 +38,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: productsservice
+  name: cartsservice
 spec:
   selector:
-    app: productsapi
+    app: cartapi
   ports:
   - port: 8080
     targetPort: 80

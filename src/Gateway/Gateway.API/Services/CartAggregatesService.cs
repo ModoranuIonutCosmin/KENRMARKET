@@ -47,7 +47,8 @@ public class CartAggregatesService : ICartAggregatesService
         var errors = new List<dynamic>();
 
         if (!productStatus.IsOk || productStatus.Product == null ||
-            !cartStatus.IsOk || cartStatus.CartDetails == null)
+            !cartStatus.IsOk || cartStatus.CartDetails == null ||
+            cartItemDto.Quantity == 0)
             return (false, null);
 
         var existentCartItem = cart.CartItems.SingleOrDefault(ci => ci.ProductId.Equals(cartItemDto.ProductId));
@@ -56,27 +57,18 @@ public class CartAggregatesService : ICartAggregatesService
         {
             existentCartItem = _mapper.Map<CartItemDTO, CartItem>(cartItemDto);
 
-            existentCartItem.Quantity = 0;
-
             cart.CartItems.Add(existentCartItem);
+        } 
+        else 
+        {
+            existentCartItem.Quantity += cartItemDto.Quantity;
         }
 
         existentCartItem.ProductName = product.Name;
         existentCartItem.PictureUrl = product.PhotoUrl ?? "dummy.png";
-
         existentCartItem.UnitPrice = product.Price;
         existentCartItem.AddedAt = product.AddedDate;
         existentCartItem.Id = Guid.Empty;
-
-        if (existentCartItem.Quantity > 0)
-        {
-            existentCartItem.Quantity = existentCartItem.Quantity + cartItemDto.Quantity;
-        }
-        else
-        {
-            existentCartItem.Quantity = cartItemDto.Quantity;
-        }
-
 
         if (product.Quantity < existentCartItem.Quantity)
         {
@@ -119,7 +111,7 @@ public class CartAggregatesService : ICartAggregatesService
             var matchingProduct =
                 productsAvailable.Products.SingleOrDefault(p => p.Id.ToString() == cartItem.ProductId.ToString());
 
-            if (matchingProduct is null)
+            if (matchingProduct is null || cartItem.Quantity == 0)
             {
                 newCartItems.Remove(cartItem);
 

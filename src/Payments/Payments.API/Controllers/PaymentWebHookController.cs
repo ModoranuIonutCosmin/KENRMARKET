@@ -9,6 +9,7 @@ using Stripe.Checkout;
 namespace Payments.API.Controllers;
 
 [ApiVersion("1.0")]
+[Route("api/{version:apiVersion}/webhook")]
 public class PaymentWebHookController : BaseController
 {
     private readonly IMediator _mediator;
