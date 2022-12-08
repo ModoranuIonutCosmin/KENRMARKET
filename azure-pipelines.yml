@@ -34,10 +34,11 @@ jobs:
       displayName: 'Build&push ${{ dockerfile[1] }}'
       inputs:
         containerRegistry: 'modoranuc'
-        repository: '${{ parameters.registryName }}/${{ dockerfile[1] }}:latest'
+        repository: '${{ parameters.registryName }}/${{ dockerfile[1] }}'
         command: 'buildAndPush'
         Dockerfile: '${{ dockerfile[0] }}'
         buildContext: '$(Build.SourcesDirectory)'
+        tags: 'latest'
 
 
 
