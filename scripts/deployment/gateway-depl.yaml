@@ -29,10 +29,14 @@ spec:
             value: http://ordersservice:8080
           - name: Services__Payments
             value: http://paymentsservice:8080
-        
+          - name: GATEWAY_API_PATH_BASE
+            value: "/backend"
         resources:
-          limits:
+          requests:
             memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
             cpu: "500m"
         ports:
         - containerPort: 80
@@ -43,9 +47,32 @@ kind: Service
 metadata:
   name: gatewayservice
 spec:
+  type: ClusterIP
   selector:
     app: gatewayapi
   ports:
   - port: 8080
     targetPort: 80
 
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-kenrmarketplaceapi
+  annotations:
+      kubernetes.io/ingress.class: nginx
+      nginx.ingress.kubernetes.io/x-forwarded-prefix: /$1    
+      nginx.ingress.kubernetes.io/use-regex: "true"
+      # nginx.ingress.kubernetes.io/rewrite-target: /$3
+spec:
+  rules:
+    - host: creation.info
+      http:
+        paths:
+          - path: /(backend)(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: gatewayservice
+                port:
+                  number: 8080

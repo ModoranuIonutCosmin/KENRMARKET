@@ -28,7 +28,7 @@ spec:
           - name: Services__Payments
             value: http://paymentsservice:8080
           ##
-          - name: onnectionStrings__SqlServer
+          - name: ConnectionStrings__SqlServer
             value: Server=host.minikube.internal;User ID=local;Password=aaaa1234;Database=Auths;TrustServerCertificate=true
           - name: EventQueue__Host
             value: host.minikube.internal
@@ -63,8 +63,11 @@ spec:
             value: http://paymentsservice:8080/hc
             #
         resources:
-          limits:
+          requests:
             memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
             cpu: "500m"
         ports:
         - containerPort: 80

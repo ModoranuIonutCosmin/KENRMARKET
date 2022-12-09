@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Microsoft.Extensions.Logging.Console;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Polly;
@@ -156,8 +157,8 @@ builder.Services.AddProblemDetails((options) =>
 
     // This will map HttpRequestException to the 503 Service Unavailable status code.
     options.MapToStatusCode<HttpRequestException>(StatusCodes.Status503ServiceUnavailable);
-    
-    
+
+
     options.MapToStatusCode<AuthenticationException>(StatusCodes.Status403Forbidden);
 
 
@@ -169,7 +170,7 @@ builder.Services.AddProblemDetails((options) =>
     options.MapToStatusCode<UserNotFoundException>(StatusCodes.Status404NotFound);
 
     options.MapToStatusCode<StockForOrderNotValidatedException>(StatusCodes.Status403Forbidden);
-    
+
     // Because exceptions are handled polymorphically, this will act as a "catch all" mapping, which is why it's added last.
     // If an exception other than NotImplementedException and HttpRequestException is thrown, this will handle it.
     options.MapToStatusCode<Exception>(StatusCodes.Status500InternalServerError);
@@ -206,6 +207,39 @@ builder.Services.AddHealthChecks()
 
 var app = builder.Build();
 
+var basePath = Environment.GetEnvironmentVariable("GATEWAY_API_PATH_BASE");
+
+if (basePath != null)
+{
+    //k8s ingress 
+    app.UsePathBase(basePath);
+}
+
+
+
+
+// app.Use(async (context, next) =>
+// {
+//     using var loggerFactory = LoggerFactory.Create(builder =>
+// {
+//     builder.AddSimpleConsole(i => i.ColorBehavior = LoggerColorBehavior.Enabled);
+// });
+
+//     var logger = loggerFactory.CreateLogger<Program>();
+
+
+//     if (context.Request.Headers.TryGetValue("X-Forwarded-PathBase", out var pathBase))
+//     {
+//         context.Request.PathBase = pathBase.Last();
+
+//         if (context.Request.Path.StartsWithSegments(context.Request.PathBase, out var path))
+//         {
+//             context.Request.Path = path;
+//         }
+//     }
+
+//     await next();
+// });
 
 app.MapHealthChecks("/hc", new HealthCheckOptions()
 {
@@ -225,6 +259,8 @@ app.UseSwaggerUI();
 app.UseProblemDetails();
 
 app.UseHttpsRedirection();
+
+app.UseRouting();
 
 app.UseAuthentication();
 
