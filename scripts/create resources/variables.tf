@@ -15,6 +15,6 @@ variable "environment" {
 
 variable "key_vault_name" {
     type = string
-    default = "secretskeyvaultkmarket"
+    default = "secretskeyvaultkmarket02"
 }
 

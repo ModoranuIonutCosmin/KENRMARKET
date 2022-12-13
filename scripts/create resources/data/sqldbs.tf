@@ -17,7 +17,7 @@ resource "azurerm_mssql_server_transparent_data_encryption" "azure_tde_config" {
     azurerm_mssql_server.db_azuresqlserver,
   ]
 }
-resource "azurerm_mssql_firewall_rule" "db_firewall_policy" {
+resource "azurerm_mssql_firewall_rule" "db_firewall_policy_all_azure" {
   name             = "AllowAllWindowsAzureIps"
   server_id = azurerm_mssql_server.db_azuresqlserver.id
   start_ip_address = "0.0.0.0"
@@ -27,6 +27,17 @@ resource "azurerm_mssql_firewall_rule" "db_firewall_policy" {
   ]
 }
 
+resource "azurerm_mssql_firewall_rule" "db_firewall_policy" {
+  name             = "AllowAll1"
+  server_id = azurerm_mssql_server.db_azuresqlserver.id
+  start_ip_address = "0.0.0.1"
+  end_ip_address   = "255.255.255.255"
+  depends_on = [
+    azurerm_mssql_server.db_azuresqlserver,
+  ]
+}
+
+
 
 resource "azurerm_mssql_database" "db_authDb" {
   server_id = azurerm_mssql_server.db_azuresqlserver.id
@@ -34,7 +45,6 @@ resource "azurerm_mssql_database" "db_authDb" {
   max_size_gb                 = 4
   min_capacity                = 0.5
   read_replica_count          = 0
-  read_scale                  = false
   sku_name                    = "GP_S_Gen5_1"
   auto_pause_delay_in_minutes = 60
   storage_account_type = "Local"

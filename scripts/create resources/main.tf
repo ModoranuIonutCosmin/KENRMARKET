@@ -8,13 +8,13 @@ resource "azurerm_resource_group" "rg_kenrmarket" {
 module "data" {
   source = "./data"
   environment = var.environment
-  resource_group_name = var.resource_group_name
+  resource_group_name = azurerm_resource_group.rg_kenrmarket.name
   location = var.location
 }
 
 module "service_bus" {
   source = "./service buses"
   environment = var.environment
-  resource_group_name = var.resource_group_name
+  resource_group_name = azurerm_resource_group.rg_kenrmarket.name
   location = var.location
 }

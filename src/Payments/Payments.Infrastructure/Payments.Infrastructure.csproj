@@ -13,6 +13,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="MassTransit.Azure.ServiceBus.Core" Version="8.0.10-develop.696" />
         <PackageReference Include="MassTransit.EntityFrameworkCore" Version="8.0.8-develop.621" />
         <PackageReference Include="MassTransit.RabbitMQ" Version="8.0.8-develop.621" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.0-rc.2.22472.11" />

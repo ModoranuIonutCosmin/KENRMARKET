@@ -12,6 +12,7 @@ using Serilog;
 using Serilog.Events;
 
 var builder = WebApplication.CreateBuilder(args);
+var isInDevelopment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development";
 
 var configuration = builder.Configuration;
 
@@ -67,19 +68,33 @@ builder.Services.AddMassTransit(x =>
 
     x.AddConsumers(entryAssemblies);
 
-    x.UsingRabbitMq((context, cfg) =>
-
+    if (isInDevelopment)
     {
-        cfg.Host(configuration["EventQueue:Host"], "/", h =>
+        x.UsingRabbitMq((context, cfg) =>
         {
-            h.Username(configuration["EventQueue:Username"]);
-            h.Password(configuration["EventQueue:Password"]);
+            cfg.Host(configuration["EventQueue:Host"], "/", h =>
+            {
+                h.Username(configuration["EventQueue:Username"]);
+                h.Password(configuration["EventQueue:Password"]);
+            });
+
+
+            cfg.ConfigureEndpoints(context);
+
+            cfg.AutoStart = true;
         });
+    }
+    else
+    {
+        x.UsingAzureServiceBus((context, cfg) =>
+        {
+            cfg.Host(Environment.GetEnvironmentVariable("SERVICE-BUS-CONNECTIONSTRING"));
+            
+            cfg.ConfigureEndpoints(context);
 
-        cfg.ConfigureEndpoints(context);
-
-        cfg.AutoStart = true;
-    });
+            cfg.AutoStart = true;
+        });
+    }
 });
 
 builder.Services.AddApiVersioning(config =>

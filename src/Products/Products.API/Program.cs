@@ -13,7 +13,7 @@ using Products.Infrastructure.Data_Access.v1;
 using Products.Infrastructure.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
-
+var isInDevelopment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development";
 
 var configuration = builder.Configuration;
 // Add services to the container.
@@ -45,20 +45,37 @@ builder.Services.AddMassTransit(x =>
 
     x.AddConsumers(entryAssemblies);
 
-    x.UsingRabbitMq((context, cfg) =>
+    var isInDevelopment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development";
 
+    if (isInDevelopment)
     {
-        cfg.Host(configuration["EventQueue:Host"], "/", h =>
+        x.UsingRabbitMq((context, cfg) =>
         {
-            h.Username(configuration["EventQueue:Username"]);
-            h.Password(configuration["EventQueue:Password"]);
+            cfg.Host(configuration["EventQueue:Host"], "/", h =>
+            {
+                h.Username(configuration["EventQueue:Username"]);
+                h.Password(configuration["EventQueue:Password"]);
+            });
+
+
+            cfg.ConfigureEndpoints(context);
+
+            cfg.AutoStart = true;
         });
+    }
+    else
+    {
+        x.UsingAzureServiceBus((context, cfg) =>
+        {
+            cfg.Host(Environment.GetEnvironmentVariable("SERVICE-BUS-CONNECTIONSTRING"));
+            
+            cfg.ConfigureEndpoints(context);
+
+            cfg.AutoStart = true;
+        });
+    }
 
 
-        cfg.ConfigureEndpoints(context);
-
-        cfg.AutoStart = true;
-    });
 });
 
 builder.Services.AddTransient<IProductsRepository, ProductsRepository>();
@@ -84,8 +101,8 @@ builder.Services.AddCors(options =>
         });
 });
 
-var rabbitConString =
-    $"amqp://{configuration["EventQueue:Username"]}:{configuration["EventQueue:Password"]}@{configuration["EventQueue:Host"]}:5672";
+// var rabbitConString =
+//     $"amqp://{configuration["EventQueue:Username"]}:{configuration["EventQueue:Password"]}@{configuration["EventQueue:Host"]}:5672";
 
 builder.Services.AddHealthChecks()
     .AddMongoDb(configuration["ConnectionStrings:Mongo:Host"], "MongoDb", HealthStatus.Degraded);
