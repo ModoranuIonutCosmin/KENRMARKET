@@ -17,8 +17,14 @@ spec:
         image: modoranuc/gatewayapi
         imagePullPolicy: Always
         env:
+          - name: ASPNETCORE_ENVIRONMENT
+            value: Production
           - name: ConnectionStrings__SqlServer
-            value: Server=host.minikube.internal;User ID=local;Password=aaaa1234;Database=Auths;TrustServerCertificate=true
+            # value: Server=host.minikube.internal;User ID=local;Password=aaaa1234;Database=Auths;TrustServerCertificate=true
+            valueFrom:
+              configMapKeyRef:
+                name: secrets-connection-strings
+                key: SQL-CONNECTIONSTRING-AUTH
           - name: Services__Cart
             value: http://cartsservice:8080
           - name: Services__Customers
@@ -47,7 +53,7 @@ kind: Service
 metadata:
   name: gatewayservice
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   selector:
     app: gatewayapi
   ports:
@@ -65,9 +71,9 @@ metadata:
       nginx.ingress.kubernetes.io/use-regex: "true"
       # nginx.ingress.kubernetes.io/rewrite-target: /$3
 spec:
+  ingressClassName: nginx
   rules:
-    - host: creation.info
-      http:
+    - http:
         paths:
           - path: /(backend)(/|$)(.*)
             pathType: Prefix

@@ -17,14 +17,25 @@ spec:
         image: modoranuc/productsapi
         imagePullPolicy: Always
         env:
+          - name: ASPNETCORE_ENVIRONMENT
+            value: Production
           - name: ConnectionStrings__Mongo__Host
-            value: mongodb://host.minikube.internal:27017
-          - name: EventQueue__Host
-            value: host.minikube.internal
-          - name: EventQueue__Username
-            value: guest
-          - name: EventQueue__Password
-            value: guest
+            # value: mongodb://host.minikube.internal:27017
+            valueFrom:
+              configMapKeyRef:
+                name: secrets-connection-strings
+                key: MONGO-CONNECTIONSTRING-PRODUCT
+          # - name: EventQueue__Host
+          - name: SERVICE-BUS-CONNECTIONSTRING
+            valueFrom:
+                configMapKeyRef:
+                  name: secrets-connection-strings
+                  key: SERVICE-BUS-CONNECTIONSTRING
+            # value: host.minikube.internal
+          # - name: EventQueue__Username
+          #   value: guest
+          # - name: EventQueue__Password
+          #   value: guest
         resources:
           requests:
             memory: "128Mi"

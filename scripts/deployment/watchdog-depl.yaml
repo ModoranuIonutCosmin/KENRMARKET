@@ -17,6 +17,8 @@ spec:
         image: modoranuc/webstatusapi
         imagePullPolicy: Always
         env:
+          - name: ASPNETCORE_ENVIRONMENT
+            value: Production
           - name: Services__Cart
             value: http://cartsservice:8080
           - name: Services__Customers
@@ -28,15 +30,6 @@ spec:
           - name: Services__Payments
             value: http://paymentsservice:8080
           ##
-          - name: ConnectionStrings__SqlServer
-            value: Server=host.minikube.internal;User ID=local;Password=aaaa1234;Database=Auths;TrustServerCertificate=true
-          - name: EventQueue__Host
-            value: host.minikube.internal
-          - name: EventQueue__Username
-            value: guest
-          - name: EventQueue__Password
-            value: guest
-            #
           - name: HealthChecksUI__HealthChecks__0__Name 
             value: Cart Health Check
           - name: HealthChecksUI__HealthChecks__0__Uri  

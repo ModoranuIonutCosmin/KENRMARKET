@@ -1,6 +1,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/dotnetcore,visualstudio,rider,visualstudiocode
 # Edit at https://www.toptal.com/developers/gitignore?templates=dotnetcore,visualstudio,rider,visualstudiocode
 
+### My k8s secrets
+**local-secrets.yaml**
+
 
 ###sonar
 

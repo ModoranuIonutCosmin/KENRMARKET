@@ -9,7 +9,6 @@ resource "azurerm_kubernetes_cluster" "cluster_microservices" {
     name       = "default"
     max_count = 3
     min_count = 1
-    node_count = 2
     enable_auto_scaling = true
 
     vm_size    = "Standard_B2s"

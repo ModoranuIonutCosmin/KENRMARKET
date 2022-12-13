@@ -67,7 +67,7 @@ resource "azurerm_key_vault_secret" "secret_sqldb_order" {
 resource "azurerm_key_vault_secret" "secret_sqldb_customer" {
   name         = "SQL-CONNECTIONSTRING-CUSTOMER"
   key_vault_id = azurerm_key_vault.key_vault.id
-  value = base64encode(module.data.db_sql_connection_string_customers)
+  value = module.data.db_sql_connection_string_customers
   depends_on = [
     azurerm_key_vault.key_vault
   ]

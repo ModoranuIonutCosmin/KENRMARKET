@@ -17,14 +17,25 @@ spec:
         image: modoranuc/orderapi
         imagePullPolicy: Always
         env:
+          - name: ASPNETCORE_ENVIRONMENT
+            value: Production
           - name: ConnectionStrings__SqlServer
-            value: Server=host.minikube.internal;User ID=local;Password=aaaa1234;Database=Orders;TrustServerCertificate=true
-          - name: EventQueue__Host
-            value: host.minikube.internal
-          - name: EventQueue__Username
-            value: guest
-          - name: EventQueue__Password
-            value: guest
+            # value: Server=host.minikube.internal;User ID=local;Password=aaaa1234;Database=Orders;TrustServerCertificate=true
+            valueFrom:
+              configMapKeyRef:
+                name: secrets-connection-strings
+                key: SQL-CONNECTIONSTRING-ORDER
+          # - name: EventQueue__Host
+          - name: SERVICE-BUS-CONNECTIONSTRING
+            valueFrom:
+                configMapKeyRef:
+                  name: secrets-connection-strings
+                  key: SERVICE-BUS-CONNECTIONSTRING
+            # value: host.minikube.internal
+          # - name: EventQueue__Username
+          #   value: guest
+          # - name: EventQueue__Password
+          #   value: guest
         resources:
           requests:
             memory: "128Mi"
