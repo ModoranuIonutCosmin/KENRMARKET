@@ -5,6 +5,14 @@ resource "azurerm_resource_group" "rg_kenrmarket" {
   name     = var.resource_group_name
 }
 
+
+module "clusters" {
+  source = "./cluster"
+  environment = var.environment
+  resource_group_name = azurerm_resource_group.rg_kenrmarket.name
+  location = var.location
+}
+
 module "data" {
   source = "./data"
   environment = var.environment

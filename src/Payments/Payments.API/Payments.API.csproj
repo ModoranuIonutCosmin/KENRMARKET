@@ -13,7 +13,8 @@
     <ItemGroup>
         <PackageReference Include="AspNetCore.HealthChecks.SqlServer" Version="6.0.2" />
         <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="6.0.5" />
-        <PackageReference Include="MassTransit" Version="8.0.8-develop.621" />
+        <PackageReference Include="MassTransit" Version="8.0.10-develop.696" />
+        <PackageReference Include="MassTransit.Azure.ServiceBus.Core" Version="8.0.10-develop.696" />
         <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.0-rc.2.22472.11">
