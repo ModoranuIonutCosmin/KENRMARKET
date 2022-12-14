@@ -42,6 +42,8 @@ stages:
             buildContext: '$(Build.SourcesDirectory)'
             tags: 'latest'
   - stage: create_infra_tf
+    dependsOn:
+      - Build_And_Push
     jobs:
       - job: create_infra_tf_job
         pool:
@@ -53,6 +55,7 @@ stages:
           inputs:
             provider: 'azurerm'
             command: 'init'
+            workingDirectory: '$(System.DefaultWorkingDirectory)/scripts/create_resources'
             backendServiceArm: 'Azure for Students(ba6a171e-b681-4996-92d7-1df841bb2a50)'
             backendAzureRmResourceGroupName: 'terraform'
             backendAzureRmStorageAccountName: 'terraformstoragekmarket'
