@@ -20,25 +20,46 @@ parameters:
 
 
 name: $(date:yyyyMMdd)$(rev:.r)
-jobs:
-- job: PushDockerImages
-  displayName: Push images to docker hub
-  pool:
-    vmImage: 'ubuntu-latest'
-  steps:
-  - checkout: self
-    clean: true
-    fetchTags: false
-  - ${{ each dockerfile in parameters.dockerfiles }}:
-    - task: Docker@2
-      displayName: 'Build&push ${{ dockerfile[1] }}'
-      inputs:
-        containerRegistry: 'modoranuc'
-        repository: '${{ parameters.registryName }}/${{ dockerfile[1] }}'
-        command: 'buildAndPush'
-        Dockerfile: '${{ dockerfile[0] }}'
-        buildContext: '$(Build.SourcesDirectory)'
-        tags: 'latest'
+stages:
+  - stage: Build & Push
+    jobs:
+    - job: PushDockerImages
+      displayName: Push images to docker hub
+      pool:
+        vmImage: 'ubuntu-latest'
+      steps:
+      - checkout: self
+        clean: true
+        fetchTags: false
+      - ${{ each dockerfile in parameters.dockerfiles }}:
+        - task: Docker@2
+          displayName: 'Build&push ${{ dockerfile[1] }}'
+          inputs:
+            containerRegistry: 'modoranuc'
+            repository: '${{ parameters.registryName }}/${{ dockerfile[1] }}'
+            command: 'buildAndPush'
+            Dockerfile: '${{ dockerfile[0] }}'
+            buildContext: '$(Build.SourcesDirectory)'
+            tags: 'latest'
+  - stage: Create infra using terraform
+    jobs:
+      - task: TerraformTaskV3@3
+        displayName: 'Init terraform'
+        inputs:
+          provider: 'azurerm'
+          command: 'init'
+          backendServiceArm: 'Azure for Students(ba6a171e-b681-4996-92d7-1df841bb2a50)'
+          backendAzureRmResourceGroupName: 'terraform'
+          backendAzureRmStorageAccountName: 'terraformstoragekmarket'
+          backendAzureRmContainerName: 'terraform'
+          backendAzureRmKey: 'terraform/terraform.tfstate'
+      - task: TerraformTaskV3@3
+        displayName: 'Apply terraform'
+        inputs:
+          provider: 'azurerm'
+          command: 'apply'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/scripts/create_resources'
+          environmentServiceNameAzureRM: 'Azure for Students(ba6a171e-b681-4996-92d7-1df841bb2a50)'
 
 
 
