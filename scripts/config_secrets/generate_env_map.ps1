@@ -1,16 +1,4 @@
 
-$header = @"
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: secrets-connection-strings
-data:
-
-"@
-
-
-
-
 
 Function GetKeyVaultEntries(
     [string]$keyVaultName
@@ -25,7 +13,7 @@ Function GetKeyVaultEntries(
     }
 
 
-    $header > local-secrets.yaml
+    $header > local-secrets.env
 }
 
 

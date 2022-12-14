@@ -1,5 +1,10 @@
 terraform {
-  backend "local" {}
+  backend "azurerm"{
+    storage_account_name = "terraformstoragekmarket"
+    container_name       = "terraform"
+    key                  = "terraform.tfstate"
+    # sas_token = "some_sas_token"
+  }
   required_providers {
     azurerm = {
       source = "hashicorp/azurerm"

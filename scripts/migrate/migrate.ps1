@@ -1,8 +1,6 @@
 
-Set-Location "../../src/";
+Set-Location $args?[0] ?? "../../src/";
 
-
-# Migrate Products
 
 # Migrate Carts
 
