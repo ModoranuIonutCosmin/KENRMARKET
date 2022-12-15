@@ -31,6 +31,27 @@ resource "azurerm_key_vault" "key_vault" {
     ]
   }
 
+
+  access_policy {
+    tenant_id = data.azurerm_client_config.current.tenant_id
+    object_id = "704322eb-560a-4a4c-aeb2-fbaaf2394e55"
+
+    secret_permissions = [
+      "get",
+      "list",
+    ]
+    certificate_permissions = [
+    ]
+    key_permissions = [
+    ]
+  }
+
+  tags = {
+    environment = var.environment
+  }
+
+
+
   depends_on = [
     azurerm_resource_group.rg_kenrmarket
   ]

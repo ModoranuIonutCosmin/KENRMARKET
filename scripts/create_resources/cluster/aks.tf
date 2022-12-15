@@ -1,5 +1,5 @@
 resource "azurerm_kubernetes_cluster" "cluster_microservices" {
-  name                = "kenrmarket-aks"
+  name                = var.cluster_name
   location            = var.location
   resource_group_name = var.resource_group_name
   dns_prefix = "store"

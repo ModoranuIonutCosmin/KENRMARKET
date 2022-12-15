@@ -2,8 +2,9 @@ terraform {
   backend "azurerm"{
     storage_account_name = "terraformstoragekmarket"
     container_name       = "terraform"
-    key                  = "terraform.tfstate"
+    key                  = "terraform/terraform.tfstate"
     # sas_token = "some_sas_token"
+    access_key = ""
   }
   required_providers {
     azurerm = {

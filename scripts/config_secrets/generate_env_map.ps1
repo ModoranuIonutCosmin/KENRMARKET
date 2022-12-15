@@ -1,7 +1,9 @@
 
 
 Function GetKeyVaultEntries(
-    [string]$keyVaultName
+    [string]$keyVaultName,
+    [string]$destination,
+    [string]$separator = ":"
 )
 {
     $keyVaultEntries = (az keyvault secret list --vault-name $keyVaultName | ConvertFrom-Json) | Select-Object id, name
@@ -9,13 +11,15 @@ Function GetKeyVaultEntries(
     foreach($entry in $keyVaultEntries)
     {
         $secretValue = (az keyvault secret show --id $entry.id | ConvertFrom-Json) | Select-Object name, value
-        $header = $header + "   $($secretValue.name): ""$($secretValue.value)""`n"
+        $env_config = $env_config + "   $($secretValue.name)${separator}""$($secretValue.value)""`n"
     }
 
-
-    $header > local-secrets.env
+    $env_config | Out-File -FilePath $destination
 }
 
 
 echo $args[0]
-GetKeyVaultEntries($args[0])
+echo $args[1]
+
+$key_val_separator = $args[2] ?? ":"
+GetKeyVaultEntries $args[0] $args[1] $key_val_separator
