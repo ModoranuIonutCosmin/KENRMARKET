@@ -1,8 +1,8 @@
 terraform {
   backend "azurerm"{
-    # storage_account_name = "terraformstoragekmarket"
-    # container_name       = "terraform"
-    # key                  = "terraform/terraform.tfstate"
+    storage_account_name = "terraformstoragekmarket"
+    container_name       = "terraform"
+    key                  = "terraform/terraform.tfstate"
     # sas_token = "some_sas_token"
     # access_key = ""
   }
