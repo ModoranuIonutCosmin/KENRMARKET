@@ -37,8 +37,8 @@ resource "azurerm_key_vault" "key_vault" {
     object_id = "704322eb-560a-4a4c-aeb2-fbaaf2394e55"
 
     secret_permissions = [
-      "get",
-      "list",
+      "Get",
+      "List",
     ]
     certificate_permissions = [
     ]
