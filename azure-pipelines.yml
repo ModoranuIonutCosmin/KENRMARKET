@@ -17,6 +17,18 @@ parameters:
   - name: 'registryName'
     type: string
     default: 'modoranuc'
+  - name: 'secretsConfigMapManifest'
+    type: string
+    default: 'secrets-connection-strings'
+  - name: 'mainResourceGroup'
+    type: string
+    default: 'KENRMARKET'
+  - name: 'aksClusterName'
+    type: string
+    default: 'ASK-KENRMARKET'
+  - name: 'keyVaultName'
+    type: string
+    default: 'secretkeyvaultallkmarket'
 
 
 name: $(date:yyyyMMdd)$(rev:.r)
@@ -61,17 +73,48 @@ stages:
             backendAzureRmStorageAccountName: 'terraformstoragekmarket'
             backendAzureRmContainerName: 'terraform'
             backendAzureRmKey: 'terraform/terraform.tfstate'
+        
         - task: TerraformTaskV3@3
           displayName: 'Apply terraform'
           inputs:
             provider: 'azurerm'
             command: 'apply'
             workingDirectory: '$(System.DefaultWorkingDirectory)/scripts/create_resources'
+            commandOptions: '-var resource_group_name="${{parameters.mainResourceGroup}}" -var key_vault_name="${{parameters.keyVaultName}} -var cluster_name="${{parameters.aksClusterName}}"'
             environmentServiceNameAzureRM: 'Azure for Students(ba6a171e-b681-4996-92d7-1df841bb2a50)'
+  - stage: deploy_to_k8s
+    jobs:
+      - job: grab_environmental_secrets
+        pool:
+          vmImage: 'windows-latest'
+        displayName: Gather environmentals
+        steps:
+        - task: AzureCLI@2
+          inputs:
+            azureSubscription: 'Azure for Students(ba6a171e-b681-4996-92d7-1df841bb2a50)'
+            scriptType: 'ps'
+            scriptLocation: 'inlineScript'
+            inlineScript: |
+              AKS_RG="{{parameters.mainResourceGroup}}"
+              AKS_NAME="{{parameters.aksClusterName}}"
 
+              # Get AKS Credentials
+              az aks get-credentials -g $AKS_RG -n $AKS_NAME --admin
 
+              # Deploy manifests
+              kubectl config get-contexts
 
-  
-  
-    
+              kubectl apply -f $(Build.SourcesDirectory)/scripts/deployment
+              
+              kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.3.0/deploy/static/provider/cloud/deploy.yaml
+
+        - task: AzureCLI@2
+          displayName: 'Gather secrets and apply to k8s'
+          inputs:
+            azureSubscription: 'Azure for Students(ba6a171e-b681-4996-92d7-1df841bb2a50)'
+            scriptType: 'ps'
+            scriptLocation: 'inlineScript'
+            inlineScript: |
+              $(Build.SourcesDirectory)\scripts\config_secrets\add_config_map_to_namespace\get_secrets.ps1 ${{ parameters.keyVaultName }} ${{ parameters.secretsConfigMapManifest }}
+
 ...
