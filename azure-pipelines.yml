@@ -25,7 +25,7 @@ parameters:
     default: 'KENRMARKET'
   - name: 'aksClusterName'
     type: string
-    default: 'ASK-KENRMARKET'
+    default: 'AKSKENRMARKET'
   - name: 'keyVaultName'
     type: string
     default: 'secretkeyvaultallkmarket'
@@ -80,7 +80,7 @@ stages:
             provider: 'azurerm'
             command: 'apply'
             workingDirectory: '$(System.DefaultWorkingDirectory)/scripts/create_resources'
-            commandOptions: '-var resource_group_name="${{parameters.mainResourceGroup}}" -var key_vault_name="${{parameters.keyVaultName}} -var cluster_name="${{parameters.aksClusterName}}"'
+            commandOptions: '-var resource_group_name="${{parameters.mainResourceGroup}}" -var key_vault_name="${{parameters.keyVaultName}}" -var cluster_name="${{parameters.aksClusterName}}"'
             environmentServiceNameAzureRM: 'Azure for Students(ba6a171e-b681-4996-92d7-1df841bb2a50)'
   - stage: deploy_to_k8s
     jobs:
