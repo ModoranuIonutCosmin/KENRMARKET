@@ -11,6 +11,7 @@ module "clusters" {
   environment = var.environment
   resource_group_name = azurerm_resource_group.rg_kenrmarket.name
   location = var.location
+  cluster_name = var.cluster_name
 }
 
 module "data" {
