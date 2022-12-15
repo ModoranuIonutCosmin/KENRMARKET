@@ -87,7 +87,7 @@ stages:
       - job: grab_environmental_secrets
         pool:
           vmImage: 'windows-latest'
-        displayName: Gather environmentals
+        displayName: Config Kubernetes cluster
         steps:
         - task: AzureCLI@2
           inputs:
