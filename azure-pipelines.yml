@@ -34,28 +34,28 @@ parameters:
 name: $(date:yyyyMMdd)$(rev:.r)
 stages:
   - stage: Build_And_Push
-  #   jobs:
-  #   - job: PushDockerImages
-  #     displayName: Push images to docker hub
-  #     pool:
-  #       vmImage: 'ubuntu-latest'
-  #     steps:
-  #     - checkout: self
-  #       clean: true
-  #       fetchTags: false
-  #     - ${{ each dockerfile in parameters.dockerfiles }}:
-  #       - task: Docker@2
-  #         displayName: 'Build&push ${{ dockerfile[1] }}'
-  #         inputs:
-  #           containerRegistry: 'modoranuc'
-  #           repository: '${{ parameters.registryName }}/${{ dockerfile[1] }}'
-  #           command: 'buildAndPush'
-  #           Dockerfile: '${{ dockerfile[0] }}'
-  #           buildContext: '$(Build.SourcesDirectory)'
-  #           tags: 'latest'
-  # - stage: create_infra_tf
-  #   dependsOn:
-  #     - Build_And_Push
+    jobs:
+    - job: PushDockerImages
+      displayName: Push images to docker hub
+      pool:
+        vmImage: 'ubuntu-latest'
+      steps:
+      - checkout: self
+        clean: true
+        fetchTags: false
+      - ${{ each dockerfile in parameters.dockerfiles }}:
+        - task: Docker@2
+          displayName: 'Build&push ${{ dockerfile[1] }}'
+          inputs:
+            containerRegistry: 'modoranuc'
+            repository: '${{ parameters.registryName }}/${{ dockerfile[1] }}'
+            command: 'buildAndPush'
+            Dockerfile: '${{ dockerfile[0] }}'
+            buildContext: '$(Build.SourcesDirectory)'
+            tags: 'latest'
+  - stage: create_infra_tf
+    dependsOn:
+      - Build_And_Push
     jobs:
       - job: create_infra_tf_job
         pool:
