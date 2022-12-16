@@ -95,11 +95,8 @@ stages:
             scriptType: 'ps'
             scriptLocation: 'inlineScript'
             inlineScript: |
-              AKS_RG="{{parameters.mainResourceGroup}}"
-              AKS_NAME="{{parameters.aksClusterName}}"
-
               # Get AKS Credentials
-              az aks get-credentials -g $AKS_RG -n $AKS_NAME --admin
+              az aks get-credentials -g ${{parameters.mainResourceGroup}} -n ${{parameters.aksClusterName}} --admin
 
               # Deploy manifests
               kubectl config get-contexts
