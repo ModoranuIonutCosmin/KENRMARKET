@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Payments.Infrastructure.Data_Access;
 
@@ -11,9 +12,11 @@ using Payments.Infrastructure.Data_Access;
 namespace Payments.Infrastructure.Migrations
 {
     [DbContext(typeof(PaymentsDBContext))]
-    partial class PaymentsDBContextModelSnapshot : ModelSnapshot
+    [Migration("20221216004105_UpdatedOutbox")]
+    partial class UpdatedOutbox
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

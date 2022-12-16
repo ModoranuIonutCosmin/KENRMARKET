@@ -6,6 +6,7 @@ resource "azurerm_cosmosdb_account" "db_nosql_productssvc" {
   kind                = "MongoDB"
   enable_free_tier    = true
   enable_automatic_failover = true
+  mongo_server_version = "4.2"
 
   capabilities {
     name = "EnableAggregationPipeline"

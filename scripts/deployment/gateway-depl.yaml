@@ -53,7 +53,6 @@ kind: Service
 metadata:
   name: gatewayservice
 spec:
-  type: LoadBalancer
   selector:
     app: gatewayapi
   ports:
@@ -79,5 +78,12 @@ spec:
             backend:
               service:
                 name: gatewayservice
+                port:
+                  number: 8080
+          - path: /(metrics)(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: webstatusservice
                 port:
                   number: 8080

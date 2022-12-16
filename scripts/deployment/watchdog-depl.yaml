@@ -19,6 +19,8 @@ spec:
         env:
           - name: ASPNETCORE_ENVIRONMENT
             value: Production
+          - name: WATCHDOG_API_PATH_BASE
+            value: "/metrics"
           - name: Services__Cart
             value: http://cartsservice:8080
           - name: Services__Customers
@@ -71,6 +73,7 @@ kind: Service
 metadata:
   name: webstatusservice
 spec:
+  type: LoadBalancer
   selector:
     app: webstatus
   ports:

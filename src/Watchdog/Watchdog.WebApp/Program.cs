@@ -9,6 +9,14 @@ builder.Services.AddHealthChecksUI()
 
 var app = builder.Build();
 
+var basePath = Environment.GetEnvironmentVariable("WATCHDOG_API_PATH_BASE");
+
+if (basePath != null)
+{
+    //k8s ingress 
+    app.UsePathBase(basePath);
+}
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
