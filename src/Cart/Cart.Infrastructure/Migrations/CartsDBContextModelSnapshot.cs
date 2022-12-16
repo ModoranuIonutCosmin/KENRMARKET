@@ -106,6 +106,9 @@ namespace Cart.Infrastructure.Migrations
                     b.Property<long?>("LastSequenceNumber")
                         .HasColumnType("bigint");
 
+                    b.Property<Guid>("LockId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid>("MessageId")
                         .HasColumnType("uniqueidentifier");
 
@@ -115,12 +118,16 @@ namespace Cart.Infrastructure.Migrations
                     b.Property<DateTime>("Received")
                         .HasColumnType("datetime2");
 
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("Delivered");
+                    b.HasAlternateKey("MessageId", "ConsumerId");
 
-                    b.HasIndex("MessageId", "ConsumerId")
-                        .IsUnique();
+                    b.HasIndex("Delivered");
 
                     b.ToTable("InboxState");
                 });
@@ -228,6 +235,14 @@ namespace Cart.Infrastructure.Migrations
 
                     b.Property<long?>("LastSequenceNumber")
                         .HasColumnType("bigint");
+
+                    b.Property<Guid>("LockId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
 
                     b.HasKey("OutboxId");
 

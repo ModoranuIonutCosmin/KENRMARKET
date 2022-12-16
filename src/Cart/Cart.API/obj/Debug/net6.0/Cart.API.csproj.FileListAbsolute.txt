@@ -181,3 +181,8 @@ C:\Users\zero6\Desktop\KENRMARKET\src\Cart\Cart.API\obj\Debug\net6.0\refint\Cart
 C:\Users\zero6\Desktop\KENRMARKET\src\Cart\Cart.API\obj\Debug\net6.0\Cart.API.pdb
 C:\Users\zero6\Desktop\KENRMARKET\src\Cart\Cart.API\obj\Debug\net6.0\Cart.API.genruntimeconfig.cache
 C:\Users\zero6\Desktop\KENRMARKET\src\Cart\Cart.API\obj\Debug\net6.0\ref\Cart.API.dll
+C:\Users\zero6\Desktop\KENRMARKET\src\Cart\Cart.API\bin\Debug\net6.0\Azure.Core.Amqp.dll
+C:\Users\zero6\Desktop\KENRMARKET\src\Cart\Cart.API\bin\Debug\net6.0\Azure.Messaging.ServiceBus.dll
+C:\Users\zero6\Desktop\KENRMARKET\src\Cart\Cart.API\bin\Debug\net6.0\MassTransit.Azure.ServiceBus.Core.dll
+C:\Users\zero6\Desktop\KENRMARKET\src\Cart\Cart.API\bin\Debug\net6.0\Microsoft.Azure.Amqp.dll
+C:\Users\zero6\Desktop\KENRMARKET\src\Cart\Cart.API\bin\Debug\net6.0\System.Memory.Data.dll

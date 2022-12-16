@@ -2,7 +2,7 @@ resource "azurerm_servicebus_namespace" "sb_namespace_kenrmarket" {
   name                = "kenrmarketbus"
   location            = var.location
   resource_group_name = var.resource_group_name
-  sku                 = "Basic"
+  sku                 = "Standard"
 
   tags = {
     source = "terraform"

@@ -173,3 +173,8 @@ C:\Users\zero6\Desktop\KENRMARKET\src\Customers\Customers.API\obj\Debug\net6.0\r
 C:\Users\zero6\Desktop\KENRMARKET\src\Customers\Customers.API\obj\Debug\net6.0\Customers.API.pdb
 C:\Users\zero6\Desktop\KENRMARKET\src\Customers\Customers.API\obj\Debug\net6.0\Customers.API.genruntimeconfig.cache
 C:\Users\zero6\Desktop\KENRMARKET\src\Customers\Customers.API\obj\Debug\net6.0\ref\Customers.API.dll
+C:\Users\zero6\Desktop\KENRMARKET\src\Customers\Customers.API\bin\Debug\net6.0\Azure.Core.Amqp.dll
+C:\Users\zero6\Desktop\KENRMARKET\src\Customers\Customers.API\bin\Debug\net6.0\Azure.Messaging.ServiceBus.dll
+C:\Users\zero6\Desktop\KENRMARKET\src\Customers\Customers.API\bin\Debug\net6.0\MassTransit.Azure.ServiceBus.Core.dll
+C:\Users\zero6\Desktop\KENRMARKET\src\Customers\Customers.API\bin\Debug\net6.0\Microsoft.Azure.Amqp.dll
+C:\Users\zero6\Desktop\KENRMARKET\src\Customers\Customers.API\bin\Debug\net6.0\System.Memory.Data.dll

@@ -237,10 +237,10 @@
           }
         }
       },
-      "MassTransit.EntityFrameworkCore/8.0.8-develop.621": {
+      "MassTransit.EntityFrameworkCore/8.0.10-develop.696": {
         "type": "package",
         "dependencies": {
-          "MassTransit": "8.0.8-develop.621",
+          "MassTransit": "8.0.10-develop.696",
           "Microsoft.EntityFrameworkCore.Relational": "6.0.1"
         },
         "compile": {
@@ -1433,7 +1433,7 @@
         "dependencies": {
           "Cart.Application": "1.0.0",
           "MassTransit.Azure.ServiceBus.Core": "8.0.10-develop.696",
-          "MassTransit.EntityFrameworkCore": "8.0.8-develop.621",
+          "MassTransit.EntityFrameworkCore": "8.0.10-develop.696",
           "MassTransit.RabbitMQ": "8.0.8-develop.621",
           "Microsoft.EntityFrameworkCore": "6.0.8",
           "Microsoft.EntityFrameworkCore.SqlServer": "6.0.8"
@@ -1680,10 +1680,10 @@
         "mt-logo-small.png"
       ]
     },
-    "MassTransit.EntityFrameworkCore/8.0.8-develop.621": {
-      "sha512": "phGhcUOHchSZ+BP+jbP4ZHg9DROB3ti/u7S+8CGzkwNtusS7MUv3GrK+3mKBE3zzsYz9joTDKOTym0VQaPdUUA==",
+    "MassTransit.EntityFrameworkCore/8.0.10-develop.696": {
+      "sha512": "bUWKxSVrBi3IijuyIyMFhRWI8F1/RdnbHfRP2PvdMCypTdxUkIeusxv5K7WVHqGdMH91WQmZpyeeBxvzjEXmdg==",
       "type": "package",
-      "path": "masstransit.entityframeworkcore/8.0.8-develop.621",
+      "path": "masstransit.entityframeworkcore/8.0.10-develop.696",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1691,7 +1691,7 @@
         "lib/net6.0/MassTransit.EntityFrameworkCoreIntegration.xml",
         "lib/netstandard2.0/MassTransit.EntityFrameworkCoreIntegration.dll",
         "lib/netstandard2.0/MassTransit.EntityFrameworkCoreIntegration.xml",
-        "masstransit.entityframeworkcore.8.0.8-develop.621.nupkg.sha512",
+        "masstransit.entityframeworkcore.8.0.10-develop.696.nupkg.sha512",
         "masstransit.entityframeworkcore.nuspec",
         "mt-logo-small.png"
       ]
