@@ -28,7 +28,7 @@ parameters:
     default: 'AKSKENRMARKET'
   - name: 'keyVaultName'
     type: string
-    default: 'secretkeyvaultallkmarket'
+    default: 'secretkeyvaultallkmarket01'
 
 
 name: $(date:yyyyMMdd)$(rev:.r)
