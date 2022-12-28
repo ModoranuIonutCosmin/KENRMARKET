@@ -1,23 +1,22 @@
-﻿using System;
-using IntegrationEvents.Base;
+﻿using IntegrationEvents.Base;
 using IntegrationEvents.Models;
 
 namespace IntegrationEvents.Contracts;
 
 public class OrderStatusChangedToStocksValidatedIntegrationEvent : IIntegrationEvent
 {
-    public Guid Id { get; init; }
-    public Guid OrderId { get; set; }
-    public Guid CustomerId { get; private set; }
-    public OrderStatus OrderStatus { get; private set; }
-
-    public OrderStatusChangedToStocksValidatedIntegrationEvent(Guid customerId, 
+    public OrderStatusChangedToStocksValidatedIntegrationEvent(Guid customerId,
         Guid orderId, OrderStatus orderStatus)
     {
-        CustomerId = customerId;
+        CustomerId  = customerId;
         OrderStatus = orderStatus;
-        OrderId = orderId;
+        OrderId     = orderId;
 
         Id = Guid.NewGuid();
     }
+
+    public Guid        OrderId     { get; set; }
+    public Guid        CustomerId  { get; }
+    public OrderStatus OrderStatus { get; }
+    public Guid        Id          { get; init; }
 }

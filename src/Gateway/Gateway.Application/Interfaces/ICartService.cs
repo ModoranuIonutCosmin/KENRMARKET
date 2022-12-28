@@ -1,8 +1,7 @@
-﻿using Gateway.API.Models;
-using Gateway.Domain.Models.Carts;
+﻿using Gateway.Domain.Models.Carts;
 using Gateway.Domain.Models.Orders;
 
-namespace Gateway.API.Interfaces;
+namespace Gateway.Application.Interfaces;
 
 public interface ICartService
 {

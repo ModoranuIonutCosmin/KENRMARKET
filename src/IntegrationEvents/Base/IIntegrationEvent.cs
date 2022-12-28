@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace IntegrationEvents.Base;
+﻿namespace IntegrationEvents.Base;
 
 public interface IIntegrationEvent
 {

@@ -11,14 +11,45 @@ using Payments.Application.Interfaces;
 using Payments.Application.Payments;
 using Payments.Infrastructure.Data_Access;
 using Payments.Infrastructure.Data_Access.v1;
+using Serilog;
+using Serilog.Sinks.Elasticsearch;
 using Stripe;
 
-var builder = WebApplication.CreateBuilder(args);
+var builder         = WebApplication.CreateBuilder(args);
 var isInDevelopment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development";
 
 var configuration = builder.Configuration;
 
 // Add services to the container.
+
+builder.Host.UseSerilog((context, config) =>
+{
+    var elasticSearchSettings =
+        new ElasticsearchSinkOptions(new Uri(context.Configuration["ElasticSearch:Uri"]))
+        {
+            TypeName             = null,
+            AutoRegisterTemplate = true,
+            IndexFormat =
+                $"{context.Configuration["ApplicationName"]}-logs-{context.HostingEnvironment.EnvironmentName?.ToLower().Replace(".", "-")}-{DateTime.UtcNow:yyyy-MM}",
+
+            NumberOfShards   = 2,
+            NumberOfReplicas = 1
+        };
+
+    if (!isInDevelopment)
+    {
+        elasticSearchSettings.ModifyConnectionSettings = c =>
+            c.BasicAuthentication(context.Configuration["ElasticSearch:User"],
+                                  context.Configuration["ElasticSearch:Password"]);
+    }
+
+    config.Enrich.FromLogContext()
+          .Enrich.WithMachineName()
+          .WriteTo.Console()
+          .WriteTo.Elasticsearch(elasticSearchSettings)
+          .Enrich.WithProperty("Environment", context.HostingEnvironment.EnvironmentName)
+          .ReadFrom.Configuration(context.Configuration);
+});
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -30,7 +61,7 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddDbContext<PaymentsDBContext>(opts =>
 {
     opts.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"),
-        opt => { opt.MigrationsAssembly(typeof(PaymentsDBContext).Assembly.FullName); });
+                      opt => { opt.MigrationsAssembly(typeof(PaymentsDBContext).Assembly.FullName); });
 });
 
 
@@ -42,20 +73,20 @@ builder.Services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddApiVersioning(config =>
 {
-    config.DefaultApiVersion = new ApiVersion(1, 0);
+    config.DefaultApiVersion                   = new ApiVersion(1, 0);
     config.AssumeDefaultVersionWhenUnspecified = true;
-    config.ReportApiVersions = true;
+    config.ReportApiVersions                   = true;
 });
 
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(
-        builder =>
-        {
-            builder.AllowAnyOrigin();
-            builder.AllowAnyHeader();
-            builder.AllowAnyMethod();
-        });
+                             builder =>
+                             {
+                                 builder.AllowAnyOrigin();
+                                 builder.AllowAnyHeader();
+                                 builder.AllowAnyMethod();
+                             });
 });
 
 
@@ -66,10 +97,10 @@ var stripeSettings = builder.Configuration.GetSection("Stripe").Get<StripeSettin
 StripeConfiguration.ApiKey = stripeSettings.SecretKey;
 
 builder.Services.Configure<StripeSettings>(
-    builder.Configuration.GetSection("Stripe"));
+                                           builder.Configuration.GetSection("Stripe"));
 
 builder.Services.Configure<FrontEndInfo>(
-    builder.Configuration.GetSection("Client"));
+                                         builder.Configuration.GetSection("Client"));
 
 
 //Event bus (rabitmq??)
@@ -112,7 +143,7 @@ builder.Services.AddMassTransit(x =>
         x.UsingAzureServiceBus((context, cfg) =>
         {
             cfg.Host(Environment.GetEnvironmentVariable("SERVICE-BUS-CONNECTIONSTRING"));
-            
+
             cfg.ConfigureEndpoints(context);
 
             cfg.AutoStart = true;
@@ -126,27 +157,27 @@ builder.Services.AddTransient<IPaymentsGatewayService, PaymentsGatewayService>()
 
 
 builder.Services.AddHealthChecks()
-    .AddSqlServer(configuration.GetConnectionString("SqlServer"), failureStatus: HealthStatus.Degraded);
+       .AddSqlServer(configuration.GetConnectionString("SqlServer"), failureStatus: HealthStatus.Degraded);
 
 
 var app = builder.Build();
 
 
-app.MapHealthChecks("/hc", new HealthCheckOptions()
-{
-    Predicate = _ => true,
-    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-});
+app.MapHealthChecks("/hc", new HealthCheckOptions
+                           {
+                               Predicate      = _ => true,
+                               ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+                           });
 app.MapHealthChecks("/liveness", new HealthCheckOptions
-{
-    Predicate = r => r.Name.Contains("self")
-});
+                                 {
+                                     Predicate = r => r.Name.Contains("self")
+                                 });
 
 app.UseSwagger();
 app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
-
+app.UseSerilogRequestLogging();
 app.UseAuthorization();
 
 

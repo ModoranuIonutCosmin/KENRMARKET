@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
+        <TargetFramework>net7.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <UserSecretsId>0bdb9477-929e-4401-9f6d-5eec51abe47a</UserSecretsId>
@@ -11,24 +11,29 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="AspNetCore.HealthChecks.SqlServer" Version="6.0.2" />
-        <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="6.0.5" />
-        <PackageReference Include="MassTransit" Version="8.0.10-develop.696" />
-        <PackageReference Include="MassTransit.Azure.ServiceBus.Core" Version="8.0.10-develop.696" />
-        <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.0-rc.2.22472.11">
+        <PackageReference Include="AspNetCore.HealthChecks.SqlServer" Version="7.0.0-rc2.9"/>
+        <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="7.0.0-rc2.6"/>
+        <PackageReference Include="MassTransit" Version="8.0.10-develop.738"/>
+        <PackageReference Include="MassTransit.Azure.ServiceBus.Core" Version="8.0.10-develop.738"/>
+        <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.1">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
-        <PackageReference Include="Stripe.net" Version="40.15.0-beta.1" />
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+        <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0"/>
+        <PackageReference Include="Serilog.AspNetCore" Version="6.1.1-dev-00293"/>
+        <PackageReference Include="Serilog.Enrichers.Environment" Version="2.2.1-dev-00787"/>
+        <PackageReference Include="Serilog.Exceptions" Version="8.4.0"/>
+        <PackageReference Include="Serilog.Sinks.Debug" Version="2.0.0"/>
+        <PackageReference Include="Serilog.Sinks.Elasticsearch" Version="9.0.0-beta7"/>
+        <PackageReference Include="Stripe.net" Version="41.4.0-beta.1"/>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Payments.Infrastructure\Payments.Infrastructure.csproj" />
-        <ProjectReference Include="..\Payments.Application\Payments.Application.csproj" />
+        <ProjectReference Include="..\Payments.Infrastructure\Payments.Infrastructure.csproj"/>
+        <ProjectReference Include="..\Payments.Application\Payments.Application.csproj"/>
     </ItemGroup>
 
 </Project>

@@ -2,14 +2,13 @@
   "profiles": {
     "Payments.API": {
       "commandName": "Project",
-      "launchBrowser": true,
+      "launchBrowser": false,
       "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "dotnetRunMessages": true,
       "applicationUrl": "http://localhost:7100"
-      //"http://localhost:7100/api/1.0/PaymentWebHook"
     },
     "Docker": {
       "commandName": "Docker",

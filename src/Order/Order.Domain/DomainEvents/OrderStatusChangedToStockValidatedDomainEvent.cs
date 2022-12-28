@@ -4,14 +4,13 @@ namespace Order.Domain.DomainEvents;
 
 public class OrderStatusChangedToStockValidatedDomainEvent : IDomainEvent
 {
-    public Guid CustomerId { get; set; }
-
-    public Entities.Order Order { get; set; }
-
     public OrderStatusChangedToStockValidatedDomainEvent(Entities.Order order,
         Guid id)
     {
-        Order = order;
+        Order      = order;
         CustomerId = id;
     }
+
+    public Entities.Order Order      { get; set; }
+    public Guid           CustomerId { get; set; }
 }

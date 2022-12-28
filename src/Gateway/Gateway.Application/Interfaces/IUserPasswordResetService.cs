@@ -1,6 +1,6 @@
 ﻿using Gateway.Domain.Models.Auth;
 
-namespace Gateway.API.Interfaces;
+namespace Gateway.Application.Interfaces;
 
 public interface IUserPasswordResetService
 {

@@ -7,6 +7,6 @@ namespace Order.Application.Commands;
 
 public class SetOrderStatusCommand : IRequest<OrderDTO>
 {
-    [Required] public Guid OrderId { get; init; }
+    [Required] public Guid        OrderId     { get; init; }
     [Required] public OrderStatus OrderStatus { get; init; }
 }

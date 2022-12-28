@@ -9,16 +9,16 @@ namespace Cart.Infrastructure.Data_Access.v1;
 
 public class CartRepository : Repository<CartDetails, Guid>, ICartRepository
 {
-    private readonly CartsDBContext _cartsDbContext;
+    private readonly CartsDBContext          _cartsDbContext;
     private readonly ILogger<CartRepository> _logger;
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly IUnitOfWork             _unitOfWork;
 
     public CartRepository(CartsDBContext cartsDbContext, ILogger<CartRepository> logger,
         IUnitOfWork unitOfWork) : base(cartsDbContext, logger, unitOfWork)
     {
         _cartsDbContext = cartsDbContext;
-        _logger = logger;
-        _unitOfWork = unitOfWork;
+        _logger         = logger;
+        _unitOfWork     = unitOfWork;
 
         if (!cartsDbContext.Carts.Any())
         {
@@ -30,17 +30,17 @@ public class CartRepository : Repository<CartDetails, Guid>, ICartRepository
     public async Task EnsureCartExists(Guid customerId)
     {
         var cartExists = _cartsDbContext
-            .Carts
-            .Any(c => c.CustomerId.Equals(customerId));
+                         .Carts
+                         .Any(c => c.CustomerId.Equals(customerId));
 
         if (!cartExists)
         {
             await _cartsDbContext.Carts.AddAsync(new CartDetails
-            {
-                CustomerId = customerId,
-                Promocode = "",
-                CartItems = new List<CartItem>(),
-            });
+                                                 {
+                                                     CustomerId = customerId,
+                                                     Promocode  = "",
+                                                     CartItems  = new List<CartItem>()
+                                                 });
         }
     }
 
@@ -58,19 +58,18 @@ public class CartRepository : Repository<CartDetails, Guid>, ICartRepository
     public async Task<CartDetails> GetCartDetails(Guid customerId)
     {
         return await _cartsDbContext.Carts
-            .Where(c => c.CustomerId.Equals(customerId))
-            .Include(c => c.CartItems)
-            .SingleAsync();
+                                    .Where(c => c.CustomerId.Equals(customerId))
+                                    .Include(c => c.CartItems)
+                                    .SingleAsync();
     }
 
     public async Task AddCartItem(Guid customerId, CartItem cartItem)
     {
         var cartDetails = _cartsDbContext.Carts
-            .Include(c => c.CartItems)
-            .SingleOrDefault(c => c.CustomerId.Equals(customerId));
+                                         .Include(c => c.CartItems)
+                                         .SingleOrDefault(c => c.CustomerId.Equals(customerId));
 
         cartDetails.CartItems.Add(cartItem);
-
     }
 
     public async Task UpdateCartItem(Guid cartId, CartItem newCartItem)
@@ -78,7 +77,6 @@ public class CartRepository : Repository<CartDetails, Guid>, ICartRepository
         var cartItem = _cartsDbContext.CartItems.Single(ci => ci.Id.Equals(cartId));
 
         _cartsDbContext.Entry(cartItem).CurrentValues.SetValues(newCartItem);
-
     }
 
     public async Task<CartDetails> DeleteCartContents(Guid customerId)
@@ -99,8 +97,8 @@ public class CartRepository : Repository<CartDetails, Guid>, ICartRepository
     public async Task<CartDetails> ModifyCart(Guid customerId, CartDetails newCartDetails)
     {
         var shoppingCart = await _cartsDbContext.Carts
-            .Include(c => c.CartItems)
-            .SingleOrDefaultAsync(c => c.CustomerId.Equals(customerId));
+                                                .Include(c => c.CartItems)
+                                                .SingleOrDefaultAsync(c => c.CustomerId.Equals(customerId));
 
         //TODO: Refactorizat
 
@@ -116,6 +114,6 @@ public class CartRepository : Repository<CartDetails, Guid>, ICartRepository
 
         _cartsDbContext.Carts.Update(shoppingCart);
 
-        return newCartDetails;
+        return shoppingCart;
     }
 }

@@ -1,33 +1,33 @@
 ﻿using System.Text.Json;
-using Gateway.API.Interfaces;
 using Gateway.API.Routes;
-using Gateway.Domain.Models.Carts;
+using Gateway.Application.Interfaces;
+using Gateway.Domain.Models.Orders;
 using Microsoft.AspNetCore.WebUtilities;
 
 namespace Gateway.API.Services;
 
 public class OrdersService : IOrdersService
 {
-    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly IHttpClientFactory     _httpClientFactory;
     private readonly ILogger<OrdersService> _logger;
 
     public OrdersService(IHttpClientFactory httpClientFactory, ILogger<OrdersService> logger)
     {
         _httpClientFactory = httpClientFactory;
-        _logger = logger;
+        _logger            = logger;
     }
-    
-    public async Task<(bool isOk, List<Domain.Models.Orders.Order> ordersDetails, string errorMessage)> GetOrders(Guid customerId)
+
+    public async Task<(bool isOk, List<Order> ordersDetails, string errorMessage)> GetOrders(Guid customerId)
     {
         try
         {
             var httpClient = _httpClientFactory.CreateClient("OrdersService");
 
             var uri = QueryHelpers.AddQueryString(ServicesRoutes.Orders.UsersOrders,
-                new Dictionary<string, string?>
-                {
-                    { "customerId", customerId.ToString() }
-                });
+                                                  new Dictionary<string, string?>
+                                                  {
+                                                      { "customerId", customerId.ToString() }
+                                                  });
 
             var response = await httpClient.GetAsync(uri);
 
@@ -36,11 +36,11 @@ public class OrdersService : IOrdersService
                 var content = await response.Content.ReadAsStringAsync();
 
                 var deserializationOptions = new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true
-                };
+                                             {
+                                                 PropertyNameCaseInsensitive = true
+                                             };
 
-                var orders = JsonSerializer.Deserialize<List<Domain.Models.Orders.Order>>(content, deserializationOptions);
+                var orders = JsonSerializer.Deserialize<List<Order>>(content, deserializationOptions);
 
                 return (true, orders, null);
             }
@@ -54,25 +54,25 @@ public class OrdersService : IOrdersService
             return (false, null, ex.Message);
         }
     }
-    
-    public async Task<(bool isOk, Domain.Models.Orders.Order orderDetails, string errorMessage)> GetSpecificOrder(Guid orderId)
+
+    public async Task<(bool isOk, Order orderDetails, string errorMessage)> GetSpecificOrder(Guid orderId)
     {
         try
         {
             var httpClient = _httpClientFactory.CreateClient("OrdersService");
 
             var response = await httpClient.GetAsync(ServicesRoutes.Orders.SpecificOrder(orderId));
-            
+
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
 
                 var deserializationOptions = new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true
-                };
+                                             {
+                                                 PropertyNameCaseInsensitive = true
+                                             };
 
-                var order = JsonSerializer.Deserialize<Domain.Models.Orders.Order>(content, deserializationOptions);
+                var order = JsonSerializer.Deserialize<Order>(content, deserializationOptions);
 
                 return (true, order, null);
             }

@@ -13,7 +13,7 @@ public class BaseEntityMappings
             cm.UnmapMember(c => c.DomainEvents);
 
             cm.MapIdProperty(c => c.Id)
-                .SetIdGenerator(GuidGenerator.Instance);
+              .SetIdGenerator(GuidGenerator.Instance);
         });
     }
 }

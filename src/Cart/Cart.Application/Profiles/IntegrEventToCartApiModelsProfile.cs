@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Cart.Domain.Entities;
 
 namespace Cart.Application.Profiles;
 
@@ -6,6 +7,6 @@ public class IntegrEventToCartApiModelsProfile : Profile
 {
     public IntegrEventToCartApiModelsProfile()
     {
-        CreateMap<Domain.Entities.CartItem, IntegrationEvents.Models.CartItem>();
+        CreateMap<CartItem, IntegrationEvents.Models.CartItem>();
     }
 }

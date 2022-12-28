@@ -1,7 +1,7 @@
 {
   "version": 3,
   "targets": {
-    "net6.0": {
+    "net7.0": {
       "AutoMapper/12.0.0": {
         "type": "package",
         "dependencies": {
@@ -56,12 +56,12 @@
           }
         }
       },
-      "Azure.Identity/1.6.0": {
+      "Azure.Identity/1.8.0": {
         "type": "package",
         "dependencies": {
-          "Azure.Core": "1.24.0",
-          "Microsoft.Identity.Client": "4.39.0",
-          "Microsoft.Identity.Client.Extensions.Msal": "2.19.3",
+          "Azure.Core": "1.25.0",
+          "Microsoft.Identity.Client": "4.46.0",
+          "Microsoft.Identity.Client.Extensions.Msal": "2.23.0",
           "System.Memory": "4.5.4",
           "System.Security.Cryptography.ProtectedData": "4.7.0",
           "System.Text.Json": "4.7.2",
@@ -78,12 +78,12 @@
           }
         }
       },
-      "Azure.Messaging.ServiceBus/7.11.0": {
+      "Azure.Messaging.ServiceBus/7.11.1": {
         "type": "package",
         "dependencies": {
           "Azure.Core": "1.25.0",
           "Azure.Core.Amqp": "1.2.0",
-          "Microsoft.Azure.Amqp": "2.5.10",
+          "Microsoft.Azure.Amqp": "2.5.12",
           "Microsoft.Bcl.AsyncInterfaces": "1.1.1",
           "System.Memory.Data": "1.0.2"
         },
@@ -114,10 +114,10 @@
           }
         }
       },
-      "MassTransit/8.0.10-develop.696": {
+      "MassTransit/8.0.10-develop.738": {
         "type": "package",
         "dependencies": {
-          "MassTransit.Abstractions": "8.0.10-develop.696",
+          "MassTransit.Abstractions": "8.0.10-develop.738",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.18",
           "Microsoft.Extensions.Diagnostics.HealthChecks": "3.1.18",
           "Microsoft.Extensions.Hosting.Abstractions": "3.1.18",
@@ -140,7 +140,7 @@
           }
         }
       },
-      "MassTransit.Abstractions/8.0.10-develop.696": {
+      "MassTransit.Abstractions/8.0.10-develop.738": {
         "type": "package",
         "compile": {
           "lib/net6.0/MassTransit.Abstractions.dll": {
@@ -153,12 +153,12 @@
           }
         }
       },
-      "MassTransit.Azure.ServiceBus.Core/8.0.10-develop.696": {
+      "MassTransit.Azure.ServiceBus.Core/8.0.10-develop.738": {
         "type": "package",
         "dependencies": {
-          "Azure.Identity": "1.6.0",
-          "Azure.Messaging.ServiceBus": "7.11.0",
-          "MassTransit": "8.0.10-develop.696"
+          "Azure.Identity": "1.8.0",
+          "Azure.Messaging.ServiceBus": "7.11.1",
+          "MassTransit": "8.0.10-develop.738"
         },
         "compile": {
           "lib/net6.0/MassTransit.Azure.ServiceBus.Core.dll": {
@@ -171,10 +171,10 @@
           }
         }
       },
-      "MassTransit.EntityFrameworkCore/8.0.8-develop.621": {
+      "MassTransit.EntityFrameworkCore/8.0.10-develop.738": {
         "type": "package",
         "dependencies": {
-          "MassTransit": "8.0.8-develop.621",
+          "MassTransit": "8.0.10-develop.738",
           "Microsoft.EntityFrameworkCore.Relational": "6.0.1"
         },
         "compile": {
@@ -188,10 +188,10 @@
           }
         }
       },
-      "MassTransit.MongoDb/8.0.8-develop.621": {
+      "MassTransit.MongoDb/8.0.10-develop.738": {
         "type": "package",
         "dependencies": {
-          "MassTransit": "8.0.8-develop.621",
+          "MassTransit": "8.0.10-develop.738",
           "MongoDB.Driver": "2.18.0",
           "MongoDB.Driver.GridFS": "2.18.0"
         },
@@ -206,10 +206,10 @@
           }
         }
       },
-      "MassTransit.RabbitMQ/8.0.8-develop.621": {
+      "MassTransit.RabbitMQ/8.0.10-develop.738": {
         "type": "package",
         "dependencies": {
-          "MassTransit": "8.0.8-develop.621",
+          "MassTransit": "8.0.10-develop.738",
           "RabbitMQ.Client": "6.4.0"
         },
         "compile": {
@@ -236,7 +236,7 @@
           }
         }
       },
-      "Microsoft.Azure.Amqp/2.5.10": {
+      "Microsoft.Azure.Amqp/2.5.12": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/Microsoft.Azure.Amqp.dll": {}
@@ -552,8 +552,11 @@
           "buildTransitive/netcoreapp3.1/_._": {}
         }
       },
-      "Microsoft.Identity.Client/4.39.0": {
+      "Microsoft.Identity.Client/4.46.0": {
         "type": "package",
+        "dependencies": {
+          "Microsoft.IdentityModel.Abstractions": "6.18.0"
+        },
         "compile": {
           "lib/netcoreapp2.1/Microsoft.Identity.Client.dll": {
             "related": ".xml"
@@ -565,19 +568,33 @@
           }
         }
       },
-      "Microsoft.Identity.Client.Extensions.Msal/2.19.3": {
+      "Microsoft.Identity.Client.Extensions.Msal/2.23.0": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Identity.Client": "4.38.0",
+          "Microsoft.Identity.Client": "4.46.0",
+          "System.IO.FileSystem.AccessControl": "5.0.0",
           "System.Security.Cryptography.ProtectedData": "4.5.0"
         },
         "compile": {
-          "lib/netcoreapp2.1/Microsoft.Identity.Client.Extensions.Msal.dll": {
+          "lib/netcoreapp3.1/Microsoft.Identity.Client.Extensions.Msal.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/netcoreapp2.1/Microsoft.Identity.Client.Extensions.Msal.dll": {
+          "lib/netcoreapp3.1/Microsoft.Identity.Client.Extensions.Msal.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.IdentityModel.Abstractions/6.18.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Microsoft.IdentityModel.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.IdentityModel.Abstractions.dll": {
             "related": ".xml"
           }
         }
@@ -809,6 +826,29 @@
           "buildTransitive/netcoreapp3.1/_._": {}
         }
       },
+      "System.IO.FileSystem.AccessControl/5.0.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Security.AccessControl": "5.0.0",
+          "System.Security.Principal.Windows": "5.0.0"
+        },
+        "compile": {
+          "ref/netstandard2.0/System.IO.FileSystem.AccessControl.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.IO.FileSystem.AccessControl.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/win/lib/netstandard2.0/System.IO.FileSystem.AccessControl.dll": {
+            "assetType": "runtime",
+            "rid": "win"
+          }
+        }
+      },
       "System.Memory/4.5.4": {
         "type": "package",
         "compile": {
@@ -1024,9 +1064,9 @@
       },
       "IntegrationEvents/1.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
+        "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
-          "MassTransit": "8.0.8-develop.621"
+          "MassTransit": "8.0.10-develop.738"
         },
         "compile": {
           "bin/placeholder/IntegrationEvents.dll": {}
@@ -1037,7 +1077,7 @@
       },
       "Products.Application/1.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
+        "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
           "AutoMapper": "12.0.0",
           "MongoDB.Driver": "2.18.0",
@@ -1052,7 +1092,7 @@
       },
       "Products.Domain/1.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
+        "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
           "IntegrationEvents": "1.0.0",
           "MediatR.Contracts": "1.0.1"
@@ -1120,32 +1160,32 @@
         "pkgicon.png"
       ]
     },
-    "Azure.Identity/1.6.0": {
-      "sha512": "EycyMsb6rD2PK9P0SyibFfEhvWWttdrYhyPF4f41uzdB/44yQlV+2Wehxyg489Rj6gbPvSPgbKq0xsHJBhipZA==",
+    "Azure.Identity/1.8.0": {
+      "sha512": "xnsY/lgAG4bO5d2akXc1hqfvknIk+u3gh5Ma33KN2uyNeU3C5AzIfrwO/N/b9D/7dk4MyXai4JGKHNgHjcoFsA==",
       "type": "package",
-      "path": "azure.identity/1.6.0",
+      "path": "azure.identity/1.8.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "CHANGELOG.md",
         "README.md",
-        "azure.identity.1.6.0.nupkg.sha512",
+        "azure.identity.1.8.0.nupkg.sha512",
         "azure.identity.nuspec",
         "azureicon.png",
         "lib/netstandard2.0/Azure.Identity.dll",
         "lib/netstandard2.0/Azure.Identity.xml"
       ]
     },
-    "Azure.Messaging.ServiceBus/7.11.0": {
-      "sha512": "0uPqh11ySmii+cpi50hWAr5BpeWt4SKpMPPgmT7rWaozMFBNOp6mLPyr6oU1gKgd7L8ZJDJHrKKT+tG3hxCgIw==",
+    "Azure.Messaging.ServiceBus/7.11.1": {
+      "sha512": "ioGedXeH8KK4HdTDEyOzdgNbEXGstGItVljI1EKYsz08sgwej6LpODCZmwPR2ui1fjXBWt8Zea0RJT4d9LwlMg==",
       "type": "package",
-      "path": "azure.messaging.servicebus/7.11.0",
+      "path": "azure.messaging.servicebus/7.11.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "CHANGELOG.md",
         "README.md",
-        "azure.messaging.servicebus.7.11.0.nupkg.sha512",
+        "azure.messaging.servicebus.7.11.1.nupkg.sha512",
         "azure.messaging.servicebus.nuspec",
         "azureicon.png",
         "lib/netstandard2.0/Azure.Messaging.ServiceBus.dll",
@@ -1176,10 +1216,10 @@
         "lib/netstandard2.1/DnsClient.xml"
       ]
     },
-    "MassTransit/8.0.10-develop.696": {
-      "sha512": "SsqWLts25wNRrF+wdDAAP4UTYphPhpX2cHZbW+Bnr3qBpxz1tHR2Xe43RFZbVWbrRw9J6HMQ1ZnBeWcA8ric3g==",
+    "MassTransit/8.0.10-develop.738": {
+      "sha512": "qpWVQ59tEyAqAvTsQhg///AosJ7SPtHVDBXkYo50tiklijw5mL1ONSuDWSmT0O71qh8Y4+LCt63Xsu7RaoQSAw==",
       "type": "package",
-      "path": "masstransit/8.0.10-develop.696",
+      "path": "masstransit/8.0.10-develop.738",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1191,15 +1231,15 @@
         "lib/netstandard2.0/MassTransit.xml",
         "lib/netstandard2.1/MassTransit.dll",
         "lib/netstandard2.1/MassTransit.xml",
-        "masstransit.8.0.10-develop.696.nupkg.sha512",
+        "masstransit.8.0.10-develop.738.nupkg.sha512",
         "masstransit.nuspec",
         "mt-logo-small.png"
       ]
     },
-    "MassTransit.Abstractions/8.0.10-develop.696": {
-      "sha512": "TmkfvZn4YiBJXKNzkJNvd0XbbdTlPPzwqip/YZF1EhOAGz0ZVAe2kf84G7udztrwuLZY/Npm1eMKqAAUVdWbnQ==",
+    "MassTransit.Abstractions/8.0.10-develop.738": {
+      "sha512": "zMQUm356YDVQIpRmkWkIFd7fkUt/gQztWLvDaln9ZlPjunwMpyCkbgyLrpEX883vsng1LfyJqKaEmA0yc1XmdQ==",
       "type": "package",
-      "path": "masstransit.abstractions/8.0.10-develop.696",
+      "path": "masstransit.abstractions/8.0.10-develop.738",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1211,15 +1251,15 @@
         "lib/netstandard2.0/MassTransit.Abstractions.xml",
         "lib/netstandard2.1/MassTransit.Abstractions.dll",
         "lib/netstandard2.1/MassTransit.Abstractions.xml",
-        "masstransit.abstractions.8.0.10-develop.696.nupkg.sha512",
+        "masstransit.abstractions.8.0.10-develop.738.nupkg.sha512",
         "masstransit.abstractions.nuspec",
         "mt-logo-small.png"
       ]
     },
-    "MassTransit.Azure.ServiceBus.Core/8.0.10-develop.696": {
-      "sha512": "Be+TrLvuAQCapjPSOj8baUqf1JzBupu5NKSbNb9UpOJOzYPaF+2hb0SqiMhBfKkBHN06xv3UXdkFxDbMlogp2A==",
+    "MassTransit.Azure.ServiceBus.Core/8.0.10-develop.738": {
+      "sha512": "PMZrrjWcm2wJ/vfPSMa02njbW7JzwIAO6L7EwVL3k5DPnhDBJL8mKrxIUfJYvfJ8yLHbItV8+Gx0qg6wIM5FgQ==",
       "type": "package",
-      "path": "masstransit.azure.servicebus.core/8.0.10-develop.696",
+      "path": "masstransit.azure.servicebus.core/8.0.10-develop.738",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1231,15 +1271,15 @@
         "lib/netstandard2.0/MassTransit.Azure.ServiceBus.Core.xml",
         "lib/netstandard2.1/MassTransit.Azure.ServiceBus.Core.dll",
         "lib/netstandard2.1/MassTransit.Azure.ServiceBus.Core.xml",
-        "masstransit.azure.servicebus.core.8.0.10-develop.696.nupkg.sha512",
+        "masstransit.azure.servicebus.core.8.0.10-develop.738.nupkg.sha512",
         "masstransit.azure.servicebus.core.nuspec",
         "mt-logo-small.png"
       ]
     },
-    "MassTransit.EntityFrameworkCore/8.0.8-develop.621": {
-      "sha512": "phGhcUOHchSZ+BP+jbP4ZHg9DROB3ti/u7S+8CGzkwNtusS7MUv3GrK+3mKBE3zzsYz9joTDKOTym0VQaPdUUA==",
+    "MassTransit.EntityFrameworkCore/8.0.10-develop.738": {
+      "sha512": "xpUwUIr2FZ/avUKJfCveb3W4EeaJOXD+CTUKS2E7E5OrMw9CtxWGe8kJ2A+OZNDS+frYmgNQj/mLNZOH+ozslA==",
       "type": "package",
-      "path": "masstransit.entityframeworkcore/8.0.8-develop.621",
+      "path": "masstransit.entityframeworkcore/8.0.10-develop.738",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1247,15 +1287,15 @@
         "lib/net6.0/MassTransit.EntityFrameworkCoreIntegration.xml",
         "lib/netstandard2.0/MassTransit.EntityFrameworkCoreIntegration.dll",
         "lib/netstandard2.0/MassTransit.EntityFrameworkCoreIntegration.xml",
-        "masstransit.entityframeworkcore.8.0.8-develop.621.nupkg.sha512",
+        "masstransit.entityframeworkcore.8.0.10-develop.738.nupkg.sha512",
         "masstransit.entityframeworkcore.nuspec",
         "mt-logo-small.png"
       ]
     },
-    "MassTransit.MongoDb/8.0.8-develop.621": {
-      "sha512": "FMhbl+VM/108vywKFhVZYGuNRa61LnJ+e73WWWVC99XDmXTLextYVOvrzEPJEH59n8oTROuB+Nv18SQ3+EgoHQ==",
+    "MassTransit.MongoDb/8.0.10-develop.738": {
+      "sha512": "TddMYxFSNqH4noGZDlQ8zZm8fX/jNIQ62ou1cvNDbH130CPPnZCoAKhkcUGnViLLkp3TCMz8q4Xvacayr1xEGw==",
       "type": "package",
-      "path": "masstransit.mongodb/8.0.8-develop.621",
+      "path": "masstransit.mongodb/8.0.10-develop.738",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1267,15 +1307,15 @@
         "lib/netstandard2.0/MassTransit.MongoDbIntegration.xml",
         "lib/netstandard2.1/MassTransit.MongoDbIntegration.dll",
         "lib/netstandard2.1/MassTransit.MongoDbIntegration.xml",
-        "masstransit.mongodb.8.0.8-develop.621.nupkg.sha512",
+        "masstransit.mongodb.8.0.10-develop.738.nupkg.sha512",
         "masstransit.mongodb.nuspec",
         "mt-logo-small.png"
       ]
     },
-    "MassTransit.RabbitMQ/8.0.8-develop.621": {
-      "sha512": "RzUEgUdfB5QFXMXUAlQiI+AfF/8Tavgzfvec/sxXy1XIrUS92U3IcOTfHz8UxXP7n0JXo0Ie4RTH+cG/izJHwQ==",
+    "MassTransit.RabbitMQ/8.0.10-develop.738": {
+      "sha512": "BWaLV+7kjacbyx8hqD4WgJvTk3fPRt9aUpAmHMkQZNfeaySLZxspUr4waRj2gfqBx+PrJg12pODHGn7p4CxYrQ==",
       "type": "package",
-      "path": "masstransit.rabbitmq/8.0.8-develop.621",
+      "path": "masstransit.rabbitmq/8.0.10-develop.738",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1287,7 +1327,7 @@
         "lib/netstandard2.0/MassTransit.RabbitMqTransport.xml",
         "lib/netstandard2.1/MassTransit.RabbitMqTransport.dll",
         "lib/netstandard2.1/MassTransit.RabbitMqTransport.xml",
-        "masstransit.rabbitmq.8.0.8-develop.621.nupkg.sha512",
+        "masstransit.rabbitmq.8.0.10-develop.738.nupkg.sha512",
         "masstransit.rabbitmq.nuspec",
         "mt-logo-small.png"
       ]
@@ -1308,10 +1348,10 @@
         "mediatr.contracts.nuspec"
       ]
     },
-    "Microsoft.Azure.Amqp/2.5.10": {
-      "sha512": "pgHUY+vlvUiuUeC4KtU1p+JM5oeOyqBRflz9CvKYENZqFmgbWc+Exyx5HaeKXR3HLhYzXysgeC33bIcpk76CWw==",
+    "Microsoft.Azure.Amqp/2.5.12": {
+      "sha512": "0SlEl+TSQdpjXWf9/37dXWAa0zk6R1EJKmGtGZeKUAH7WEQpJOWMxJ9I43igcBCnTkFwa28CdPnpSCjFZVQlkw==",
       "type": "package",
-      "path": "microsoft.azure.amqp/2.5.10",
+      "path": "microsoft.azure.amqp/2.5.12",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1323,7 +1363,7 @@
         "lib/portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10+UAP10/Microsoft.Azure.Amqp.dll",
         "lib/uap10.0/Microsoft.Azure.Amqp.dll",
         "lib/uap10.0/Microsoft.Azure.Amqp.pri",
-        "microsoft.azure.amqp.2.5.10.nupkg.sha512",
+        "microsoft.azure.amqp.2.5.12.nupkg.sha512",
         "microsoft.azure.amqp.nuspec"
       ]
     },
@@ -1767,10 +1807,10 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "Microsoft.Identity.Client/4.39.0": {
-      "sha512": "+/y4ELXYqnAbiqhEgFAl3riBbkMeCw8+6+Y8r367bUf6zWhlNUjhm360VsTMBgqbPyfJld5X+cJkDhDCrudezA==",
+    "Microsoft.Identity.Client/4.46.0": {
+      "sha512": "cqNAIELaUypwWvTwnC3MdsccaSpEpVR10WBQ7+e33iSkceeC1kum6aTEwe2m8z4ZdnzlvEMH+dBbXBHMLCy+fQ==",
       "type": "package",
-      "path": "microsoft.identity.client/4.39.0",
+      "path": "microsoft.identity.client/4.46.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1786,34 +1826,53 @@
         "lib/net5.0-windows10.0.17763/Microsoft.Identity.Client.xml",
         "lib/netcoreapp2.1/Microsoft.Identity.Client.dll",
         "lib/netcoreapp2.1/Microsoft.Identity.Client.xml",
-        "lib/netstandard1.3/Microsoft.Identity.Client.dll",
-        "lib/netstandard1.3/Microsoft.Identity.Client.xml",
-        "lib/uap10.0/Microsoft.Identity.Client.dll",
-        "lib/uap10.0/Microsoft.Identity.Client.pri",
-        "lib/uap10.0/Microsoft.Identity.Client.xml",
+        "lib/netstandard2.0/Microsoft.Identity.Client.dll",
+        "lib/netstandard2.0/Microsoft.Identity.Client.xml",
+        "lib/uap10.0.17763/Microsoft.Identity.Client.dll",
+        "lib/uap10.0.17763/Microsoft.Identity.Client.pri",
+        "lib/uap10.0.17763/Microsoft.Identity.Client.xml",
         "lib/xamarinios10/Microsoft.Identity.Client.dll",
         "lib/xamarinios10/Microsoft.Identity.Client.xml",
         "lib/xamarinmac20/Microsoft.Identity.Client.dll",
         "lib/xamarinmac20/Microsoft.Identity.Client.xml",
-        "microsoft.identity.client.4.39.0.nupkg.sha512",
+        "microsoft.identity.client.4.46.0.nupkg.sha512",
         "microsoft.identity.client.nuspec"
       ]
     },
-    "Microsoft.Identity.Client.Extensions.Msal/2.19.3": {
-      "sha512": "zVVZjn8aW7W79rC1crioDgdOwaFTQorsSO6RgVlDDjc7MvbEGz071wSNrjVhzR0CdQn6Sefx7Abf1o7vasmrLg==",
+    "Microsoft.Identity.Client.Extensions.Msal/2.23.0": {
+      "sha512": "Q8K58FjUIVslHQlk+SIhFYjdy8B1A5Wt3GXxzLS7lnXXaSmbcGzk7d8haqLmR8z/DP99vpZC73SxMa83qSHcbQ==",
       "type": "package",
-      "path": "microsoft.identity.client.extensions.msal/2.19.3",
+      "path": "microsoft.identity.client.extensions.msal/2.23.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "lib/net45/Microsoft.Identity.Client.Extensions.Msal.dll",
         "lib/net45/Microsoft.Identity.Client.Extensions.Msal.xml",
-        "lib/netcoreapp2.1/Microsoft.Identity.Client.Extensions.Msal.dll",
-        "lib/netcoreapp2.1/Microsoft.Identity.Client.Extensions.Msal.xml",
+        "lib/netcoreapp3.1/Microsoft.Identity.Client.Extensions.Msal.dll",
+        "lib/netcoreapp3.1/Microsoft.Identity.Client.Extensions.Msal.xml",
         "lib/netstandard2.0/Microsoft.Identity.Client.Extensions.Msal.dll",
         "lib/netstandard2.0/Microsoft.Identity.Client.Extensions.Msal.xml",
-        "microsoft.identity.client.extensions.msal.2.19.3.nupkg.sha512",
+        "microsoft.identity.client.extensions.msal.2.23.0.nupkg.sha512",
         "microsoft.identity.client.extensions.msal.nuspec"
+      ]
+    },
+    "Microsoft.IdentityModel.Abstractions/6.18.0": {
+      "sha512": "ItCO09JoIQr9sY0AumHRLJKToMKM4/jFcBsg3uhKBZZLX1KPxjed/mKrQzo9PXiarfC87rguvFWWg9C996sEqA==",
+      "type": "package",
+      "path": "microsoft.identitymodel.abstractions/6.18.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net45/Microsoft.IdentityModel.Abstractions.dll",
+        "lib/net45/Microsoft.IdentityModel.Abstractions.xml",
+        "lib/net461/Microsoft.IdentityModel.Abstractions.dll",
+        "lib/net461/Microsoft.IdentityModel.Abstractions.xml",
+        "lib/net472/Microsoft.IdentityModel.Abstractions.dll",
+        "lib/net472/Microsoft.IdentityModel.Abstractions.xml",
+        "lib/netstandard2.0/Microsoft.IdentityModel.Abstractions.dll",
+        "lib/netstandard2.0/Microsoft.IdentityModel.Abstractions.xml",
+        "microsoft.identitymodel.abstractions.6.18.0.nupkg.sha512",
+        "microsoft.identitymodel.abstractions.nuspec"
       ]
     },
     "Microsoft.NETCore.Platforms/5.0.0": {
@@ -2115,6 +2174,50 @@
         "system.diagnostics.diagnosticsource.6.0.0.nupkg.sha512",
         "system.diagnostics.diagnosticsource.nuspec",
         "useSharedDesignerContext.txt"
+      ]
+    },
+    "System.IO.FileSystem.AccessControl/5.0.0": {
+      "sha512": "SxHB3nuNrpptVk+vZ/F+7OHEpoHUIKKMl02bUmYHQr1r+glbZQxs7pRtsf4ENO29TVm2TH3AEeep2fJcy92oYw==",
+      "type": "package",
+      "path": "system.io.filesystem.accesscontrol/5.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net46/System.IO.FileSystem.AccessControl.dll",
+        "lib/net461/System.IO.FileSystem.AccessControl.dll",
+        "lib/net461/System.IO.FileSystem.AccessControl.xml",
+        "lib/netstandard1.3/System.IO.FileSystem.AccessControl.dll",
+        "lib/netstandard2.0/System.IO.FileSystem.AccessControl.dll",
+        "lib/netstandard2.0/System.IO.FileSystem.AccessControl.xml",
+        "ref/net46/System.IO.FileSystem.AccessControl.dll",
+        "ref/net461/System.IO.FileSystem.AccessControl.dll",
+        "ref/net461/System.IO.FileSystem.AccessControl.xml",
+        "ref/netstandard1.3/System.IO.FileSystem.AccessControl.dll",
+        "ref/netstandard1.3/System.IO.FileSystem.AccessControl.xml",
+        "ref/netstandard1.3/de/System.IO.FileSystem.AccessControl.xml",
+        "ref/netstandard1.3/es/System.IO.FileSystem.AccessControl.xml",
+        "ref/netstandard1.3/fr/System.IO.FileSystem.AccessControl.xml",
+        "ref/netstandard1.3/it/System.IO.FileSystem.AccessControl.xml",
+        "ref/netstandard1.3/ja/System.IO.FileSystem.AccessControl.xml",
+        "ref/netstandard1.3/ko/System.IO.FileSystem.AccessControl.xml",
+        "ref/netstandard1.3/ru/System.IO.FileSystem.AccessControl.xml",
+        "ref/netstandard1.3/zh-hans/System.IO.FileSystem.AccessControl.xml",
+        "ref/netstandard1.3/zh-hant/System.IO.FileSystem.AccessControl.xml",
+        "ref/netstandard2.0/System.IO.FileSystem.AccessControl.dll",
+        "ref/netstandard2.0/System.IO.FileSystem.AccessControl.xml",
+        "runtimes/win/lib/net46/System.IO.FileSystem.AccessControl.dll",
+        "runtimes/win/lib/net461/System.IO.FileSystem.AccessControl.dll",
+        "runtimes/win/lib/net461/System.IO.FileSystem.AccessControl.xml",
+        "runtimes/win/lib/netstandard1.3/System.IO.FileSystem.AccessControl.dll",
+        "runtimes/win/lib/netstandard2.0/System.IO.FileSystem.AccessControl.dll",
+        "runtimes/win/lib/netstandard2.0/System.IO.FileSystem.AccessControl.xml",
+        "system.io.filesystem.accesscontrol.5.0.0.nupkg.sha512",
+        "system.io.filesystem.accesscontrol.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
       ]
     },
     "System.Memory/4.5.4": {
@@ -2668,11 +2771,11 @@
     }
   },
   "projectFileDependencyGroups": {
-    "net6.0": [
-      "MassTransit.Azure.ServiceBus.Core >= 8.0.10-develop.696",
-      "MassTransit.EntityFrameworkCore >= 8.0.8-develop.621",
-      "MassTransit.MongoDb >= 8.0.8-develop.621",
-      "MassTransit.RabbitMQ >= 8.0.8-develop.621",
+    "net7.0": [
+      "MassTransit.Azure.ServiceBus.Core >= 8.0.10-develop.738",
+      "MassTransit.EntityFrameworkCore >= 8.0.10-develop.738",
+      "MassTransit.MongoDb >= 8.0.10-develop.738",
+      "MassTransit.RabbitMQ >= 8.0.10-develop.738",
       "MongoDB.Driver >= 2.18.0",
       "Products.Application >= 1.0.0"
     ]
@@ -2699,7 +2802,7 @@
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
-        "net6.0"
+        "net7.0"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
@@ -2707,8 +2810,8 @@
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net6.0": {
-          "targetAlias": "net6.0",
+        "net7.0": {
+          "targetAlias": "net7.0",
           "projectReferences": {
             "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Products\\Products.Application\\Products.Application.csproj": {
               "projectPath": "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Products\\Products.Application\\Products.Application.csproj"
@@ -2723,24 +2826,24 @@
       }
     },
     "frameworks": {
-      "net6.0": {
-        "targetAlias": "net6.0",
+      "net7.0": {
+        "targetAlias": "net7.0",
         "dependencies": {
           "MassTransit.Azure.ServiceBus.Core": {
             "target": "Package",
-            "version": "[8.0.10-develop.696, )"
+            "version": "[8.0.10-develop.738, )"
           },
           "MassTransit.EntityFrameworkCore": {
             "target": "Package",
-            "version": "[8.0.8-develop.621, )"
+            "version": "[8.0.10-develop.738, )"
           },
           "MassTransit.MongoDb": {
             "target": "Package",
-            "version": "[8.0.8-develop.621, )"
+            "version": "[8.0.10-develop.738, )"
           },
           "MassTransit.RabbitMQ": {
             "target": "Package",
-            "version": "[8.0.8-develop.621, )"
+            "version": "[8.0.10-develop.738, )"
           },
           "MongoDB.Driver": {
             "target": "Package",
@@ -2758,26 +2861,12 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[6.0.11, 6.0.11]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Ref",
-            "version": "[6.0.11, 6.0.11]"
-          },
-          {
-            "name": "Microsoft.WindowsDesktop.App.Ref",
-            "version": "[6.0.11, 6.0.11]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }

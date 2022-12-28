@@ -14,13 +14,13 @@ public static class ProductMappings
             cm.AutoMap();
 
             cm.MapProperty(p => p.Price)
-                .SetSerializer(new DecimalSerializer(BsonType.Decimal128));
+              .SetSerializer(new DecimalSerializer(BsonType.Decimal128));
 
             cm.MapProperty(p => p.Quantity)
-                .SetSerializer(new DecimalSerializer(BsonType.Decimal128));
+              .SetSerializer(new DecimalSerializer(BsonType.Decimal128));
 
             cm.MapProperty(p => p.Discount)
-                .SetSerializer(new DecimalSerializer(BsonType.Decimal128));
+              .SetSerializer(new DecimalSerializer(BsonType.Decimal128));
 
             cm.SetIgnoreExtraElements(true);
         });

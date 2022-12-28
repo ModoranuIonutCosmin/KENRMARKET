@@ -5,7 +5,8 @@ using Order.SignalR.Hubs;
 
 namespace Order.SignalR.Consumers;
 
-public class OrderStatusChangedToPendingStockValidationIntegrationEventHandler : IntegrationEventHandler<OrderStatusChangedToPendingStockValidationIntegrationEvent>
+public class OrderStatusChangedToPendingStockValidationIntegrationEventHandler : IntegrationEventHandler<
+    OrderStatusChangedToPendingStockValidationIntegrationEvent>
 {
     private readonly IHubContext<OrdersHub> _hubContext;
 
@@ -13,14 +14,13 @@ public class OrderStatusChangedToPendingStockValidationIntegrationEventHandler :
     {
         _hubContext = hubContext;
     }
-    
+
     public override async Task Handle(OrderStatusChangedToPendingStockValidationIntegrationEvent @event)
     {
         await _hubContext.Clients.User(@event.CustomerId.ToString())
-            .SendAsync("ReceiveOrdersUpdate", new
-            {
-                OrderId = @event.OrderId,
-                OrderStatus = @event.OrderStatus
-            });
+                         .SendAsync("ReceiveOrdersUpdate", new
+                                                           {
+                                                               @event.OrderId, @event.OrderStatus
+                                                           });
     }
 }

@@ -3,5 +3,5 @@
 public class CartDetailsDTO
 {
     public List<CartItemDTO> CartItems { get; set; }
-    public string Promocode { get; set; }
+    public string            Promocode { get; set; }
 }

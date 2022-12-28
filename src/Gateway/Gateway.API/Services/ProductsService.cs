@@ -1,20 +1,19 @@
 ﻿using System.Text.Json;
-using Gateway.API.Interfaces;
-using Gateway.API.Models;
 using Gateway.API.Routes;
+using Gateway.Application.Interfaces;
 using Gateway.Domain.Models.Products;
 
 namespace Gateway.API.Services;
 
 public class ProductsService : IProductsService
 {
-    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly IHttpClientFactory       _httpClientFactory;
     private readonly ILogger<ProductsService> _logger;
 
     public ProductsService(IHttpClientFactory httpClientFactory, ILogger<ProductsService> logger)
     {
         _httpClientFactory = httpClientFactory;
-        _logger = logger;
+        _logger            = logger;
     }
 
     public async Task<(bool IsOk, IEnumerable<Product> Products, string ErrorMessage)> GetProductsAsync()
@@ -22,16 +21,16 @@ public class ProductsService : IProductsService
         try
         {
             var httpClient = _httpClientFactory.CreateClient("ProductsService");
-            var response = await httpClient.GetAsync(ServicesRoutes.Products.AllProducts);
+            var response   = await httpClient.GetAsync(ServicesRoutes.Products.AllProducts);
 
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
 
                 var deserializationOptions = new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true
-                };
+                                             {
+                                                 PropertyNameCaseInsensitive = true
+                                             };
 
                 var result =
                     JsonSerializer.Deserialize<IEnumerable<Product>>(content, deserializationOptions);
@@ -55,16 +54,16 @@ public class ProductsService : IProductsService
         try
         {
             var httpClient = _httpClientFactory.CreateClient("ProductsService");
-            var response = await httpClient.GetAsync(ServicesRoutes.Products.ProductById(productId));
+            var response   = await httpClient.GetAsync(ServicesRoutes.Products.ProductById(productId));
 
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
 
                 var deserializationOptions = new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true
-                };
+                                             {
+                                                 PropertyNameCaseInsensitive = true
+                                             };
 
                 var result =
                     JsonSerializer.Deserialize<Product>(content, deserializationOptions);
@@ -98,9 +97,9 @@ public class ProductsService : IProductsService
                 var content = await response.Content.ReadAsStringAsync();
 
                 var deserializationOptions = new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true
-                };
+                                             {
+                                                 PropertyNameCaseInsensitive = true
+                                             };
 
                 var result =
                     JsonSerializer.Deserialize<List<Product>>(content, deserializationOptions);

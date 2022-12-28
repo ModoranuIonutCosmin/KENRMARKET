@@ -6,8 +6,8 @@ namespace Order.Application.Workers;
 
 public class ClearHangingOrdersWorker : BackgroundService
 {
-    private static readonly TimeSpan MaxOrderAge = TimeSpan.FromHours(1);
-    private readonly IMediator _mediator;
+    private static readonly TimeSpan  MaxOrderAge = TimeSpan.FromHours(1);
+    private readonly        IMediator _mediator;
 
     public ClearHangingOrdersWorker(IMediator mediator)
     {
@@ -17,9 +17,9 @@ public class ClearHangingOrdersWorker : BackgroundService
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         var clearHangingOrdersCommand = new ClearHangingOrdersCommand
-        {
-            MaxOrderAge = MaxOrderAge
-        };
+                                        {
+                                            MaxOrderAge = MaxOrderAge
+                                        };
 
         while (!stoppingToken.IsCancellationRequested)
         {

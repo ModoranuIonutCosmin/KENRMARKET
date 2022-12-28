@@ -2,7 +2,7 @@
 
 public class FrontEndInfo
 {
-    public string BaseUrl { get; set; }
+    public string BaseUrl          { get; set; }
     public string OrderSuccessPath { get; set; }
     public string OrderFailurePath { get; set; }
 

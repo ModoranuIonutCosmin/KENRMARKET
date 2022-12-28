@@ -10,23 +10,27 @@ namespace Order.Application.Consumers;
 public class PaymentSuccessfulForOrderEventHandler : IntegrationEventHandler<OrderPaymentSuccessfulIntegrationEvent>
 {
     private readonly ILogger<PaymentSuccessfulForOrderEventHandler> _logger;
-    private readonly IMediator _mediator;
+    private readonly IMediator                                      _mediator;
 
     public PaymentSuccessfulForOrderEventHandler(ILogger<PaymentSuccessfulForOrderEventHandler> logger,
         IMediator mediator)
     {
-        _logger = logger;
+        _logger   = logger;
         _mediator = mediator;
     }
 
     public override async Task Handle(OrderPaymentSuccessfulIntegrationEvent @event)
     {
-        await _mediator.Send(new SetOrderStatusCommand
-        {
-            OrderId = @event.OrderId,
-            OrderStatus = OrderStatus.Paid
-        });
+        _logger.LogInformation("[Payment successful consumer] Setting order status as paid, orderId={@event.OrderId} is now set as paid",
+                               @event.OrderId);
 
-        _logger.LogInformation($"Message received, order {@event.OrderId} is now set as paid");
+        await _mediator.Send(new SetOrderStatusCommand
+                             {
+                                 OrderId     = @event.OrderId,
+                                 OrderStatus = OrderStatus.Paid
+                             });
+
+        _logger.LogInformation("[Payment successful consumer] Message received, orderId={@event.OrderId} is now set as paid",
+                               @event.OrderId);
     }
 }

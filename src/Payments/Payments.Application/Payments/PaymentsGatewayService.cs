@@ -23,40 +23,41 @@ public class PaymentsGatewayService : IPaymentsGatewayService
         string failureRedirectUrl)
     {
         var options = new SessionCreateOptions
-        {
-            LineItems = new List<SessionLineItemOptions>
-            {
-                new()
-                {
-                    PriceData = new SessionLineItemPriceDataOptions
-                    {
-                        UnitAmount = (long)(order.Total * 100),
-                        Currency = "usd",
-                        ProductData = new SessionLineItemPriceDataProductDataOptions
-                        {
-                            Name = "Order from KENRMARKET"
-                        }
-                    },
-                    Quantity = 1
-                }
-            },
-            Metadata = new Dictionary<string, string>
-            {
-                { "orderId", order.Id.ToString() },
-                { "payerId", order.BuyerId.ToString() },
-                { "paymentAmount", order.Total.ToString() }
-            },
-            Mode = "payment",
-            SuccessUrl = successRedirectUrl,
-            CancelUrl = failureRedirectUrl
-        };
+                      {
+                          LineItems = new List<SessionLineItemOptions>
+                                      {
+                                          new()
+                                          {
+                                              PriceData = new SessionLineItemPriceDataOptions
+                                                          {
+                                                              UnitAmount = (long)(order.Total * 100),
+                                                              Currency   = "usd",
+                                                              ProductData =
+                                                                  new SessionLineItemPriceDataProductDataOptions
+                                                                  {
+                                                                      Name = "Order from KENRMARKET"
+                                                                  }
+                                                          },
+                                              Quantity = 1
+                                          }
+                                      },
+                          Metadata = new Dictionary<string, string>
+                                     {
+                                         { "orderId", order.Id.ToString() },
+                                         { "payerId", order.BuyerId.ToString() },
+                                         { "paymentAmount", order.Total.ToString() }
+                                     },
+                          Mode       = "payment",
+                          SuccessUrl = successRedirectUrl,
+                          CancelUrl  = failureRedirectUrl
+                      };
 
         var service = new SessionService();
         var session = service.Create(options);
 
         return new CheckoutSession
-        {
-            CheckoutUrl = session.Url
-        };
+               {
+                   CheckoutUrl = session.Url
+               };
     }
 }

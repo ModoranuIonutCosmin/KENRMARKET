@@ -1,9 +1,9 @@
-﻿
-using Gateway.API.Models;
+﻿using Gateway.Domain.Models.Checkout;
+using Gateway.Domain.Models.Orders;
 
-namespace Gateway.API.Interfaces;
+namespace Gateway.Application.Interfaces;
 
 public interface IPaymentsService
 {
-    Task<(bool isOk, CheckoutSession checkoutSession, string errorMessage)> CreateCheckoutSession(Domain.Models.Orders.Order order);
+    Task<(bool isOk, CheckoutSession checkoutSession, string errorMessage)> CreateCheckoutSession(Order order);
 }

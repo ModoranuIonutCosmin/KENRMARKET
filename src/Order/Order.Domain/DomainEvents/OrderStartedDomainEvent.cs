@@ -11,7 +11,7 @@ public class OrderStartedDomainEvent : IDomainEvent
         CustomerId = Guid.NewGuid();
     }
 
-    public Guid CustomerId { get; set; }
-    
     public Entities.Order Order { get; set; }
+
+    public Guid CustomerId { get; set; }
 }

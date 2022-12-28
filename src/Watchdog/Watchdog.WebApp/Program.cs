@@ -5,7 +5,7 @@ builder.Services.AddControllersWithViews();
 
 
 builder.Services.AddHealthChecksUI()
-.AddInMemoryStorage();
+       .AddInMemoryStorage();
 
 var app = builder.Build();
 
@@ -33,8 +33,8 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+                       "default",
+                       "{controller=Home}/{action=Index}/{id?}");
 
 app.MapHealthChecksUI();
 

@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Order.Domain.DataModels;
 using Order.Domain.Models;
 
 namespace Order.Infrastructure.EntitiesConfig;
@@ -11,7 +10,7 @@ public class OrderEntityConfiguration : IEntityTypeConfiguration<Domain.Entities
     {
         orderConfiguration
             .HasKey(o => o.Id);
-        
+
         //Private fields
 
         // orderConfiguration
@@ -47,9 +46,9 @@ public class OrderEntityConfiguration : IEntityTypeConfiguration<Domain.Entities
         // orderConfiguration
         //     .Property("_promocode")
         //     .HasMaxLength(256);
-        
+
         orderConfiguration
-            .Property<Guid>(o => o.BuyerId)
+            .Property(o => o.BuyerId)
             .IsRequired();
 
         orderConfiguration
@@ -58,21 +57,20 @@ public class OrderEntityConfiguration : IEntityTypeConfiguration<Domain.Entities
             .IsRequired(false);
 
         orderConfiguration
-            .Property<DateTimeOffset>(o => o.DateCreated)
+            .Property(o => o.DateCreated)
             .IsRequired();
 
         orderConfiguration
-            .Property<OrderStatus>(o => o.OrderStatus)
+            .Property(o => o.OrderStatus)
             .IsRequired();
 
- 
 
         orderConfiguration
             .HasMany(o => o.OrderItems)
             .WithOne();
 
         orderConfiguration.Metadata.FindNavigation("OrderItems")
-            .SetPropertyAccessMode(PropertyAccessMode.Field);
+                          .SetPropertyAccessMode(PropertyAccessMode.Field);
 
         orderConfiguration
             .OwnsOne<Address>("Address", a =>
@@ -80,20 +78,20 @@ public class OrderEntityConfiguration : IEntityTypeConfiguration<Domain.Entities
                 a.WithOwner();
 
                 a.Property(p => p.AddressLine1)
-                    .HasMaxLength(512);
+                 .HasMaxLength(512);
                 a.Property(p => p.AddressLine2)
-                    .HasMaxLength(512)
-                    .IsRequired(false);
+                 .HasMaxLength(512)
+                 .IsRequired(false);
                 a.Property(p => p.Apartment)
-                    .HasMaxLength(512);
+                 .HasMaxLength(512);
                 a.Property(p => p.City)
-                    .HasMaxLength(512);
+                 .HasMaxLength(512);
                 a.Property(p => p.County)
-                    .HasMaxLength(512);
+                 .HasMaxLength(512);
                 a.Property(p => p.PostalCode)
-                    .HasMaxLength(512);
+                 .HasMaxLength(512);
                 a.Property(p => p.State)
-                    .HasMaxLength(512);
+                 .HasMaxLength(512);
             })
             ;
     }

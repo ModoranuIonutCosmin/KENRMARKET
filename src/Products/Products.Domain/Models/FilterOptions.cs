@@ -4,11 +4,12 @@ namespace Products.Domain.Models;
 
 public class FilterOptions
 {
-    public decimal MinPrice { get; set; } = 0;
-    public decimal MaxPrice { get; set; } = decimal.MaxValue;
-    public bool UsesPriceRangeFilter { get; set; }
+    public decimal MinPrice             { get; set; } = 0;
+    public decimal MaxPrice             { get; set; } = decimal.MaxValue;
+    public bool    UsesPriceRangeFilter { get; set; }
+    public bool    UsesCategoryFilter   => CategoryName != null;
 
     public Dictionary<string, string> SpecificationsFilters { get; set; } = new();
-    public List<Category> Categories { get; set; } = new();
-    public string? CategoryName { get; set; }
+    public List<Category>             Categories            { get; set; } = new();
+    public string?                    CategoryName          { get; set; }
 }

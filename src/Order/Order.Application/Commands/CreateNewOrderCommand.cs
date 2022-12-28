@@ -5,7 +5,7 @@ using Order.Domain.Models;
 
 namespace Order.Application.Commands;
 
-public class CreateNewOrderCommand : IRequest<OrderDTO>
+public record CreateNewOrderCommand : IRequest<OrderDTO>
 {
     [Required] public Guid BuyerId { get; init; }
 

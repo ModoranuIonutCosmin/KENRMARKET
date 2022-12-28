@@ -1,20 +1,22 @@
-﻿using AutoMapper;
-using MediatR;
+﻿using MediatR;
+using Microsoft.Extensions.Logging;
 using Order.Application.Interfaces;
 
 namespace Order.Application.Commands;
 
 public class ClearHangingOrdersCommandHandler : IRequestHandler<ClearHangingOrdersCommand>
 {
-    private readonly IMapper _mapper;
-    private readonly IOrderRepository _orderRepository;
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly ILogger<ClearHangingOrdersCommandHandler> _logger;
+    private readonly IOrderRepository                          _orderRepository;
+    private readonly IUnitOfWork                               _unitOfWork;
 
-    public ClearHangingOrdersCommandHandler(IOrderRepository orderRepository, IMapper mapper, IUnitOfWork unitOfWork)
+    public ClearHangingOrdersCommandHandler(IOrderRepository orderRepository,
+        ILogger<ClearHangingOrdersCommandHandler> logger,
+        IUnitOfWork unitOfWork)
     {
         _orderRepository = orderRepository;
-        _mapper = mapper;
-        _unitOfWork = unitOfWork;
+        _logger          = logger;
+        _unitOfWork      = unitOfWork;
     }
 
     public async Task<Unit> Handle(ClearHangingOrdersCommand request, CancellationToken cancellationToken)

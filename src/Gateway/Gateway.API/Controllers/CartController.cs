@@ -1,6 +1,5 @@
 ﻿using Gateway.API.Auth.ExtensionMethods;
-using Gateway.API.Interfaces;
-using Gateway.API.Models;
+using Gateway.Application.Interfaces;
 using Gateway.Domain.Models.Carts;
 using Gateway.Domain.Models.Orders;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -13,16 +12,19 @@ namespace Gateway.API.Controllers;
 public class CartController : BaseController
 {
     private readonly ICartAggregatesService _cartAggregates;
-    private readonly ICartService _cartService;
+    private readonly ICartService           _cartService;
 
     public CartController(ICartAggregatesService cartAggregates,
         ICartService cartService)
     {
         _cartAggregates = cartAggregates;
-        _cartService = cartService;
+        _cartService    = cartService;
     }
 
     [HttpGet("cartContents")]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(statusCode: StatusCodes.Status200OK, type: typeof(CartDetailsFullDto))]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> GetCartContents()
     {
@@ -30,7 +32,10 @@ public class CartController : BaseController
 
         var cartDetails = await _cartAggregates.GetFullCartDetails(customerId);
 
-        if (cartDetails.IsSuccess) return Ok(cartDetails.FullCartDetails);
+        if (cartDetails.IsSuccess)
+        {
+            return Ok(cartDetails.FullCartDetails);
+        }
 
         return NotFound();
     }
@@ -39,6 +44,9 @@ public class CartController : BaseController
 
 
     [HttpPut("updateCart")]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(statusCode: StatusCodes.Status200OK, type: typeof(UpdateCartRequestDTO))]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> UpdateCart(UpdateCartRequestDTO cartDetails)
     {
@@ -46,34 +54,49 @@ public class CartController : BaseController
 
         var result = await _cartAggregates.ModifyCart(customerId, cartDetails);
 
-        if (result.IsSuccess) return Ok(result.FullCartDetails);
+        if (result.IsSuccess)
+        {
+            return Ok(result.FullCartDetails);
+        }
 
-        return NotFound();
+        return NotFound(result.FullCartDetails);
     }
 
     [HttpPost("addItemToCart")]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(statusCode: StatusCodes.Status200OK, type: typeof(CartUpdateStatusDto))]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public async Task<IActionResult> AddCartItem(CartItemDTO itemToAddDTO)
+    public async Task<IActionResult> AddCartItem(CartItemIdAndQuantity itemToAddDTO)
     {
         var customerId = Guid.Parse(User.GetLoggedInUserId<string>());
 
         var result = await _cartAggregates.AddItemToCart(customerId, itemToAddDTO);
 
-        if (result.IsSuccess) return Ok(result.CartDetails);
+        if (result.IsSuccess)
+        {
+            return Ok(result.CartDetails);
+        }
 
-        return NotFound();
+        return NotFound(result.CartDetails);
     }
-    
-    
+
+
     [HttpPost("checkout")]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(statusCode: StatusCodes.Status202Accepted, type: typeof(CartDetailsDTO))]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public async Task<IActionResult> Checkout([FromBody]Address shippingAddress)
+    public async Task<IActionResult> Checkout([FromBody] Address shippingAddress)
     {
         var customerId = Guid.Parse(User.GetLoggedInUserId<string>());
 
         var result = await _cartService.CheckoutCart(customerId, shippingAddress);
 
-        if (result.IsOk) return Created("", result.CartDetails);
+        if (result.IsOk)
+        {
+            return Accepted($"/orders/{customerId}", result.CartDetails);
+        }
 
         return NotFound();
     }

@@ -1,8 +1,10 @@
-﻿using Cart.API.DTOs;
+﻿using AutoMapper;
+using Cart.API.DTOs;
 using Cart.Application.Interfaces.Services;
-using Cart.Domain.Entities;
+using Cart.Domain.Exceptions;
+using Cart.Domain.Models;
+using IntegrationEvents.Models;
 using Microsoft.AspNetCore.Mvc;
-using CartItemDTO = Cart.Domain.Models.CartItemDTO;
 
 namespace Cart.API.Controllers;
 
@@ -10,15 +12,20 @@ namespace Cart.API.Controllers;
 public class CartsController : BaseController
 {
     private readonly ICartService _cartService;
+    private readonly IMapper      _mapper;
 
-    public CartsController(ICartService cartService)
+    public CartsController(ICartService cartService, IMapper mapper)
     {
         _cartService = cartService;
+        _mapper      = mapper;
     }
 
-    [HttpPut("ModifyCart")]
+    [HttpPut("modifyCart")]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(statusCode: StatusCodes.Status200OK, type: typeof(CartDetails))]
     public async Task<IActionResult> ModifyCart([FromQuery] Guid customerId,
-        [FromBody] CartDetails newCartDetails)
+        [FromBody] CartDetailsDto newCartDetails)
     {
         //TODO: 
 
@@ -27,8 +34,11 @@ public class CartsController : BaseController
         return Ok(result);
     }
 
-    [HttpPost("AddItemToCart")]
-    public async Task<IActionResult> AddItemToCart([FromBody] CartItemDTO cartItem, Guid customerId)
+    [HttpPost("addItemToCart")]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(statusCode: StatusCodes.Status201Created, type: typeof(CartDetails))]
+    public async Task<IActionResult> AddItemToCart([FromBody] ProductQuantity cartItem, Guid customerId)
     {
         var result = await _cartService.AddCartItem(customerId, cartItem);
 
@@ -36,21 +46,41 @@ public class CartsController : BaseController
     }
 
 
-    [HttpGet("Cart")]
+    [HttpGet("cart")]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(statusCode: StatusCodes.Status200OK, type: typeof(CartDetails))]
     public async Task<IActionResult> GetCartContents(Guid customerId)
     {
         return Ok(await _cartService.GetCartDetails(customerId));
     }
 
-    [HttpPost("Checkout")]
+    [HttpPost("checkout")]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(statusCode: StatusCodes.Status202Accepted, type: typeof(CartDetails))]
     public async Task<IActionResult> CheckoutCart([FromBody] CheckoutRequestDTO checkoutRequest)
     {
-        return Created("", await _cartService.Checkout(checkoutRequest.CustomerId, checkoutRequest.Address));
+        try
+        {
+            var result = await _cartService.Checkout(checkoutRequest.CustomerId, checkoutRequest.Address);
+
+            return Accepted("", result);
+        }
+        catch (CheckoutFailedCartEmptyException)
+        {
+            return BadRequest("You can't checkout with an empty cart");
+        }
     }
-    
-    [HttpDelete("DeleteCart")]
+
+    [HttpDelete("deleteCart")]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> DeleteCartContents(Guid customerId)
     {
-        return Ok(await _cartService.DeleteCartContents(customerId));
+        var result = await _cartService.DeleteCartContents(customerId);
+
+        return NoContent();
     }
 }

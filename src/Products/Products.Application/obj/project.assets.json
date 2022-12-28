@@ -1,7 +1,7 @@
 {
   "version": 3,
   "targets": {
-    "net6.0": {
+    "net7.0": {
       "AutoMapper/12.0.0": {
         "type": "package",
         "dependencies": {
@@ -34,10 +34,10 @@
           }
         }
       },
-      "MassTransit/8.0.8-develop.621": {
+      "MassTransit/8.0.10-develop.738": {
         "type": "package",
         "dependencies": {
-          "MassTransit.Abstractions": "8.0.8-develop.621",
+          "MassTransit.Abstractions": "8.0.10-develop.738",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.18",
           "Microsoft.Extensions.Diagnostics.HealthChecks": "3.1.18",
           "Microsoft.Extensions.Hosting.Abstractions": "3.1.18",
@@ -60,7 +60,7 @@
           }
         }
       },
-      "MassTransit.Abstractions/8.0.8-develop.621": {
+      "MassTransit.Abstractions/8.0.10-develop.738": {
         "type": "package",
         "compile": {
           "lib/net6.0/MassTransit.Abstractions.dll": {
@@ -558,9 +558,9 @@
       },
       "IntegrationEvents/1.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
+        "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
-          "MassTransit": "8.0.8-develop.621"
+          "MassTransit": "8.0.10-develop.738"
         },
         "compile": {
           "bin/placeholder/IntegrationEvents.dll": {}
@@ -571,7 +571,7 @@
       },
       "Products.Domain/1.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
+        "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
           "IntegrationEvents": "1.0.0",
           "MediatR.Contracts": "1.0.1"
@@ -625,10 +625,10 @@
         "lib/netstandard2.1/DnsClient.xml"
       ]
     },
-    "MassTransit/8.0.8-develop.621": {
-      "sha512": "d1pficOGw05XRE1GGTo7IwDeSIiEAhedWctttzJVWJqaZS6ZTgPOqNqcgfbQ44u3PjIc1w7ORJ9+d726MQUFgw==",
+    "MassTransit/8.0.10-develop.738": {
+      "sha512": "qpWVQ59tEyAqAvTsQhg///AosJ7SPtHVDBXkYo50tiklijw5mL1ONSuDWSmT0O71qh8Y4+LCt63Xsu7RaoQSAw==",
       "type": "package",
-      "path": "masstransit/8.0.8-develop.621",
+      "path": "masstransit/8.0.10-develop.738",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -640,15 +640,15 @@
         "lib/netstandard2.0/MassTransit.xml",
         "lib/netstandard2.1/MassTransit.dll",
         "lib/netstandard2.1/MassTransit.xml",
-        "masstransit.8.0.8-develop.621.nupkg.sha512",
+        "masstransit.8.0.10-develop.738.nupkg.sha512",
         "masstransit.nuspec",
         "mt-logo-small.png"
       ]
     },
-    "MassTransit.Abstractions/8.0.8-develop.621": {
-      "sha512": "QpOKsW7x9AGj0HL9kh0x3SyIGLEWaJkKCBPFzgdcqS8LMnulFECWAaX0bSDrfyLtluNuRvI3sklkPE+NWQ3nXQ==",
+    "MassTransit.Abstractions/8.0.10-develop.738": {
+      "sha512": "zMQUm356YDVQIpRmkWkIFd7fkUt/gQztWLvDaln9ZlPjunwMpyCkbgyLrpEX883vsng1LfyJqKaEmA0yc1XmdQ==",
       "type": "package",
-      "path": "masstransit.abstractions/8.0.8-develop.621",
+      "path": "masstransit.abstractions/8.0.10-develop.738",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -660,7 +660,7 @@
         "lib/netstandard2.0/MassTransit.Abstractions.xml",
         "lib/netstandard2.1/MassTransit.Abstractions.dll",
         "lib/netstandard2.1/MassTransit.Abstractions.xml",
-        "masstransit.abstractions.8.0.8-develop.621.nupkg.sha512",
+        "masstransit.abstractions.8.0.10-develop.738.nupkg.sha512",
         "masstransit.abstractions.nuspec",
         "mt-logo-small.png"
       ]
@@ -1509,7 +1509,7 @@
     }
   },
   "projectFileDependencyGroups": {
-    "net6.0": [
+    "net7.0": [
       "AutoMapper >= 12.0.0",
       "MongoDB.Driver >= 2.18.0",
       "Products.Domain >= 1.0.0"
@@ -1537,7 +1537,7 @@
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
-        "net6.0"
+        "net7.0"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
@@ -1545,8 +1545,8 @@
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net6.0": {
-          "targetAlias": "net6.0",
+        "net7.0": {
+          "targetAlias": "net7.0",
           "projectReferences": {
             "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Products\\Products.Domain\\Products.Domain.csproj": {
               "projectPath": "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Products\\Products.Domain\\Products.Domain.csproj"
@@ -1561,8 +1561,8 @@
       }
     },
     "frameworks": {
-      "net6.0": {
-        "targetAlias": "net6.0",
+      "net7.0": {
+        "targetAlias": "net7.0",
         "dependencies": {
           "AutoMapper": {
             "target": "Package",
@@ -1584,26 +1584,12 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[6.0.11, 6.0.11]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Ref",
-            "version": "[6.0.11, 6.0.11]"
-          },
-          {
-            "name": "Microsoft.WindowsDesktop.App.Ref",
-            "version": "[6.0.11, 6.0.11]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }

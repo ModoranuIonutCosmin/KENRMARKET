@@ -7,13 +7,13 @@ namespace Order.Application.Querries;
 
 public class QueryCustomersOrdersCommandHandler : IRequestHandler<QueryCustomersOrdersCommand, List<OrderDTO>>
 {
-    private readonly IMapper _mapper;
+    private readonly IMapper          _mapper;
     private readonly IOrderRepository _orderRepository;
 
     public QueryCustomersOrdersCommandHandler(IMapper mapper,
         IOrderRepository orderRepository)
     {
-        _mapper = mapper;
+        _mapper          = mapper;
         _orderRepository = orderRepository;
     }
 

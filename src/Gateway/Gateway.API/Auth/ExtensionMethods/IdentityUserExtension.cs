@@ -16,7 +16,7 @@ public static class IdentityUserExtension
     {
         // Get all errors into a list
         return errors?.Select(f => f.Description)
-            // And combine them with a newline separator
-            .Aggregate((a, b) => $"{a}{Environment.NewLine}{b}");
+                     // And combine them with a newline separator
+                     .Aggregate((a, b) => $"{a}{Environment.NewLine}{b}");
     }
 }

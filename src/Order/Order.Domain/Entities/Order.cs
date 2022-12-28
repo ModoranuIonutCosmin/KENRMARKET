@@ -9,6 +9,24 @@ namespace Order.Domain.Entities;
 public class Order : Entity, IAggregateRoot
 {
     private List<OrderItem> _orderItems = new();
+
+
+    protected Order()
+    {
+    }
+
+    public Order(Guid buyerId, Address address)
+    {
+        BuyerId = buyerId;
+        Address = address;
+
+        //TODO: Anuntat Payments ca se incepe order
+
+        AddDomainEvent(new OrderStartedDomainEvent(this));
+
+        DateCreated = DateTimeOffset.UtcNow;
+    }
+
     public IReadOnlyCollection<OrderItem> OrderItems => _orderItems;
 
     public Guid BuyerId { get; private set; }
@@ -18,6 +36,7 @@ public class Order : Entity, IAggregateRoot
     // private string _promocode;
 
     public Address Address { get; private set; } //TODO: Gasit cum se face Owned Entity sa fie Backed Field
+
     public DateTimeOffset DateCreated { get; private set; }
     // private DateTimeOffset _dateCreated;
 
@@ -25,23 +44,6 @@ public class Order : Entity, IAggregateRoot
     // private OrderStatus _orderStatus;
 
     public decimal Total => OrderItems.Sum(ci => ci.Quantity * ci.UnitPrice);
-    
-    
-    protected Order()
-    {
-    }
-
-    public Order(Guid buyerId, Address address)
-    {
-        BuyerId = buyerId;
-        Address = address;
-        
-        //TODO: Anuntat Payments ca se incepe order
-        
-        this.AddDomainEvent(new OrderStartedDomainEvent(this));
-        
-        DateCreated = DateTimeOffset.UtcNow;
-    }
 
     public void AddOrderItem(Guid productId, string productName, decimal quantity, decimal price, string pictureUrl)
     {
@@ -54,13 +56,14 @@ public class Order : Entity, IAggregateRoot
         else
         {
             _orderItems.Add(new OrderItem
-            {
-                ProductId = productId,
-                ProductName = productName,
-                Quantity = quantity,
-                UnitPrice = price,
-                PictureUrl = pictureUrl
-            });
+                            {
+                                ProductId   = productId,
+                                ProductName = productName,
+                                Quantity    = quantity,
+                                UnitPrice   = price,
+                                PictureUrl  = pictureUrl,
+                                AddedAt     = DateTimeOffset.UtcNow
+                            });
         }
     }
 
@@ -69,7 +72,7 @@ public class Order : Entity, IAggregateRoot
         OrderStatus = orderStatus;
 
         IDomainEvent domainEvent;
-        
+
         switch (orderStatus)
         {
             case OrderStatus.InitialCreation:
@@ -77,25 +80,25 @@ public class Order : Entity, IAggregateRoot
             case OrderStatus.PendingValidation:
 
                 domainEvent = new OrderStatusChangedToPendingValidationDomainEvent(this, BuyerId);
-                
-                this.AddDomainEvent(domainEvent);
+
+                AddDomainEvent(domainEvent);
                 break;
             case OrderStatus.StocksValidationAccepted:
                 domainEvent = new OrderStatusChangedToStockValidatedDomainEvent(this, BuyerId);
-                
-                this.AddDomainEvent(domainEvent);
+
+                AddDomainEvent(domainEvent);
                 break;
-            
+
             case OrderStatus.StocksValidationRejected:
                 domainEvent = new OrderStatusChangedToStockRejectedDomainEvent(this, BuyerId);
 
-                this.AddDomainEvent(domainEvent);
+                AddDomainEvent(domainEvent);
                 break;
-            
+
             case OrderStatus.Paid:
                 domainEvent = new OrderStatusChangedToPaidValidationDomainEvent(this, BuyerId);
 
-                this.AddDomainEvent(domainEvent);
+                AddDomainEvent(domainEvent);
                 break;
         }
     }

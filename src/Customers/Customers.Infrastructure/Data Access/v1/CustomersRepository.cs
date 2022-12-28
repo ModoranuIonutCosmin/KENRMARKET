@@ -25,15 +25,15 @@ public class CustomersRepository : ICustomersRepository
     public async Task<List<Customer>> GetAllCustomersDetails()
     {
         return await _customersDbContext.Customers
-            .Include(c => c.Address)
-            .ToListAsync();
+                                        .Include(c => c.Address)
+                                        .ToListAsync();
     }
 
     public async Task<Customer> GetCustomerDetails(Guid customerId)
     {
         return await _customersDbContext
-            .Customers
-            .Include(c => c.Address)
-            .SingleOrDefaultAsync(c => c.Id.Equals(customerId));
+                     .Customers
+                     .Include(c => c.Address)
+                     .SingleOrDefaultAsync(c => c.Id.Equals(customerId));
     }
 }

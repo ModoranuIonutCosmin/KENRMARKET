@@ -5,8 +5,7 @@
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development",
-        "ConnectionStrings__SqlServer": "Server=tcp:kenrmarketsqldbserver.database.windows.net,1433;Database =authDb ;User ID=kenradmins;Password=Kenrpassword99;Encrypt=True;Connection Timeout=30;"
+        "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "dotnetRunMessages": true,
       "applicationUrl": "https://localhost:7000;http://localhost:5000"

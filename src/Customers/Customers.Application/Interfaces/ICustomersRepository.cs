@@ -5,5 +5,5 @@ namespace Customers.Application.Interfaces;
 public interface ICustomersRepository
 {
     Task<List<Customer>> GetAllCustomersDetails();
-    Task<Customer> GetCustomerDetails(Guid customerId);
+    Task<Customer>       GetCustomerDetails(Guid customerId);
 }

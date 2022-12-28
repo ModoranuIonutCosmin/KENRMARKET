@@ -11,14 +11,14 @@ public class MongoDBSettings : IMongoDBSettings
     public MongoDBSettings(string connectionString,
         string databaseName, string productsCollectionName, string categoriesCollectionName)
     {
-        DatabaseName = databaseName;
-        ProductsCollectionName = productsCollectionName;
+        DatabaseName             = databaseName;
+        ProductsCollectionName   = productsCollectionName;
         CategoriesCollectionName = categoriesCollectionName;
-        Host = connectionString;
+        Host                     = connectionString;
     }
 
-    public string DatabaseName { get; set; }
-    public string ProductsCollectionName { get; set; }
+    public string DatabaseName             { get; set; }
+    public string ProductsCollectionName   { get; set; }
     public string CategoriesCollectionName { get; set; }
-    public string Host { get; set; }
+    public string Host                     { get; set; }
 }

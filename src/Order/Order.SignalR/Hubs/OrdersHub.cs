@@ -1,5 +1,4 @@
-﻿using System.Text.Json;
-using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.SignalR;
 
 namespace Order.SignalR.Hubs;
 
@@ -18,5 +17,4 @@ public class OrdersHub : Hub
     //
     //     await Clients.User(customerId.ToString()).SendAsync("ReceiveOrdersUpdate", orderAsString);
     // }
-
 }

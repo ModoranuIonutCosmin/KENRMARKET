@@ -1,4 +1,5 @@
-﻿using Gateway.API.Interfaces;
+﻿using System.Security.Authentication;
+using Gateway.Application.Interfaces;
 using Gateway.Domain.Models.Auth;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,8 +11,8 @@ namespace Gateway.API.Controllers;
 [ApiVersion("1.0")]
 public class AccountController : BaseController
 {
-    private readonly IConfiguration _configuration;
-    private readonly IUserPasswordResetService _passwordResetService;
+    private readonly IConfiguration             _configuration;
+    private readonly IUserPasswordResetService  _passwordResetService;
     private readonly IUserAuthenticationService _userAuthenticationService;
 
     public AccountController(
@@ -20,59 +21,91 @@ public class AccountController : BaseController
         IUserPasswordResetService passwordResetService
     )
     {
-        _configuration = configuration;
+        _configuration             = configuration;
         _userAuthenticationService = userAuthenticationService;
-        _passwordResetService = passwordResetService;
+        _passwordResetService      = passwordResetService;
     }
 
     [HttpPost("register")]
-    public async Task<RegisterUserDataModelResponse> RegisterAsync(
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(statusCode: StatusCodes.Status201Created, type: typeof(RegisterUserDataModelResponse))]
+    public async Task<IActionResult> RegisterAsync(
         [FromBody] RegisterUserDataModelRequest registerData)
     {
         var frontEndUrl = (Environment.GetEnvironmentVariable("FrontEndUrl") ??
                            _configuration["FrontEnd:URL"]) +
                           _configuration["FrontEnd:ConfirmationRoute"];
 
-        return await _userAuthenticationService.RegisterAsync(registerData, frontEndUrl);
+        try
+        {
+            var registrationResult = await _userAuthenticationService.RegisterAsync(registerData, frontEndUrl);
+
+            return Created($"/user/{registrationResult.UserId}", registrationResult);
+        }
+        catch (InvalidOperationException e)
+        {
+            return BadRequest(e.Message);
+        }
+        catch (AuthenticationException e)
+        {
+            return StatusCode(StatusCodes.Status403Forbidden, e.Message);
+        }
     }
 
     [HttpPost("login")]
-    public async Task<UserProfileDetailsApiModel> LoginAsync(
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(statusCode: StatusCodes.Status200OK, type: typeof(UserProfileDetailsApiModel))]
+    public async Task<IActionResult> LoginAsync(
         [FromBody] LoginUserDataModel loginData)
     {
-        var issuer = Environment.GetEnvironmentVariable("JwtIssuer") ?? _configuration["Jwt:Issuer"];
+        var issuer   = Environment.GetEnvironmentVariable("JwtIssuer") ?? _configuration["Jwt:Issuer"];
         var audience = Environment.GetEnvironmentVariable("JwtAudience") ?? _configuration["Jwt:Audience"];
-        var secret = Environment.GetEnvironmentVariable("JwtSecret") ?? _configuration["Jwt:Secret"];
+        var secret   = Environment.GetEnvironmentVariable("JwtSecret") ?? _configuration["Jwt:Secret"];
 
-        return
-            await _userAuthenticationService.LoginAsync(loginData, secret, issuer, audience);
+        try
+        {
+            var result =
+                await _userAuthenticationService.LoginAsync(loginData, secret, issuer, audience);
+
+            return Ok(result);
+        }
+        catch (AuthenticationException e)
+        {
+            return StatusCode(StatusCodes.Status403Forbidden, e.Message);
+        }
+        catch (ArgumentNullException e)
+        {
+            return BadRequest(e.Message);
+        }
     }
 
-    [HttpPost("ConfirmEmail")]
+    [HttpPost("confirmEmail")]
     public async Task<IActionResult> ConfirmEmail([FromBody] ConfirmEmailRequest confirmEmailRequest)
     {
         await _userAuthenticationService.ConfirmEmail(confirmEmailRequest.Email,
-            confirmEmailRequest.Token);
+                                                      confirmEmailRequest.Token);
 
         return Ok("Email confirmed!");
     }
 
 
-    [HttpPost("ForgotPassword")]
-    public async Task<IActionResult> ForgotPasswordRequest([FromBody] ModifyPasswordRequest request)
+    [HttpPost("forgotPassword")]
+    public async Task<IActionResult> ForgotPasswordEmailRequest([FromBody] ModifyPasswordRequest request)
     {
         var frontEndUrl = (Environment.GetEnvironmentVariable("FrontEndUrl") ??
                            _configuration["FrontEnd:URL"]) +
                           _configuration["FrontEnd:ResetPasswordRoute"];
 
         await _passwordResetService.ForgotPasswordRequest(request,
-            frontEndUrl);
+                                                          frontEndUrl);
 
         return Ok("Email confirmed!");
     }
 
-    [HttpPut("ResetPassword")]
-    public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordRequest request)
+    [HttpPut("resetPassword")]
+    public async Task<IActionResult> ResetPasswordWithEmailToken([FromBody] ResetPasswordRequest request)
     {
         await _passwordResetService.ResetPassword(request);
 

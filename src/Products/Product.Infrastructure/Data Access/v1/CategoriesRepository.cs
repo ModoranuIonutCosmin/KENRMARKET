@@ -11,7 +11,7 @@ public class CategoriesRepository : Repository<Category, Guid>, ICategoriesRepos
 {
     private readonly ProductsDbContext _productsDbContext;
 
-    public CategoriesRepository(ProductsDbContext productsDbContext, ILogger<CategoriesRepository> logger) 
+    public CategoriesRepository(ProductsDbContext productsDbContext, ILogger<CategoriesRepository> logger)
         : base(productsDbContext, logger)
     {
         _productsDbContext = productsDbContext;
@@ -20,7 +20,7 @@ public class CategoriesRepository : Repository<Category, Guid>, ICategoriesRepos
     public async Task<Category> GetCategoryByName(string categoryName)
     {
         return (await _productsDbContext.Categories
-                .FindAsync(Builders<Category>.Filter.Eq(c => c.Name, categoryName))
+                                        .FindAsync(Builders<Category>.Filter.Eq(c => c.Name, categoryName))
             ).FirstOrDefault();
     }
 }

@@ -7,13 +7,13 @@ namespace Customers.Application.Features;
 public class CustomersService : ICustomersService
 {
     private readonly ICustomersRepository _customersRepository;
-    private readonly IMapper _mapper;
+    private readonly IMapper              _mapper;
 
     public CustomersService(ICustomersRepository customersRepository,
         IMapper mapper)
     {
         _customersRepository = customersRepository;
-        _mapper = mapper;
+        _mapper              = mapper;
     }
 
     public async Task<List<Customer>> GetAllCustomersDetails()

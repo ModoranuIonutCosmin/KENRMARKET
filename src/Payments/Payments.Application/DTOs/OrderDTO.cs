@@ -9,7 +9,7 @@ public class OrderDTO
 
     public IReadOnlyCollection<OrderItem> OrderItems { get; init; }
 
-    public string Promocode { get; }
+    public string      Promocode   { get; }
     public OrderStatus OrderStatus { get; init; }
-    public decimal Total => OrderItems.Sum(ci => ci.Quantity * ci.UnitPrice);
+    public decimal     Total       => OrderItems.Sum(ci => ci.Quantity * ci.UnitPrice);
 }

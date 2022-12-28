@@ -8,7 +8,7 @@ public class CartDetailsToCartDetailsViewModel : Profile
 {
     public CartDetailsToCartDetailsViewModel()
     {
-        CreateMap<CartDetailsViewModel, CartDetails>()
+        CreateMap<CartDetailsDto, CartDetails>()
             .ReverseMap();
     }
 }

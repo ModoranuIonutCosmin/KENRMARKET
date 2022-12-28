@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using MassTransit;
+﻿using MassTransit;
 
 namespace IntegrationEvents.Base;
 

@@ -16,8 +16,8 @@ public class OrdersDBContext : DbContext
         _mediator = mediator;
     }
 
-    public DbSet<Domain.Entities.Order> Orders { get; set; }
-    public DbSet<OrderItem> OrderItems { get; set; }
+    public DbSet<Domain.Entities.Order> Orders     { get; set; }
+    public DbSet<OrderItem>             OrderItems { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -41,16 +41,18 @@ public class OrdersDBContext : DbContext
     private async Task _dispatchDomainEvents()
     {
         var domainEventEntities = ChangeTracker.Entries<Entity>()
-            .Select(po => po.Entity)
-            .Where(po => po.DomainEvents.Any())
-            .ToArray();
+                                               .Select(po => po.Entity)
+                                               .Where(po => po.DomainEvents.Any())
+                                               .ToArray();
 
         foreach (var entity in domainEventEntities)
         {
             var events = entity.DomainEvents.ToArray();
             entity.DomainEvents.Clear();
             foreach (var entityDomainEvent in events)
+            {
                 await _mediator.Publish(entityDomainEvent);
+            }
         }
     }
 }

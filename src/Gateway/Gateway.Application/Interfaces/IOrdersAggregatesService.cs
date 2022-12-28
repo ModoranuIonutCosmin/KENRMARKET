@@ -1,4 +1,4 @@
-﻿namespace Gateway.API.Interfaces;
+﻿namespace Gateway.Application.Interfaces;
 
 public interface IOrdersAggregatesService
 {

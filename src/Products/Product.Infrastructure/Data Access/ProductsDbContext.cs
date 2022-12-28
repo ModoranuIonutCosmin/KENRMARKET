@@ -9,23 +9,20 @@ namespace Products.Infrastructure.Data_Access;
 
 public class ProductsDbContext
 {
-    private readonly IMongoClient _mongoClient;
+    private readonly IMongoClient   _mongoClient;
     private readonly IMongoDatabase _mongoDatabase;
-    
-    public IMongoCollection<Product> Products { get; set; }
-    public IMongoCollection<Category> Categories { get; set; }
 
 
     public ProductsDbContext(IMongoClient mongoClient, IMongoDatabase mongoDatabase,
         IMongoDBSettings settings
-        )
+    )
     {
-        _mongoClient = mongoClient;
+        _mongoClient   = mongoClient;
         _mongoDatabase = mongoDatabase;
-        
+
         ConfigureModelMappings();
 
-        Products = _mongoDatabase.GetCollection<Product>(settings.ProductsCollectionName);
+        Products   = _mongoDatabase.GetCollection<Product>(settings.ProductsCollectionName);
         Categories = _mongoDatabase.GetCollection<Category>(settings.CategoriesCollectionName);
 
         if (Products.CountDocuments(new BsonDocument()) == 0)
@@ -37,11 +34,13 @@ public class ProductsDbContext
         }
     }
 
+    public IMongoCollection<Product>  Products   { get; set; }
+    public IMongoCollection<Category> Categories { get; set; }
+
     private void ConfigureModelMappings()
     {
         BaseEntityMappings.Map();
         CategoriesMappings.Map();
         ProductMappings.Map();
     }
-    
 }

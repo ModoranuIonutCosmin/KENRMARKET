@@ -1,4 +1,4 @@
-﻿namespace Gateway.API.Exceptions;
+﻿namespace Gateway.Domain.Exceptions;
 
 public class UserNotFoundException : Exception
 {

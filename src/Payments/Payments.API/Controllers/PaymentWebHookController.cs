@@ -12,12 +12,15 @@ namespace Payments.API.Controllers;
 [Route("api/{version:apiVersion}/webhook")]
 public class PaymentWebHookController : BaseController
 {
-    private readonly IMediator _mediator;
-    private readonly StripeSettings _stripeOptions;
+    private readonly ILogger<PaymentWebHookController> _logger;
+    private readonly IMediator                         _mediator;
+    private readonly StripeSettings                    _stripeOptions;
 
-    public PaymentWebHookController(IMediator mediator, IOptions<StripeSettings> stripeOptions)
+    public PaymentWebHookController(IMediator mediator, IOptions<StripeSettings> stripeOptions,
+        ILogger<PaymentWebHookController> logger)
     {
-        _mediator = mediator;
+        _mediator      = mediator;
+        _logger        = logger;
         _stripeOptions = stripeOptions.Value;
     }
 
@@ -26,10 +29,18 @@ public class PaymentWebHookController : BaseController
     {
         var json = await new StreamReader(HttpContext.Request.Body).ReadToEndAsync();
 
+        _logger.LogInformation("Received a new event from stripe");
+
         try
         {
             var stripeEvent = EventUtility.ConstructEvent(json,
-                Request.Headers["Stripe-Signature"], _stripeOptions.WebhookKey);
+                                                          Request.Headers["Stripe-Signature"],
+                                                          _stripeOptions.WebhookKey);
+
+            _logger.LogInformation("The new event from stripe has id={@id}, type={@type}",
+                                   stripeEvent.Id,
+                                   stripeEvent.Type);
+
 
             switch (stripeEvent.Type)
             {
@@ -40,23 +51,35 @@ public class PaymentWebHookController : BaseController
 
 
                     //TODO: DE schimbat la payment intent
-                    if (checkoutSession.PaymentStatus != "paid") return Ok();
+                    if (checkoutSession.PaymentStatus != "paid")
+                    {
+                        return Ok();
+                    }
 
                     var orderMetadata = checkoutSession.Metadata;
 
-                    var orderId = Guid.Parse(orderMetadata["orderId"]);
-                    var payerId = Guid.Parse(orderMetadata["payerId"]);
+                    var orderId       = Guid.Parse(orderMetadata["orderId"]);
+                    var payerId       = Guid.Parse(orderMetadata["payerId"]);
                     var paymentAmount = decimal.Parse(orderMetadata["paymentAmount"]);
                     var dateFinalized = DateTimeOffset.UtcNow;
 
-                    await _mediator.Send(new NotifyOfAcceptedPaymentCommand
-                    {
-                        PayerId = payerId,
-                        OrderId = orderId,
-                        PaymentAmount = paymentAmount,
-                        PaymentDate = dateFinalized
-                    });
+                    _logger.LogInformation("Updating order as paid for order id={@id}, payerId={@payerId}, sum = {@total}",
+                                           orderId,
+                                           payerId,
+                                           paymentAmount);
 
+                    await _mediator.Send(new NotifyOfAcceptedPaymentCommand
+                                         {
+                                             PayerId       = payerId,
+                                             OrderId       = orderId,
+                                             PaymentAmount = paymentAmount,
+                                             PaymentDate   = dateFinalized
+                                         });
+
+                    _logger.LogInformation("Payment succeded notification sent for order id={@id}, payerId={@payerId}, sum = {@total}",
+                                           orderId,
+                                           payerId,
+                                           paymentAmount);
 
                     break;
                 case Events.CheckoutSessionAsyncPaymentFailed:
@@ -67,7 +90,7 @@ public class PaymentWebHookController : BaseController
         }
         catch (StripeException e)
         {
-            return BadRequest();
+            return BadRequest(e.Message);
         }
     }
 }

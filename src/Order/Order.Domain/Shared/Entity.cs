@@ -7,9 +7,7 @@ public class Entity
 {
     public Guid Id { get; set; }
 
-    [NotMapped]
-    [JsonIgnore]
-    public List<IDomainEvent> DomainEvents { get; } = new();
+    [NotMapped] [JsonIgnore] public List<IDomainEvent> DomainEvents { get; } = new();
 
     protected void AddDomainEvent(IDomainEvent domainEvent)
     {

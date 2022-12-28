@@ -1,4 +1,4 @@
-﻿namespace Gateway.API.Models;
+﻿namespace Gateway.Domain.Models.Checkout;
 
 public class CheckoutSession
 {

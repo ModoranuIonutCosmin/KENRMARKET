@@ -8,16 +8,16 @@ namespace Payments.Infrastructure.Data_Access.v1;
 public class PaymentsRepository : Repository<Payment, Guid>, IPaymentsRepository
 {
     private readonly ILogger<PaymentsRepository> _logger;
-    private readonly PaymentsDBContext _paymentsDbContext;
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly PaymentsDBContext           _paymentsDbContext;
+    private readonly IUnitOfWork                 _unitOfWork;
 
     public PaymentsRepository(PaymentsDBContext paymentsDbContext, ILogger<PaymentsRepository> logger,
         IUnitOfWork unitOfWork)
         : base(paymentsDbContext, logger, unitOfWork)
     {
         _paymentsDbContext = paymentsDbContext;
-        _logger = logger;
-        _unitOfWork = unitOfWork;
+        _logger            = logger;
+        _unitOfWork        = unitOfWork;
     }
 
 

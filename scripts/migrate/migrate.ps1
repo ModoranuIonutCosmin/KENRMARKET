@@ -1,6 +1,6 @@
 
 
-./generate_env_map.ps1 secretkeyvaultallkmarket connection-strings.yaml "*"
+./generate_env_map.ps1 keyvaultallkmarket01 connection-strings.yaml "*"
 
 
 $connection_strings = Get-Content .\connection-strings.yaml -Raw

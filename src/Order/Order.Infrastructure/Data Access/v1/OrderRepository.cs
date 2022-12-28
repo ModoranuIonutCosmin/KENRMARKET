@@ -25,10 +25,10 @@ public class OrderRepository : Repository<Domain.Entities.Order, Guid>, IOrderRe
     public async Task<List<Domain.Entities.Order>> GetOrdersForUser(Guid customerId)
     {
         return await _ordersDbContext.Orders
-            .Where(o => o.BuyerId.Equals(customerId))
-            .Include(o => o.OrderItems)
-            .OrderByDescending(o => o.DateCreated)
-            .ToListAsync();
+                                     .Where(o => o.BuyerId.Equals(customerId))
+                                     .Include(o => o.OrderItems)
+                                     .OrderByDescending(o => o.DateCreated)
+                                     .ToListAsync();
     }
 
     public async Task<Domain.Entities.Order> AddNewOrder(Domain.Entities.Order newOrder)
@@ -41,8 +41,8 @@ public class OrderRepository : Repository<Domain.Entities.Order, Guid>, IOrderRe
     public async Task<Domain.Entities.Order> GetById(Guid orderId)
     {
         return await _ordersDbContext.Orders
-                .Include(o => o.OrderItems)
-                .SingleOrDefaultAsync(o => o.Id.Equals(orderId));
+                                     .Include(o => o.OrderItems)
+                                     .SingleOrDefaultAsync(o => o.Id.Equals(orderId));
     }
 
     public async Task<Domain.Entities.Order> SetOrderStatus(Guid orderId, OrderStatus newStatus)
@@ -58,9 +58,9 @@ public class OrderRepository : Repository<Domain.Entities.Order, Guid>, IOrderRe
         OrderStatus orderStatus = OrderStatus.InitialCreation)
     {
         return await _ordersDbContext.Orders
-            .Where(o => o.OrderStatus == orderStatus &&
-                        o.DateCreated <= toDate)
-            .ToListAsync();
+                                     .Where(o => o.OrderStatus == orderStatus &&
+                                                 o.DateCreated <= toDate)
+                                     .ToListAsync();
     }
 
     public async Task RemoveOrders(List<Domain.Entities.Order> orders)

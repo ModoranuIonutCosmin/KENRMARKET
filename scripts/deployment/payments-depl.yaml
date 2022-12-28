@@ -37,7 +37,7 @@ spec:
           # - name: EventQueue__Password
           #   value: guest
           - name: Stripe__WebhookKey
-            value: whsec_sobBg6TL4yi0V0qcGR5Svwrghmb4Vk3Y
+            value: we_1MFfTTBOnuIYbct8CPgxO6ce
         resources:
           requests:
             memory: "128Mi"

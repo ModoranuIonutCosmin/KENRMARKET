@@ -16,20 +16,20 @@ public class ProductsRepository : Repository<Product, Guid>, IProductsRepository
     public ProductsRepository(ProductsDbContext productsDbContext, ILogger<ProductsRepository> logger)
         : base(productsDbContext, logger)
     {
-        this._productsDbContext = productsDbContext;
+        _productsDbContext = productsDbContext;
 
         if (productsDbContext.Products.CountDocuments(new BsonDocument()) == 0)
         {
-            this._productsDbContext.Products.InsertMany(new ProductsFactory().CreateProducts());
-            this._productsDbContext.Categories.InsertMany(new ProductsFactory().CreateCategories());
+            _productsDbContext.Products.InsertMany(new ProductsFactory().CreateProducts());
+            _productsDbContext.Categories.InsertMany(new ProductsFactory().CreateCategories());
         }
     }
 
     public async Task<Product> GetProduct(Guid id)
     {
         return await _productsDbContext.Products
-            .Find(Builders<Product>.Filter.Eq("_id", id))
-            .FirstOrDefaultAsync();
+                                       .Find(Builders<Product>.Filter.Eq("_id", id))
+                                       .FirstOrDefaultAsync();
     }
 
     public async Task<List<Product>> GetAllProducts()
@@ -46,11 +46,11 @@ public class ProductsRepository : Repository<Product, Guid>, IProductsRepository
         var productsCollection = _productsDbContext.Products;
 
         var filter = Builders<Product>.Filter
-            .In(p => p.Id, productIds);
+                                      .In(p => p.Id, productIds);
 
         return await productsCollection
-            .Find(filter)
-            .ToListAsync();
+                     .Find(filter)
+                     .ToListAsync();
     }
 
     public async Task<List<Product>> FilterProducts(FilterOptions filterOptions)
@@ -62,16 +62,16 @@ public class ProductsRepository : Repository<Product, Guid>, IProductsRepository
         if (filterOptions.UsesPriceRangeFilter)
         {
             var betweenRangeFilter = builder.And(
-                builder.Gte(x => x.Price, filterOptions.MinPrice),
-                builder.Lte(x => x.Price, filterOptions.MaxPrice)
-            );
+                                                 builder.Gte(x => x.Price, filterOptions.MinPrice),
+                                                 builder.Lte(x => x.Price, filterOptions.MaxPrice)
+                                                );
 
             filter &= betweenRangeFilter;
         }
 
         var categories = filterOptions.Categories.Select(c => c.Name).ToList();
 
-        if (filterOptions.Categories.Count > 0)
+        if (filterOptions.UsesCategoryFilter && filterOptions.Categories.Count > 0)
         {
             var oneOfCategoriesList = builder
                 .In(p => p.Category.Name, categories);
@@ -98,12 +98,12 @@ public class ProductsRepository : Repository<Product, Guid>, IProductsRepository
     {
         var collection = _productsDbContext.Products;
 
-        var filter = Builders<Product>.Filter.Eq(x => x.Id, productID);
+        var filter           = Builders<Product>.Filter.Eq(x => x.Id, productID);
         var updateDefinition = Builders<Product>.Update.Inc(x => x.Quantity, -amount);
 
 
         return await collection.FindOneAndUpdateAsync(
-            filter, updateDefinition);
+                                                      filter, updateDefinition);
         ;
     }
 }

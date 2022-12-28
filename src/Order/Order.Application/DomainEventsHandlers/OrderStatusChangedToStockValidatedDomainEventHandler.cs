@@ -10,24 +10,26 @@ public class OrderStatusChangedToStockValidatedDomainEventHandler :
     DomainEventHandler<OrderStatusChangedToStockValidatedDomainEvent>
 {
     private readonly IPublishEndpoint _publishEndpoint;
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly IUnitOfWork      _unitOfWork;
 
-    public OrderStatusChangedToStockValidatedDomainEventHandler(IPublishEndpoint publishEndpoint, IUnitOfWork unitOfWork)
+    public OrderStatusChangedToStockValidatedDomainEventHandler(IPublishEndpoint publishEndpoint,
+        IUnitOfWork unitOfWork)
     {
         _publishEndpoint = publishEndpoint;
-        _unitOfWork = unitOfWork;
+        _unitOfWork      = unitOfWork;
     }
 
 
-    public override async Task Handle(OrderStatusChangedToStockValidatedDomainEvent notification, CancellationToken cancellationToken)
+    public override async Task Handle(OrderStatusChangedToStockValidatedDomainEvent notification,
+        CancellationToken cancellationToken)
     {
         var eventToPublish = new OrderStatusChangedToStocksValidatedIntegrationEvent(notification.Order.BuyerId,
-            notification.Order.Id,
-            (OrderStatus)notification.Order.OrderStatus);
+         notification.Order.Id,
+         (OrderStatus)notification.Order.OrderStatus);
 
         await _publishEndpoint.Publish(
-            eventToPublish
-        );
+                                       eventToPublish
+                                      );
 
         await _unitOfWork.CommitTransaction();
     }

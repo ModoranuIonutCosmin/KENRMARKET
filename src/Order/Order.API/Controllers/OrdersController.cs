@@ -20,7 +20,7 @@ public class OrdersController : BaseController
     {
         return Ok(await _mediator.Send(createNewOrderCommand));
     }
-    
+
     [HttpGet("orders")]
     public async Task<IActionResult> GetOrders(
         [FromQuery] QueryCustomersOrdersCommand queryCustomersOrdersCommand)
@@ -31,22 +31,22 @@ public class OrdersController : BaseController
         {
             return NotFound(orders);
         }
-        
+
         return Ok(orders);
     }
-    
-    
+
+
     [HttpGet("{orderId}")]
     public async Task<IActionResult> GetOrder(
         [FromRoute] Guid orderId)
     {
         var order = await _mediator.Send(new QueryOrderByIdCommand(orderId));
 
-        if (order == null)  
+        if (order == null)
         {
             return NotFound(order);
         }
-        
+
         return Ok(order);
     }
 }
