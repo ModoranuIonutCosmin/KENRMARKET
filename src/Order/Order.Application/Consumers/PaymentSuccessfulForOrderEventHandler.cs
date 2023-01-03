@@ -21,16 +21,15 @@ public class PaymentSuccessfulForOrderEventHandler : IntegrationEventHandler<Ord
 
     public override async Task Handle(OrderPaymentSuccessfulIntegrationEvent @event)
     {
-        _logger.LogInformation("[Payment successful consumer] Setting order status as paid, orderId={@event.OrderId} is now set as paid",
+        _logger.LogInformation("[Payment successful consumer] Setting order status as paid, notifying customer mservice, orderId={@orderId}",
                                @event.OrderId);
-
-        await _mediator.Send(new SetOrderStatusCommand
+        
+        await _mediator.Send(new ProcessPaymentSuccessfulCommand()
                              {
                                  OrderId     = @event.OrderId,
-                                 OrderStatus = OrderStatus.Paid
                              });
 
-        _logger.LogInformation("[Payment successful consumer] Message received, orderId={@event.OrderId} is now set as paid",
+        _logger.LogInformation("[Payment successful consumer] Message sent and now the orderId={@orderId} is set as paid",
                                @event.OrderId);
     }
 }

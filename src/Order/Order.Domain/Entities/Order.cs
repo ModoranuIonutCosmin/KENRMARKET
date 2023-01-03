@@ -45,6 +45,12 @@ public class Order : Entity, IAggregateRoot
 
     public decimal Total => OrderItems.Sum(ci => ci.Quantity * ci.UnitPrice);
 
+
+    public void ReserveItems()
+    {
+        
+    }
+
     public void AddOrderItem(Guid productId, string productName, decimal quantity, decimal price, string pictureUrl)
     {
         if (_orderItems.Any(oi => oi.ProductId.Equals(productId)))

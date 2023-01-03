@@ -1,8 +1,9 @@
-﻿namespace Customers.Domain.Entities;
+﻿using Customers.Domain.Shared;
 
-public class Address
+namespace Customers.Domain.Entities;
+
+public class Address : Entity
 {
-    public Guid   Id           { get; set; }
     public Guid   CustomerId   { get; set; }
     public string AddressLine1 { get; set; }
     public string AddressLine2 { get; set; }

@@ -7,12 +7,14 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="AutoMapper" Version="12.0.0"/>
-        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0"/>
+        <PackageReference Include="AutoMapper" Version="12.0.0" />
+        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
+        <PackageReference Include="MassTransit.Abstractions" Version="8.0.10-develop.738" />
+        <PackageReference Include="MediatR" Version="11.1.0" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Gateway.Domain\Gateway.Domain.csproj"/>
+        <ProjectReference Include="..\Gateway.Domain\Gateway.Domain.csproj" />
     </ItemGroup>
 
 </Project>

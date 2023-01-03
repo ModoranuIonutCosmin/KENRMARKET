@@ -6,6 +6,8 @@ using Gateway.Application.Profiles;
 using Gateway.Domain.Entities;
 using Gateway.Infrastructure.Data_Access;
 using HealthChecks.UI.Client;
+using MassTransit;
+using MediatR;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -17,8 +19,8 @@ using Polly;
 using Serilog;
 using Serilog.Sinks.Elasticsearch;
 
-var builder = WebApplication.CreateBuilder(args);
-
+var builder         = WebApplication.CreateBuilder(args);
+var isInDevelopment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development";
 
 var configuration = builder.Configuration;
 // Add services to the container.
@@ -88,13 +90,69 @@ builder.Services.AddApiVersioning(config =>
     config.ReportApiVersions                   = true;
 });
 
+///MediatR
+builder.Services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
+
 ///EF
 builder.Services.AddDbContext<AuthenticationDbContext>(opts =>
 {
     opts.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"),
                       opt => { opt.MigrationsAssembly(typeof(AuthenticationDbContext).Assembly.FullName); });
 });
-/// 
+///
+
+
+///SERVICE BUS
+///
+
+builder.Services.AddMassTransit(x =>
+{
+    x.SetKebabCaseEndpointNameFormatter();
+
+    var entryAssemblies = typeof(AuthenticationDbContext).Assembly;
+
+    x.AddConsumers(entryAssemblies);
+
+    if (isInDevelopment)
+    {
+        x.UsingRabbitMq((context, cfg) =>
+        {
+            cfg.Host(configuration["EventQueue:Host"], "/", h =>
+            {
+                h.Username(configuration["EventQueue:Username"]);
+                h.Password(configuration["EventQueue:Password"]);
+            });
+
+            cfg.ConfigureEndpoints(context);
+            
+            ConfigureServiceBusEndpoints(cfg, context);
+
+            cfg.AutoStart = true;
+        });
+    }
+    else
+    {
+        x.UsingAzureServiceBus((context, cfg) =>
+        {
+            cfg.Host(Environment.GetEnvironmentVariable("SERVICE-BUS-CONNECTIONSTRING"));
+
+            cfg.ConfigureEndpoints(context);
+
+            ConfigureServiceBusEndpoints(cfg, context);
+
+            cfg.AutoStart = true;
+        });
+    }
+});
+
+void ConfigureServiceBusEndpoints(IBusFactoryConfigurator busFactoryConfigurator,
+    IBusRegistrationContext busRegistrationContext)
+{
+    
+}
+///
+
+
 
 ///Identity
 

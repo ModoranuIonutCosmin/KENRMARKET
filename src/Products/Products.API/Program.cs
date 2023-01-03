@@ -1,9 +1,11 @@
 using HealthChecks.UI.Client;
+using IntegrationEvents.Contracts;
 using MassTransit;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using MongoDB.Driver;
+using Products.Application.Consumers;
 using Products.Application.Features;
 using Products.Application.Interfaces;
 using Products.Application.Interfaces.Services;
@@ -68,7 +70,6 @@ builder.Services.AddSingleton<IMongoClient>(_ => new MongoClient(settings.Host))
 builder.Services.AddSingleton<IMongoDatabase>(provider => provider.GetService<IMongoClient>()
                                                                   .GetDatabase(settings.DatabaseName));
 
-
 builder.Services.AddMassTransit(x =>
 {
     x.SetKebabCaseEndpointNameFormatter();
@@ -89,8 +90,9 @@ builder.Services.AddMassTransit(x =>
                 h.Password(configuration["EventQueue:Password"]);
             });
 
+            cfg.UseMessageRetry(x => x.Immediate(5));
 
-            cfg.ConfigureEndpoints(context);
+            ConfigureServiceQueueEndpoints(cfg, context);
 
             cfg.AutoStart = true;
         });
@@ -101,12 +103,30 @@ builder.Services.AddMassTransit(x =>
         {
             cfg.Host(Environment.GetEnvironmentVariable("SERVICE-BUS-CONNECTIONSTRING"));
 
-            cfg.ConfigureEndpoints(context);
+            cfg.UseMessageRetry(x => x.Immediate(5));
+
+            // cfg.ConfigureEndpoints(context);
+            ConfigureServiceQueueEndpoints(cfg, context);
 
             cfg.AutoStart = true;
         });
     }
 });
+
+void ConfigureServiceQueueEndpoints(IBusFactoryConfigurator busFactoryConfigurator,
+    IBusRegistrationContext busRegistrationContext)
+{
+    busFactoryConfigurator.ReceiveEndpoint("order-status-pending-validation-products", e =>
+    {
+        e.ConfigureConsumer<OrderStatusChangedToPendingStockValidationIntegrationEventHandler>(busRegistrationContext);
+    });
+
+    busFactoryConfigurator.ReceiveEndpoint("reservation-made-products",
+                                           e => e.ConfigureConsumer<ReservationMadeForItemsEventHandler>(busRegistrationContext));
+
+    busFactoryConfigurator.ReceiveEndpoint("reservation-expired-products",
+                                       e => e.ConfigureConsumer<ReservationExpiredIntegrationEventHandler>(busRegistrationContext));
+}
 
 builder.Services.AddTransient<IProductsRepository, ProductsRepository>();
 builder.Services.AddTransient<ICategoriesRepository, CategoriesRepository>();

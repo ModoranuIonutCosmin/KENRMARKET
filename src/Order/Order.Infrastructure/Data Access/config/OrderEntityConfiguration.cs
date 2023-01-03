@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Order.Domain.Models;
 
-namespace Order.Infrastructure.EntitiesConfig;
+namespace Order.Infrastructure.Data_Access.Config;
 
 public class OrderEntityConfiguration : IEntityTypeConfiguration<Domain.Entities.Order>
 {

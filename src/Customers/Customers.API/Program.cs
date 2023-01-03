@@ -1,8 +1,13 @@
+using Customers.Application.Consumers;
 using Customers.Application.Features;
 using Customers.Application.Interfaces;
+using Customers.Application.Workers;
 using Customers.Infrastructure.Data_Access;
 using Customers.Infrastructure.Data_Access.v1;
 using HealthChecks.UI.Client;
+using IntegrationEvents.Contracts;
+using MassTransit;
+using MediatR;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +22,7 @@ var isInDevelopment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT
 var configuration = builder.Configuration;
 // Add services to the container.
 
+builder.Services.AddHostedService<CancelExpiringReservationsWorker>();
 
 builder.Host.UseSerilog((context, config) =>
 {
@@ -41,12 +47,8 @@ builder.Host.UseSerilog((context, config) =>
           .ReadFrom.Configuration(context.Configuration);
 });
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+//MediatR
+builder.Services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddDbContext<CustomersDBContext>(opts =>
 {
@@ -54,8 +56,88 @@ builder.Services.AddDbContext<CustomersDBContext>(opts =>
                       opt => { opt.MigrationsAssembly(typeof(CustomersDBContext).Assembly.FullName); });
 });
 
-builder.Services.AddTransient<ICustomersRepository, CustomersRepository>();
+
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+builder.Services.AddScoped<ICustomersRepository, CustomersRepository>();
+builder.Services.AddScoped<IReservationsRepository, ReservationsRepository>();
+
+
+builder.Services.AddMassTransit(x =>
+{
+    x.AddEntityFrameworkOutbox<CustomersDBContext>(outbox =>
+    {
+        outbox.UseSqlServer();
+        outbox.UseBusOutbox();
+    });
+
+    x.SetKebabCaseEndpointNameFormatter();
+
+    var entryAssemblies = typeof(ICustomersRepository).Assembly;
+
+    x.AddConsumers(entryAssemblies);
+
+    if (isInDevelopment)
+    {
+        x.UsingRabbitMq((context, cfg) =>
+        {
+            cfg.Host(configuration["EventQueue:Host"], "/", h =>
+            {
+                h.Username(configuration["EventQueue:Username"]);
+                h.Password(configuration["EventQueue:Password"]);
+            });
+            Configure(cfg, context);
+
+            cfg.AutoStart = true;
+        });
+    }
+    else
+    {
+        x.UsingAzureServiceBus((context, cfg) =>
+        {
+            cfg.Host(Environment.GetEnvironmentVariable("SERVICE-BUS-CONNECTIONSTRING"));
+
+            Configure(cfg, context);
+
+            cfg.AutoStart = true;
+        });
+    }
+});
+
+void Configure(IBusFactoryConfigurator busFactoryConfigurator,
+    IBusRegistrationContext busRegistrationContext)
+{
+    busFactoryConfigurator.ReceiveEndpoint("reservation-made-customers",
+                                           e => e.ConfigureConsumer<
+                                                   ReservationMadeForItemsEventHandler>(busRegistrationContext));
+
+
+    busFactoryConfigurator.ReceiveEndpoint("order-payed-customers",
+                                           e => e
+                                               .ConfigureConsumer<
+                                                   OrderPaymentSuccessfulIntegrationEventHandler>(busRegistrationContext));
+    
+    busFactoryConfigurator.ReceiveEndpoint("new-customer-created-customers",
+                                           e => e.ConfigureConsumer<NewCustomerRegisteredIntegrationEventHandler>(busRegistrationContext));
+
+
+}
+
+builder.Services.AddControllers();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+
+
+
+
+
 builder.Services.AddScoped<ICustomersService, CustomersService>();
+builder.Services.AddTransient<IReservationsService, ReservationsService>();
 
 
 builder.Services.AddApiVersioning(config =>
@@ -77,10 +159,13 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddHealthChecks()
-       .AddSqlServer(configuration.GetConnectionString("SqlServer"), failureStatus: HealthStatus.Degraded);
+       .AddSqlServer(configuration.GetConnectionString("SqlServer"),
+                     failureStatus: HealthStatus.Degraded);
 
 
 var app = builder.Build();
+
+
 
 
 app.MapHealthChecks("/hc", new HealthCheckOptions

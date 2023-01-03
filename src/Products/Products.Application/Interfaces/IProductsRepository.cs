@@ -12,5 +12,5 @@ public interface IProductsRepository : IRepository<Product, Guid>
     Task<List<Product>> GetAllProductsWithIdsInList(List<Guid> productIds);
     Task<List<Product>> FilterProducts(FilterOptions filterOptions);
 
-    Task<Product> DeductProductStock(Guid productID, decimal amount);
+    Task<Product> AddProductStock(Guid productID, decimal amount);
 }

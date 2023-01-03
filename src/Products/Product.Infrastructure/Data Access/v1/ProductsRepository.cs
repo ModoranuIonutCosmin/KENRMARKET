@@ -94,16 +94,15 @@ public class ProductsRepository : Repository<Product, Guid>, IProductsRepository
         return (await _productsDbContext.Products.FindAsync(filter)).ToList();
     }
 
-    public async Task<Product> DeductProductStock(Guid productID, decimal amount)
+    public async Task<Product> AddProductStock(Guid productID, decimal amount)
     {
         var collection = _productsDbContext.Products;
 
         var filter           = Builders<Product>.Filter.Eq(x => x.Id, productID);
-        var updateDefinition = Builders<Product>.Update.Inc(x => x.Quantity, -amount);
+        var updateDefinition = Builders<Product>.Update.Inc(x => x.Quantity, amount);
 
 
         return await collection.FindOneAndUpdateAsync(
                                                       filter, updateDefinition);
-        ;
     }
 }

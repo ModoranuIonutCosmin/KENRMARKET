@@ -44,25 +44,6 @@ public class UserAuthenticationService : IUserAuthenticationService
 
         var userIdentity = await _userManager.FindByNameAsync(user.UserName);
 
-        ////Generare token de verificarfe email...
-        //var emailConfirmationToken = await _userManager
-        //    .GenerateEmailConfirmationTokenAsync(userIdentity);
-
-        //var param = new Dictionary<string, string>
-        //{
-        //    {"email", user.Email},
-        //    {"token", emailConfirmationToken}
-        //};
-
-        //var confirmUrl = new Uri(QueryHelpers.AddQueryString(frontEndUrl, param));
-
-        ////Trimite email catre user pentru confirmare
-        //var emailSendingResult = await _emailSender
-        //    .SendConfirmationEmail(userIdentity, confirmUrl.ToString());
-
-        ////Daca nu s-a trimis email-ul cu success
-        //if (!emailSendingResult.Successful) Debug.WriteLine($"Email couldn't be sent for user {userIdentity.UserName}");
-
         return new RegisterUserDataModelResponse
                {
                    UserId    = userIdentity.Id,

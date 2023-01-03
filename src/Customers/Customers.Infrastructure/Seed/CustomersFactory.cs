@@ -14,6 +14,7 @@ public class CustomersFactory : ICustomersFactory
                        FirstName   = "Pearlie",
                        LastName    = "Crona",
                        MiddleName  = "",
+                       UserName = "someusernamezero530",
                        PhoneNumber = "5166783555",
                        Email       = "AAAAA10110101@gmail.com",
                        BirthDate   = DateTimeOffset.UtcNow,
@@ -30,10 +31,11 @@ public class CustomersFactory : ICustomersFactory
                    },
                    new()
                    {
-                       Id          = new Guid("acbcb196-0d48-4865-9417-eddb9c1b5ce0"),
-                       FirstName   = "Gretchen",
-                       LastName    = "Gibson",
-                       MiddleName  = "",
+                       Id         = new Guid("acbcb196-0d48-4865-9417-eddb9c1b5ce0"),
+                       FirstName  = "Gretchen",
+                       LastName   = "Gibson",
+                       MiddleName = "",
+                       UserName   = "someusernamezero531",
                        PhoneNumber = "7607467866",
                        Email       = "GibsonKREATION101@gmail.com",
                        BirthDate   = DateTimeOffset.UtcNow,

@@ -7,8 +7,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="MediatR.Contracts" Version="1.0.1"/>
-        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.1"/>
+        <PackageReference Include="MediatR.Contracts" Version="1.0.1" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\IntegrationEvents\IntegrationEvents.csproj" />
     </ItemGroup>
 
 </Project>

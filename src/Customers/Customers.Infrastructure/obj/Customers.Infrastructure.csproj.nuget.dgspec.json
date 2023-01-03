@@ -35,6 +35,9 @@
             "projectReferences": {
               "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Customers\\Customers.Domain\\Customers.Domain.csproj": {
                 "projectPath": "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Customers\\Customers.Domain\\Customers.Domain.csproj"
+              },
+              "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\IntegrationEvents\\IntegrationEvents.csproj": {
+                "projectPath": "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\IntegrationEvents\\IntegrationEvents.csproj"
               }
             }
           }
@@ -56,6 +59,10 @@
             "AutoMapper.Extensions.Microsoft.DependencyInjection": {
               "target": "Package",
               "version": "[12.0.0, )"
+            },
+            "MediatR": {
+              "target": "Package",
+              "version": "[11.1.0, )"
             }
           },
           "imports": [
@@ -122,6 +129,12 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
+          "dependencies": {
+            "MediatR.Contracts": {
+              "target": "Package",
+              "version": "[1.0.1, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -188,6 +201,14 @@
           "targetAlias": "net7.0",
           "dependencies": {
             "MassTransit.Azure.ServiceBus.Core": {
+              "target": "Package",
+              "version": "[8.0.10-develop.738, )"
+            },
+            "MassTransit.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.10-develop.738, )"
+            },
+            "MassTransit.RabbitMQ": {
               "target": "Package",
               "version": "[8.0.10-develop.738, )"
             },

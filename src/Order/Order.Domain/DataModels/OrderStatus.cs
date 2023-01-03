@@ -7,5 +7,6 @@ public enum OrderStatus
     StocksValidationAccepted = 3,
     StocksValidationRejected = 4,
     Paid                     = 5,
-    Shipped                  = 6
+    Shipped                  = 6,
+    Expired = 7,
 }

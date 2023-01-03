@@ -9,17 +9,17 @@ namespace Products.Application.Features;
 
 public class ProductsService : IProductsService
 {
-    private readonly ICategoriesRepository    _categoriesRepository;
+    private readonly ICategoriesRepository _categoriesRepository;
     private readonly ILogger<ProductsService> _logger;
-    private readonly IProductsRepository      _productsRepository;
+    private readonly IProductsRepository _productsRepository;
 
     public ProductsService(IProductsRepository productsRepository,
         ICategoriesRepository categoriesRepository,
         ILogger<ProductsService> logger)
     {
-        _productsRepository   = productsRepository;
+        _productsRepository = productsRepository;
         _categoriesRepository = categoriesRepository;
-        _logger               = logger;
+        _logger = logger;
     }
 
     public async Task<List<Product>> GetProducts()
@@ -45,17 +45,17 @@ public class ProductsService : IProductsService
         return await _productsRepository.FilterProducts(filterOptions);
     }
 
-    public async Task<Product> DeductStocksForProduct(Guid productId, decimal deduction)
+    public async Task<Product> AddStocksForProduct(Guid productId, decimal change)
     {
         //TODO: De schimbat din optimistic conc????
 
-        _logger.LogInformation("Deducting price for productId={@id}, deduction={@deduction}",
-                               productId, deduction);
+        _logger.LogInformation("Modified stock for productId={@id}, change={@change}",
+                               productId, change);
 
-        var result = await _productsRepository.DeductProductStock(productId, deduction);
+        var result = await _productsRepository.AddProductStock(productId, change);
 
-        _logger.LogInformation("Deducted stock for productId={@productId}, quantity={@quantity}",
-                               productId, deduction);
+        _logger.LogInformation("Deducted stock for productId={@productId}, change={@quantity}",
+                               productId, change);
 
         return result;
     }
@@ -73,10 +73,10 @@ public class ProductsService : IProductsService
                      (ap, rp) =>
                      {
                          return new
-                                {
-                                    availableProduct = ap,
-                                    requiredProduct  = rp
-                                };
+                         {
+                             availableProduct = ap,
+                             requiredProduct = rp
+                         };
                      })
                .All(c => { return c.requiredProduct.Quantity <= c.availableProduct.Quantity; });
     }
@@ -97,5 +97,21 @@ public class ProductsService : IProductsService
         }
 
         return results;
+    }
+
+    public async Task DeductStocksForProducts(List<(Guid productId, decimal deduction)> deductions)
+    {
+        foreach (var orderProduct in deductions)
+        {
+            await AddStocksForProduct(orderProduct.productId, -orderProduct.deduction);
+        }
+    }
+    
+    public async Task AddStocksForProducts(List<(Guid productId, decimal change)> changes)
+    {
+        foreach (var orderProduct in changes)
+        {
+            await AddStocksForProduct(orderProduct.productId, orderProduct.change);
+        }
     }
 }

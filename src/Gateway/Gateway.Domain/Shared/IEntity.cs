@@ -1,4 +1,4 @@
-﻿namespace Gateway.Domain.Shared;
+namespace Gateway.Domain.Shared;
 
 public interface IEntity
 {

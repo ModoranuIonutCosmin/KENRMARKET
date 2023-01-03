@@ -101,7 +101,6 @@ builder.Services.AddMassTransit(x =>
                 h.Password(configuration["EventQueue:Password"]);
             });
 
-
             cfg.ConfigureEndpoints(context);
 
             cfg.AutoStart = true;
@@ -119,6 +118,12 @@ builder.Services.AddMassTransit(x =>
         });
     }
 });
+
+void Configure(IBusFactoryConfigurator busFactoryConfigurator,
+    IBusRegistrationContext busRegistrationContext)
+{
+    
+}
 
 builder.Services.AddApiVersioning(config =>
 {

@@ -3,7 +3,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Order.Domain.Entities;
 using Order.Domain.Shared;
-using Order.Infrastructure.EntitiesConfig;
+using Order.Infrastructure.Data_Access.Config;
 
 namespace Order.Infrastructure.Data_Access;
 

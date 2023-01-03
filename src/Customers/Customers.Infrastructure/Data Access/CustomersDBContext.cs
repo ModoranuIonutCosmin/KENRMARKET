@@ -1,85 +1,68 @@
 ﻿using Customers.Domain.Entities;
+using Customers.Domain.Shared;
+using Customers.Infrastructure.Data_Access.Config;
+using MassTransit;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Customers.Infrastructure.Data_Access;
 
 public class CustomersDBContext : DbContext
 {
+    private readonly IMediator _mediator;
+
     public CustomersDBContext()
     {
     }
 
-    public CustomersDBContext(DbContextOptions<CustomersDBContext> options) : base(options)
+    public CustomersDBContext(DbContextOptions<CustomersDBContext> options, IMediator mediator) : base(options)
     {
+        _mediator = mediator;
     }
 
-    public DbSet<Address>  Addresses { get; set; }
-    public DbSet<Customer> Customers { get; set; }
+    public DbSet<Address>     Addresses    { get; set; }
+    public DbSet<Customer>    Customers    { get; set; }
+    public DbSet<Reservation> Reservations { get; set; }
+    public DbSet<ReservationItem> ReservationItems { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+        
+        modelBuilder.AddInboxStateEntity();
+        modelBuilder.AddOutboxMessageEntity();
+        modelBuilder.AddOutboxStateEntity();
 
-        modelBuilder.Entity<Customer>()
-                    .HasKey(c => c.Id);
-        modelBuilder.Entity<Address>()
-                    .HasKey(a => a.Id);
+        modelBuilder.ApplyConfiguration(new AddressEntityConfig());
+        modelBuilder.ApplyConfiguration(new CustomerEntityConfig());
+        modelBuilder.ApplyConfiguration(new ReservationEntityConfig());
+        modelBuilder.ApplyConfiguration(new ReservationItemEntityConfig());
+    }
+    
+    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new())
+    {
+        //TODO: Outbox pattern
 
-        //Indexes
+        var response = await base.SaveChangesAsync(cancellationToken);
+        await _dispatchDomainEvents();
+        return response;
+    }
 
+    private async Task _dispatchDomainEvents()
+    {
+        var domainEventEntities = ChangeTracker.Entries<Entity>()
+                                               .Select(po => po.Entity)
+                                               .Where(po => po.DomainEvents.Any())
+                                               .ToArray();
 
-        modelBuilder.Entity<Address>()
-                    .HasIndex(cd => cd.CustomerId);
-
-        modelBuilder.Entity<Customer>()
-                    .HasIndex(ci => ci.Email);
-
-        modelBuilder.Entity<Customer>()
-                    .HasIndex(ci => ci.PhoneNumber);
-
-
-        modelBuilder.Entity<Customer>()
-                    .Property(p => p.FirstName)
-                    .HasMaxLength(256);
-        modelBuilder.Entity<Customer>()
-                    .Property(p => p.LastName)
-                    .HasMaxLength(256);
-        modelBuilder.Entity<Customer>()
-                    .Property(p => p.MiddleName)
-                    .HasMaxLength(256);
-        modelBuilder.Entity<Customer>()
-                    .Property(p => p.Email)
-                    .HasMaxLength(256);
-        modelBuilder.Entity<Customer>()
-                    .Property(p => p.PhoneNumber)
-                    .HasMaxLength(256);
-
-
-        modelBuilder.Entity<Address>()
-                    .Property(a => a.AddressLine1)
-                    .HasMaxLength(256);
-        modelBuilder.Entity<Address>()
-                    .Property(a => a.AddressLine2)
-                    .HasMaxLength(256);
-        modelBuilder.Entity<Address>()
-                    .Property(a => a.Apartment)
-                    .HasMaxLength(256);
-        modelBuilder.Entity<Address>()
-                    .Property(a => a.City)
-                    .HasMaxLength(256);
-        modelBuilder.Entity<Address>()
-                    .Property(a => a.County)
-                    .HasMaxLength(256);
-        modelBuilder.Entity<Address>()
-                    .Property(a => a.PostalCode)
-                    .HasMaxLength(256);
-        modelBuilder.Entity<Address>()
-                    .Property(a => a.State)
-                    .HasMaxLength(256);
-
-        //Relations
-        modelBuilder.Entity<Customer>()
-                    .HasOne(c => c.Address)
-                    .WithOne();
+        foreach (var entity in domainEventEntities)
+        {
+            var events = entity.DomainEvents.ToArray();
+            entity.DomainEvents.Clear();
+            foreach (var entityDomainEvent in events)
+            {
+                await _mediator.Publish(entityDomainEvent);
+            }
+        }
     }
 }
