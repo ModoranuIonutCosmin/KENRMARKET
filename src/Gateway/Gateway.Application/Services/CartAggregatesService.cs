@@ -3,7 +3,7 @@ using Gateway.Application.Interfaces;
 using Gateway.Domain.Exceptions;
 using Gateway.Domain.Models.Carts;
 
-namespace Gateway.API.Services;
+namespace Gateway.Application.Services;
 
 public class CartAggregatesService : ICartAggregatesService
 {
@@ -92,11 +92,15 @@ public class CartAggregatesService : ICartAggregatesService
                                           ));
         }
 
-        cartStatus = await _cartService.UpdateCart(customerId, cart);
-
+        var result = await _cartService.UpdateCart(customerId, cart);
+        
+        if (!result.IsOk)
+        {
+            return (false, result.ErrorMessage);
+        }
 
         return (cartStatus.IsOk,
-                new CartUpdateStatusDto(errors.Any(), cartStatus.CartDetails, errors));
+                new CartUpdateStatusDto(errors.Any(), cart, errors));
     }
 
     public async Task<(bool IsSuccess, dynamic FullCartDetails)> ModifyCart(Guid customerId,
@@ -171,7 +175,7 @@ public class CartAggregatesService : ICartAggregatesService
         if (cartStatus.IsOk)
         {
             return (cartStatus.IsOk,
-                    new CartUpdateStatusDto(errors.Any(), cartStatus.CartDetails, errors));
+                    new CartUpdateStatusDto(errors.Any(), cartDetails, errors));
         }
 
         return (false, cartStatus.ErrorMessage);

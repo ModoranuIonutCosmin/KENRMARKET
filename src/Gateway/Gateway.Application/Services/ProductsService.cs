@@ -1,9 +1,11 @@
-﻿using System.Text.Json;
+﻿using System.Net.Http.Json;
+using System.Text.Json;
 using Gateway.API.Routes;
 using Gateway.Application.Interfaces;
 using Gateway.Domain.Models.Products;
+using Microsoft.Extensions.Logging;
 
-namespace Gateway.API.Services;
+namespace Gateway.Application.Services;
 
 public class ProductsService : IProductsService
 {

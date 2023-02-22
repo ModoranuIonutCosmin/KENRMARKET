@@ -1,13 +1,14 @@
 ﻿using System.Text;
 using System.Text.Json;
-using Gateway.API.Routes;
 using Gateway.Application.Interfaces;
 using Gateway.Domain.Models.Carts;
 using Gateway.Domain.Models.Checkout;
 using Gateway.Domain.Models.Orders;
+using Microsoft.Extensions.Logging;
+using Gateway.API.Routes;
 using Microsoft.AspNetCore.WebUtilities;
 
-namespace Gateway.API.Services;
+namespace Gateway.Application.Services;
 
 public class CartService : ICartService
 {

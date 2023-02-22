@@ -4,8 +4,9 @@ using Gateway.API.Routes;
 using Gateway.Application.Interfaces;
 using Gateway.Domain.Models.Checkout;
 using Gateway.Domain.Models.Orders;
+using Microsoft.Extensions.Logging;
 
-namespace Gateway.API.Services;
+namespace Gateway.Application.Services;
 
 public class PaymentsService : IPaymentsService
 {
