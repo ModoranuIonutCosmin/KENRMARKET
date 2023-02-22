@@ -1,8 +1,8 @@
 using System.Text;
 using Gateway.API.Auth;
-using Gateway.API.Services;
 using Gateway.Application.Interfaces;
 using Gateway.Application.Profiles;
+using Gateway.Application.Services;
 using Gateway.Domain.Entities;
 using Gateway.Infrastructure.Data_Access;
 using HealthChecks.UI.Client;

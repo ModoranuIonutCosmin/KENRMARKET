@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Customers\\Customers.Application\\Customers.Application.csproj": {}
+    "C:\\Users\\KENR\\Desktop\\KENRMARKET\\src\\Customers\\Customers.Application\\Customers.Application.csproj": {}
   },
   "projects": {
-    "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Customers\\Customers.Application\\Customers.Application.csproj": {
+    "C:\\Users\\KENR\\Desktop\\KENRMARKET\\src\\Customers\\Customers.Application\\Customers.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Customers\\Customers.Application\\Customers.Application.csproj",
+        "projectUniqueName": "C:\\Users\\KENR\\Desktop\\KENRMARKET\\src\\Customers\\Customers.Application\\Customers.Application.csproj",
         "projectName": "Customers.Application",
-        "projectPath": "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Customers\\Customers.Application\\Customers.Application.csproj",
-        "packagesPath": "C:\\Users\\zero6\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Customers\\Customers.Application\\obj\\",
+        "projectPath": "C:\\Users\\KENR\\Desktop\\KENRMARKET\\src\\Customers\\Customers.Application\\Customers.Application.csproj",
+        "packagesPath": "C:\\Users\\KENR\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\KENR\\Desktop\\KENRMARKET\\src\\Customers\\Customers.Application\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\zero6\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\KENR\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,18 +26,17 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Customers\\Customers.Domain\\Customers.Domain.csproj": {
-                "projectPath": "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Customers\\Customers.Domain\\Customers.Domain.csproj"
+              "C:\\Users\\KENR\\Desktop\\KENRMARKET\\src\\Customers\\Customers.Domain\\Customers.Domain.csproj": {
+                "projectPath": "C:\\Users\\KENR\\Desktop\\KENRMARKET\\src\\Customers\\Customers.Domain\\Customers.Domain.csproj"
               },
-              "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\IntegrationEvents\\IntegrationEvents.csproj": {
-                "projectPath": "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\IntegrationEvents\\IntegrationEvents.csproj"
+              "C:\\Users\\KENR\\Desktop\\KENRMARKET\\src\\IntegrationEvents\\IntegrationEvents.csproj": {
+                "projectPath": "C:\\Users\\KENR\\Desktop\\KENRMARKET\\src\\IntegrationEvents\\IntegrationEvents.csproj"
               }
             }
           }
@@ -81,24 +80,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Customers\\Customers.Domain\\Customers.Domain.csproj": {
+    "C:\\Users\\KENR\\Desktop\\KENRMARKET\\src\\Customers\\Customers.Domain\\Customers.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Customers\\Customers.Domain\\Customers.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\KENR\\Desktop\\KENRMARKET\\src\\Customers\\Customers.Domain\\Customers.Domain.csproj",
         "projectName": "Customers.Domain",
-        "projectPath": "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Customers\\Customers.Domain\\Customers.Domain.csproj",
-        "packagesPath": "C:\\Users\\zero6\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Customers\\Customers.Domain\\obj\\",
+        "projectPath": "C:\\Users\\KENR\\Desktop\\KENRMARKET\\src\\Customers\\Customers.Domain\\Customers.Domain.csproj",
+        "packagesPath": "C:\\Users\\KENR\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\KENR\\Desktop\\KENRMARKET\\src\\Customers\\Customers.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\zero6\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\KENR\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -107,15 +106,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\IntegrationEvents\\IntegrationEvents.csproj": {
-                "projectPath": "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\IntegrationEvents\\IntegrationEvents.csproj"
+              "C:\\Users\\KENR\\Desktop\\KENRMARKET\\src\\IntegrationEvents\\IntegrationEvents.csproj": {
+                "projectPath": "C:\\Users\\KENR\\Desktop\\KENRMARKET\\src\\IntegrationEvents\\IntegrationEvents.csproj"
               }
             }
           }
@@ -151,24 +149,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\IntegrationEvents\\IntegrationEvents.csproj": {
+    "C:\\Users\\KENR\\Desktop\\KENRMARKET\\src\\IntegrationEvents\\IntegrationEvents.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\IntegrationEvents\\IntegrationEvents.csproj",
+        "projectUniqueName": "C:\\Users\\KENR\\Desktop\\KENRMARKET\\src\\IntegrationEvents\\IntegrationEvents.csproj",
         "projectName": "IntegrationEvents",
-        "projectPath": "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\IntegrationEvents\\IntegrationEvents.csproj",
-        "packagesPath": "C:\\Users\\zero6\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\IntegrationEvents\\obj\\",
+        "projectPath": "C:\\Users\\KENR\\Desktop\\KENRMARKET\\src\\IntegrationEvents\\IntegrationEvents.csproj",
+        "packagesPath": "C:\\Users\\KENR\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\KENR\\Desktop\\KENRMARKET\\src\\IntegrationEvents\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\zero6\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\KENR\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -177,7 +175,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -217,7 +214,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     }

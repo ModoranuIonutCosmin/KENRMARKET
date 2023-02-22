@@ -3,20 +3,18 @@ using Gateway.Application.Interfaces;
 using Gateway.Domain.Exceptions;
 using Gateway.Domain.Models.Orders;
 
-namespace Gateway.API.Services;
+namespace Gateway.Application.Services;
 
 public class OrdersAggregatesService : IOrdersAggregatesService
 {
-    private readonly IMapper          _mapper;
     private readonly IOrdersService   _ordersService;
     private readonly IPaymentsService _paymentsService;
 
     public OrdersAggregatesService(IOrdersService ordersService,
-        IPaymentsService paymentsService, IMapper mapper)
+        IPaymentsService paymentsService)
     {
         _ordersService   = ordersService;
         _paymentsService = paymentsService;
-        _mapper          = mapper;
     }
 
     public async Task<(bool IsSuccess, dynamic CheckoutSession)> GetCheckoutSessionForOrder(Guid customerId,

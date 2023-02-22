@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Infrastructure\\Cart.Infrastructure.csproj": {}
+    "C:\\Users\\KENR\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Infrastructure\\Cart.Infrastructure.csproj": {}
   },
   "projects": {
-    "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Application\\Cart.Application.csproj": {
+    "C:\\Users\\KENR\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Application\\Cart.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Application\\Cart.Application.csproj",
+        "projectUniqueName": "C:\\Users\\KENR\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Application\\Cart.Application.csproj",
         "projectName": "Cart.Application",
-        "projectPath": "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Application\\Cart.Application.csproj",
-        "packagesPath": "C:\\Users\\zero6\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Application\\obj\\",
+        "projectPath": "C:\\Users\\KENR\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Application\\Cart.Application.csproj",
+        "packagesPath": "C:\\Users\\KENR\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\KENR\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Application\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\zero6\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\KENR\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,15 +26,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Domain\\Cart.Domain.csproj": {
-                "projectPath": "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Domain\\Cart.Domain.csproj"
+              "C:\\Users\\KENR\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Domain\\Cart.Domain.csproj": {
+                "projectPath": "C:\\Users\\KENR\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Domain\\Cart.Domain.csproj"
               }
             }
           }
@@ -74,24 +73,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Domain\\Cart.Domain.csproj": {
+    "C:\\Users\\KENR\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Domain\\Cart.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Domain\\Cart.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\KENR\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Domain\\Cart.Domain.csproj",
         "projectName": "Cart.Domain",
-        "projectPath": "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Domain\\Cart.Domain.csproj",
-        "packagesPath": "C:\\Users\\zero6\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Domain\\obj\\",
+        "projectPath": "C:\\Users\\KENR\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Domain\\Cart.Domain.csproj",
+        "packagesPath": "C:\\Users\\KENR\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\KENR\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\zero6\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\KENR\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -100,15 +99,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\IntegrationEvents\\IntegrationEvents.csproj": {
-                "projectPath": "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\IntegrationEvents\\IntegrationEvents.csproj"
+              "C:\\Users\\KENR\\Desktop\\KENRMARKET\\src\\IntegrationEvents\\IntegrationEvents.csproj": {
+                "projectPath": "C:\\Users\\KENR\\Desktop\\KENRMARKET\\src\\IntegrationEvents\\IntegrationEvents.csproj"
               }
             }
           }
@@ -144,24 +142,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Infrastructure\\Cart.Infrastructure.csproj": {
+    "C:\\Users\\KENR\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Infrastructure\\Cart.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Infrastructure\\Cart.Infrastructure.csproj",
+        "projectUniqueName": "C:\\Users\\KENR\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Infrastructure\\Cart.Infrastructure.csproj",
         "projectName": "Cart.Infrastructure",
-        "projectPath": "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Infrastructure\\Cart.Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\zero6\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Infrastructure\\obj\\",
+        "projectPath": "C:\\Users\\KENR\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Infrastructure\\Cart.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\KENR\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\KENR\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\zero6\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\KENR\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -170,15 +168,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Application\\Cart.Application.csproj": {
-                "projectPath": "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Application\\Cart.Application.csproj"
+              "C:\\Users\\KENR\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Application\\Cart.Application.csproj": {
+                "projectPath": "C:\\Users\\KENR\\Desktop\\KENRMARKET\\src\\Cart\\Cart.Application\\Cart.Application.csproj"
               }
             }
           }
@@ -230,24 +227,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\IntegrationEvents\\IntegrationEvents.csproj": {
+    "C:\\Users\\KENR\\Desktop\\KENRMARKET\\src\\IntegrationEvents\\IntegrationEvents.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\IntegrationEvents\\IntegrationEvents.csproj",
+        "projectUniqueName": "C:\\Users\\KENR\\Desktop\\KENRMARKET\\src\\IntegrationEvents\\IntegrationEvents.csproj",
         "projectName": "IntegrationEvents",
-        "projectPath": "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\IntegrationEvents\\IntegrationEvents.csproj",
-        "packagesPath": "C:\\Users\\zero6\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\zero6\\Desktop\\KENRMARKET\\src\\IntegrationEvents\\obj\\",
+        "projectPath": "C:\\Users\\KENR\\Desktop\\KENRMARKET\\src\\IntegrationEvents\\IntegrationEvents.csproj",
+        "packagesPath": "C:\\Users\\KENR\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\KENR\\Desktop\\KENRMARKET\\src\\IntegrationEvents\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\zero6\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\KENR\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -256,7 +253,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -296,7 +292,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     }
